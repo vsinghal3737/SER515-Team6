@@ -13,16 +13,24 @@
     </nav>    
     <div id="content-wrapper">
             <div class="container-fluid">
-                <!-- Breadcrumbs-->
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                    <a href="#">Workspace</a>
-                    </li>
-                </ol> 
-                <div class="card mb-3">
-                        <div class="card-header">
-                            <i class="fas fa-table"></i>
-                        Work History</div>
+                <div class="row">
+                    <div class="col-sm-3 breadcrumb border-block">
+                        Questions
+                    </div>
+                    <!-- Breadcrumbs-->
+                    <ol class="breadcrumb col-sm-6 border-block">
+                        <li class="breadcrumb-item">
+                        <a href="#">Workspace</a>
+                        </li>
+                    </ol> 
+                    <div class="breadcrumb col-sm-3 border-block card-header">
+                           
+                                <i class="fas fa-table"></i>
+                            Button Frame
+                    </div>
+                    <div class="col-sm-12 breadcrumb border-block">
+                            Work History
+                    </div>
                 </div>
             </div>
     </div>
@@ -45,5 +53,11 @@
         padding: 10px;
         margin: 10px auto;
         max-width: 900px;
+    }
+    .border-block{
+        border: 1px solid black;
+        width: 15%;
+        /* margin: 1.66%; */
+        float: left;
     }
 </style>
