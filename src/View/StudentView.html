@@ -4,7 +4,7 @@
   <title>Visual Calculator</title>
   <link rel="stylesheet" href="css/styles.css?v=1.0">
   <link href="css/student.css" rel="stylesheet">
-   <link rel="stylesheet" href="./fontawesome/css/all.css">
+   <script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
@@ -29,53 +29,50 @@
                         <div class = "container-fluid">
                         <div class="row">
                             <div class="col grid-item">
-                                <p>0</p>
+                                <p class="draggable-item">0</p>
                             </div>
                             <div class="col grid-item">
-                                <p>1</p>
+                                <p class="draggable-item">1</p>
                             </div>
                             <div class="col grid-item">
-                                <p>2</p>
+                                <p class="draggable-item">2</p>
                             </div>
                             <div class="col grid-item">
-                                <p>3</p>
+                                <p class="draggable-item">3</p>
                             </div>
                             <div class="col grid-item">
-                                <p>4</p>
+                                <p class="draggable-item">4</p>
                             </div>    
                         </div>
                         <div class="row">
                             <div class="col grid-item">
-                                <p>5</p>
+                                <p class="draggable-item">5</p>
                             </div>
                             <div class="col grid-item">
-                                <p>6</p>
+                                <p class="draggable-item">6</p>
                             </div>
                             <div class="col grid-item">
-                                <p>7</p>
+                                <p class="draggable-item">7</p>
                             </div>
                             <div class="col grid-item">
-                                <p>8</p>
+                                <p class="draggable-item">8</p>
                             </div>
                             <div class="col grid-item">
-                                <p>9</p>
+                                <p class="draggable-item">9</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col grid-item">
-                                <p></p>
+                            <div class="col">
+                                <i class="fas fa-plus draggable-icon"></i>
                             </div>
-                            <div class="col grid-item">
-                                <p></p>
+                            <div class="col">
+                                <i class="fas fa-minus draggable-icon"></i>
                             </div>
-                            <div class="col grid-item">
-                                <p></p>
+                            <div class="col">
+                                <i class="fas fa-times draggable-icon"></i>
                             </div>
-                            <div class="col grid-item">
-                                <p></p>
-                            </div>
-                            <div class="col grid-item">
-                                <p></p>
+                            <div class="col">
+                                <i class="fas fa-divide draggable-icon"></i>
                             </div>
                         </div>
                     </div>
@@ -113,8 +110,19 @@
         float: left;
     }
     .grid-item{
+        width: 20%;
+        height: 70px;
+        border: 1px solid black;    
+    }
+    .draggable-item{
         font-size: 35px;
-        border: 1px solid black;
-        
+        padding-top: 5px;
+        padding-left: 8px;
+    }
+    .draggable-icon{
+        font-size: 35px;
+        color: #563d7c;
+        padding-top: 15px;
+        padding-left: 3px;
     }
 </style>
