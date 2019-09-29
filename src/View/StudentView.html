@@ -4,7 +4,8 @@
   <title>Visual Calculator</title>
   <link rel="stylesheet" href="css/styles.css?v=1.0">
   <link href="css/student.css" rel="stylesheet">
-   <script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
+  <script src="../Controller/StudentEvent.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
@@ -20,59 +21,59 @@
                         Questions
                     </div>
                     <!-- Breadcrumbs-->
-                    <ol class="breadcrumb col-sm-6 border-block">
-                        <li class="breadcrumb-item">
-                        <a href="#">Workspace</a>
-                        </li>
-                    </ol> 
+                    <div class="breadcrumb col-sm-6 border-block">
+                        <div class = "container-fluid d-flex align-items-center" id = "canvas">
+                            <button type="button" class="btn btn-primary add-slot" onclick="addSlot()">Add Slot</button>
+                        </div> 
+                    </div>
                     <div class="breadcrumb col-sm-3 border-block card-header">
-                        <div class = "container-fluid">
+                        <div class = "container-fluid ">
                         <div class="row">
-                            <div class="col grid-item">
-                                <p class="draggable-item">0</p>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
+                                <p class="draggable-item p-2">0</p>
                             </div>
-                            <div class="col grid-item">
-                                <p class="draggable-item">1</p>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "1">
+                                <p class="draggable-item p-2">1</p>
                             </div>
-                            <div class="col grid-item">
-                                <p class="draggable-item">2</p>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "2">
+                                <p class="draggable-item p-2">2</p>
                             </div>
-                            <div class="col grid-item">
-                                <p class="draggable-item">3</p>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "3">
+                                <p class="draggable-item p-2">3</p>
                             </div>
-                            <div class="col grid-item">
-                                <p class="draggable-item">4</p>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "4">
+                                <p class="draggable-item p-2">4</p>
                             </div>    
                         </div>
                         <div class="row">
-                            <div class="col grid-item">
-                                <p class="draggable-item">5</p>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "5">
+                                <p class="draggable-item p-2">5</p>
                             </div>
-                            <div class="col grid-item">
-                                <p class="draggable-item">6</p>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "6">
+                                <p class="draggable-item p-2">6</p>
                             </div>
-                            <div class="col grid-item">
-                                <p class="draggable-item">7</p>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "7">
+                                <p class="draggable-item p-2">7</p>
                             </div>
-                            <div class="col grid-item">
-                                <p class="draggable-item">8</p>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "8">
+                                <p class="draggable-item p-2">8</p>
                             </div>
-                            <div class="col grid-item">
-                                <p class="draggable-item">9</p>
-                            </div>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "9">
+                                <p class="draggable-item p-2">9</p>
+                            </div>    
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <i class="fas fa-plus draggable-icon"></i>
+                            <div class="col d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "plus">
+                                <i class="fas fa-plus draggable-icon p-2"></i>
                             </div>
-                            <div class="col">
-                                <i class="fas fa-minus draggable-icon"></i>
+                            <div class="col d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "minus">
+                                <i class="fas fa-minus draggable-icon p-2"></i>
                             </div>
-                            <div class="col">
-                                <i class="fas fa-times draggable-icon"></i>
+                            <div class="col d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "times">
+                                <i class="fas fa-times draggable-icon p-2"></i>
                             </div>
-                            <div class="col">
-                                <i class="fas fa-divide draggable-icon"></i>
+                            <div class="col d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "divide">
+                                <i class="fas fa-divide draggable-icon p-2"></i>
                             </div>
                         </div>
                     </div>
@@ -112,17 +113,29 @@
     .grid-item{
         width: 20%;
         height: 70px;
+        border-radius: 10px;
         border: 1px solid black;    
     }
+    .add-slot{
+        position: absolute;
+        top: 5;
+        right: 5;
+    }
+    .canvas-item{
+        width: 20%;
+        height: 90px;
+        border-radius: 10px;
+        border: 1px solid black;
+    }
+    
+
     .draggable-item{
         font-size: 35px;
-        padding-top: 5px;
-        padding-left: 8px;
+        
     }
     .draggable-icon{
         font-size: 35px;
         color: #563d7c;
-        padding-top: 15px;
-        padding-left: 3px;
+        margin-top: 12px;
     }
 </style>
