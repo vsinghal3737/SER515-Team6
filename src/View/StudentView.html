@@ -11,26 +11,35 @@
     <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">
         <a class="navbar-brand mr-1" href="/">Student Dashboard</a>
     </nav>    
-    <div id="content-wrapper">
-            <div class="container-fluid">
-                <div class="row padding-block">
-                    <div class="col-sm-3 breadcrumb border-block">
+    <div id="content-wrapper ">
+        <div class="container-fluid">
+            <div class="row padding-block">
+                <div class="card mb-6 col-sm-3 breadcrumb border-block padding-right">
+                    <div class="card-header">
                         Questions
                     </div>
-                    <!-- Breadcrumbs-->
-                    <ol class="breadcrumb col-sm-6 border-block padding-right">
-                        <li class="breadcrumb-item">
-                        <a>Workspace</a>
-                        </li>
-                    </ol> 
-                    <div class="breadcrumb col-sm-3 border-block card-header">
-                            Button Frame
+                </div>
+                <div class="card breadcrumb mb-6 col-sm-6 border-block padding-right">
+                    <div class="card-header">
+                        Workspace
                     </div>
-                    <div class="col-sm-12 breadcrumb border-block">
-                            Work History
+                    <div class="card-body">
+                        <canvas id="myAreaChart" width="100%" height="200"></canvas>
+                    </div>
+                    <button class="card-footer small">Submit</button>
+                </div>    
+                <div class="card breadcrumb col-sm-3 border-block card-header">
+                    <div class="card-header">
+                        Button Space
+                    </div>
+                </div>
+                <div class="card col-sm-12 breadcrumb border-block">
+                    <div class="card-header">
+                        Work History
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 </body>
 </html>
