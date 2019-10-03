@@ -18,10 +18,46 @@
                     <div class="card-header">
                         Questions
                     </div>
+                    <div class="row container-fluid">
+                        <div class="col-sm-6 breadcrumb">
+                          <div>
+                            <ol>
+                                <li>
+                                   <div>
+                                     <p> <button class = "btn btn-primary" type="button" id="button_1" value = "2 + 4">2 + 4</button> </p>
+                                   </div>
+                                </li>
+                                <li>
+                                    <div>
+                                         <p> <button class = "btn btn-primary" type="button" id="button_2" value = "12 + 4">12 + 4</button> </p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                         <p> <button class = "btn btn-primary" type="button" id="button_3" value = "2 + 14">2 + 14</button></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                         <p> <button class = "btn btn-primary" type="button" id="button_4" value = "12 + 14">12 + 14</button> </p>
+                                    </div>
+                                </li>
+                                <li>
+                                     <div>
+                                          <p> <button class = "btn btn-primary" type="button" id="button_5" value = "8 + 6">8 + 6</button></p>
+                                     </div>
+                                </li>
+                               </ol>
+                          </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card breadcrumb mb-6 col-sm-6 border-block padding-right">
                     <div class="card-header">
                         Workspace
+                    </div>
+                    <div class = "container-fluid d-flex align-items-center" id = "canvas">
+                        <button type="button" class="btn btn-primary add-slot" onclick="addSlot()">Add Slot</button>
                     </div>
                     <div class="form-group container-wrapper" >
                         <label for="exampleFormControlTextarea1 fixed-bottom" ></label>
@@ -36,18 +72,95 @@
                     <div class="card-header">
                         Button Space
                     </div>
+                    <div class="row">
+                        <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
+                            <p class="draggable-item p-2">0</p>
+                        </div>
+                        <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "1">
+                            <p class="draggable-item p-2">1</p>
+                        </div>
+                        <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "2">
+                            <p class="draggable-item p-2">2</p>
+                        </div>
+                        <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "3">
+                            <p class="draggable-item p-2">3</p>
+                        </div>
+                        <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "4">
+                            <p class="draggable-item p-2">4</p>
+                        </div>    
+                    </div>
+                    <div class="row">
+                        <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "5">
+                            <p class="draggable-item p-2">5</p>
+                        </div>
+                        <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "6">
+                            <p class="draggable-item p-2">6</p>
+                        </div>
+                        <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "7">
+                            <p class="draggable-item p-2">7</p>
+                        </div>
+                        <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "8">
+                            <p class="draggable-item p-2">8</p>
+                        </div>
+                        <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "9">
+                            <p class="draggable-item p-2">9</p>
+                        </div>    
+                    </div>
                 </div>
                 <div class="card col-sm-12 breadcrumb border-block">
                     <div class="card-header">
                         Work History
                     </div>
+                    <div class="col-sm-12 breadcrumb border-block" style="height:250px;width:250px;overflow:scroll;">
+                        <div class = "container-fluid">
+                            <div class="row">
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Sno. 1 </p>
+                                </div>
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Row 1</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Sno. 2</p>
+                                </div>
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Row 2</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Sno. 3</p>
+                                </div>
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Row 3</p>
+                                </div>
+                            </div>
+                            <div class="row"> 
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Sno. 4</p>
+                                </div>
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Row 4</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Sno. 5</p>
+                                </div>
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Row 5</p>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
+    <!-- <div id="content-wrapper">
+            <div class="container-fluid"> -->
+                <!-- <div class="row">
                     <div class="col-sm-3 breadcrumb border-block">
 					  <div>
 					   <ol>
@@ -78,16 +191,16 @@
 						</li>
 					   </ol>
 					  </div>
-                    </div>
+                    </div> -->
                     <!-- Breadcrumbs-->
-                    <ol class="breadcrumb col-sm-6 border-block">
+                    <!-- <ol class="breadcrumb col-sm-6 border-block">
                         <li class="breadcrumb-item">
                         <a href="#">Workspace</a>
                         </li>
                     </ol> 
-                    <div class="breadcrumb col-sm-3 border-block card-header">
+                    <div class="breadcrumb col-sm-3 border-block card-header"> -->
                            
-                                <i class="fas fa-table"></i>
+                                <!-- <i class="fas fa-table"></i>
 	<head>
 		<meta charset="utf-8">
 			<title>Visual Calculator</title>
@@ -109,27 +222,27 @@
 
 									<i class="fas fa-table"/>
 								</div>
-								</div>
-					
-<body id="page-top">
-    <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">
+								</div> -->
+<!-- 					
+<body id="page-top"> -->
+    <!-- <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">
         <a class="navbar-brand mr-1" href="index.html">Student Dashboard</a>
-    </nav>    
-    <div id="content-wrapper">
+    </nav>     -->
+    <!-- <div id="content-wrapper">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-3 breadcrumb border-block">
+                <div class="row"> -->
+                    <!-- <div class="col-sm-3 breadcrumb border-block">
                         Questions
-                    </div>
+                    </div> -->
                     <!-- Breadcrumbs-->
-                    <div class="breadcrumb col-sm-6 border-block">
+                    <!-- <div class="breadcrumb col-sm-6 border-block">
                         <div class = "container-fluid d-flex align-items-center" id = "canvas">
                             <button type="button" class="btn btn-primary add-slot" onclick="addSlot()">Add Slot</button>
                         </div> 
-                    </div>
-                    <div class="breadcrumb col-sm-3 border-block card-header">
-                        <div class = "container-fluid ">
-                        <div class="row">
+                    </div> -->
+                    <!-- <div class="breadcrumb col-sm-3 border-block card-header">
+                        <div class = "container-fluid "> -->
+                        <!-- <div class="row">
                             <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
                                 <p class="draggable-item p-2">0</p>
                             </div>
@@ -162,7 +275,7 @@
                             <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "9">
                                 <p class="draggable-item p-2">9</p>
                             </div>    
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class ="container-fluid d-flex flex-wrap">
                             <div class="col d-flex justify-content-center p-2" draggable="true" ondragstart="drag(event)" id = "plus">
@@ -198,9 +311,9 @@
                         </div>
                     </div>
                     </div>
-                    <div class="col-sm-12 breadcrumb border-block" style="height:250px;width:250px;overflow:scroll;">
+                    <!-- <div class="col-sm-12 breadcrumb border-block" style="height:250px;width:250px;overflow:scroll;">
                             <div class = "container-fluid">
-                                            <div class="row">
+                                            <div class="row">.grid-item{ width: 20%; height: 70px; border-radius: 10px; border: 1px solid black; } .add-slot{ position: absolute; top: 5; right: 5; } .canvas-item{ width: 20%; height: 90px; border-radius: 10px; border: 1px solid black; } .draggable-item{ font-size: 35p
                                                 <div class="col grid-item">
                                                     <p class="draggable-item">Sno. 1 </p>
                                                 </div>
@@ -244,7 +357,7 @@
 
 
 
-                                        </div>
+                                        </div> -->
                    
 </body>
 </html>
@@ -282,7 +395,6 @@
     .padding-right{
         padding-right: 2px;
     }
-</style>
 
     .grid-item{
         width: 20%;
