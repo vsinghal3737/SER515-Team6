@@ -22,4 +22,14 @@ def home():
     return render_template('StudentView.html')
 
 
-app.run(port=5000, debug=True)
+@app.route("/TeacherView")
+def teacherDashboard():
+    return render_template('TeacherView.html')
+
+
+@app.route("/auth")
+def auth():
+    return render_template('LogReg.html')
+
+
+app.run(port=5000)
