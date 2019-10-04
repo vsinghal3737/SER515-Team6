@@ -1,0 +1,21 @@
+App.db
+
+UserAuth
+	AuthID | username | password | UserID
+
+UserTable
+	UserID | FirstN | LastN | Email | Phone | Grade | Role
+
+Questions
+	QuestionID | Question | Answer | Grade | ProfID | Date
+
+HistoryQues
+	HisID | StudentID | QuestionID | AttemptedAns | Result | Date
+
+
+
+AuthID INTEGER PRIMARY KEY, username text not null UNIQUE, password text not null, UserAuth_UserID int not null
+UserID INTEGER PRIMARY KEY, FirstName text not null, LastN text, Email text UNIQUE not null, Phone INTEGER UNIQUE, Grade text, Role text
+QuestionID INTEGER PRIMARY KEY, Question text not null, Answer text not null, Grade text not null, ProfID int, SubmittedOn date
+HisID INTEGER PRIMARY KEY, StudentID INTEGER not null, HISID_QuestionID INTEGER not null, AttemptedAns text, Result text, SubmittedOn date
+
