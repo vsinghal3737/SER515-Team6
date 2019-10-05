@@ -1,28 +1,270 @@
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Visual Calculator</title>
-  <div class=" container sticky-top navcolor">
-        <nav class="navbar navbar-expand-lg navbar-light">
-                <h2 class="navbar-brand" href="#">Student Dashboard</h2>
-        </nav>
-  </div>
   <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link href="css/student.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
+  <script src="../Controller/StudentEvent.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-
-<body>
-  <script src="js/scripts.js"></script>
-  <div class="container-fluid">
-    <!-- Content here -->
-  </div>
+</head>			
+<body id="page-top">
+    <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">
+        <a class="navbar-brand mr-1" href="\#">Student Dashboard</a>
+    </nav>    
+    <div id="content-wrapper ">
+        <div class="container-fluid">
+            <div class="row padding-block">
+                <div class="card mb-6 col-sm-3 breadcrumb border-block padding-right">
+                    <div class="card-header button-color">
+                        Questions
+                    </div>
+                        <div class="container-fluid">
+                                             
+                           <div class="row p-2">
+                             <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)" type="button" id="button_1" value = "_+_=12">___  +  ___ = 12</button> 
+                           </div>
+                        
+                            <div class="row p-2">
+                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)" type="button" id="button_2" value = "5+4=_">5 + 4</button> 
+                            </div>
+                        
+                            <div class="row p-2">
+                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)"type="button" id="button_3" value = "9-7=_">9 - 7</button>
+                            </div>
+                        
+                            <div class="row p-2">
+                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)"type="button" id="button_4" value = "8+5=_">8 + 5</button> 
+                            </div>
+                        
+                             <div class="row p-2">
+                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)"type="button" id="button_5" value = "_-_=3">___  -  ___ = 3</button>
+                             </div>
+                      </div>
+                    </div>  
+                <div class="card breadcrumb mb-6 col-sm-6 border-block padding-right">
+                    <div class="card-header button-color">
+                        Workspace
+                    </div>                  
+                    <div class="card-body">
+                        <div class = "container-fluid d-flex align-items-center" id = "canvas">
+                        </div>
+                        <canvas id="myAreaChart" width="100%" height="200">  
+                        </canvas>
+                    </div>     
+                    <button class="card-footer small button-color" width="98%">Submit</button>
+                </div>    
+                <div class="card breadcrumb col-sm-3 border-block card-header">
+                    <div class="card-header button-color">
+                        Operation Toolbar
+                    </div>
+                    <div class = "container-fluid ">
+                        <div class="row">
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
+                                <p class="draggable-item p-2">0</p>
+                            </div>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "1">
+                                <p class="draggable-item p-2">1</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "2">
+                                <p class="draggable-item p-2">2</p>
+                            </div>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "3">
+                                <p class="draggable-item p-2">3</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "4">
+                                <p class="draggable-item p-2">4</p>
+                            </div>    
+                        
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "5">
+                                <p class="draggable-item p-2">5</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "6">
+                                <p class="draggable-item p-2">6</p>
+                            </div>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "7">
+                                <p class="draggable-item p-2">7</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "8">
+                                <p class="draggable-item p-2">8</p>
+                            </div>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "9">
+                                <p class="draggable-item p-2">9</p>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+                <div class="card col-sm-12 breadcrumb border-block card-header">
+                    <div class="card-header button-color">
+                        Work History
+                    </div>
+                    <div class="col-sm-13 breadcrumb border-block" style="height:400px;width:100%;overflow:scroll;">
+                        <div class = "container-fluid">
+                            <div class="row">
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Q1 </p>
+                                </div>
+                                <div class="col grid-item">
+                                    <p class="draggable-item">A1</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Q2</p>
+                                </div>
+                                <div class="col grid-item">
+                                    <p class="draggable-item">A2</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Q3</p>
+                                </div>
+                                <div class="col grid-item">
+                                    <p class="draggable-item">A3</p>
+                                </div>
+                            </div>
+                            <div class="row"> 
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Q4</p>
+                                </div>
+                                <div class="col grid-item">
+                                    <p class="draggable-item">A4</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col grid-item">
+                                    <p class="draggable-item">Q5</p>
+                                </div>
+                                <div class="col grid-item">
+                                    <p class="draggable-item">A5</p>
+                                </div>
+                            </div>
+                        </div>
+				</div>
+            </div>
+        </div>
+    </div>
+  
+                        <div class="row">
+                            <div class ="container-fluid d-flex flex-wrap">
+                            <div class="col d-flex justify-content-center p-2" draggable="true" ondragstart="drag(event)" id = "plus">
+                                <i class="fas fa-plus draggable-icon p-2"></i>
+                            </div>
+                            <div class="col d-flex justify-content-center p-2" draggable="true" ondragstart="drag(event)" id = "minus">
+                                <i class="fas fa-minus draggable-icon p-2"></i>
+                            </div>
+                            <div class="col d-flex justify-content-center p-2" draggable="true" ondragstart="drag(event)" id = "times">
+                                <i class="fas fa-times draggable-icon p-2"></i>
+                            </div>
+                            <div class="col d-flex justify-content-center p-2" draggable="true" ondragstart="drag(event)" id = "divide">
+                                <i class="fas fa-divide draggable-icon p-2"></i>
+                            </div>
+                        
+                            <div class="col d-flex justify-content-center p-2" draggable="true" ondragstart="drag(event)" id = "equals">
+                                <i class="fas fa-equals draggable-icon p-2"></i>
+                            </div>
+                            <div class="col d-flex justify-content-center p-2" draggable="true" ondragstart="drag(event)" id = "greater">
+                                <i class="fas fa-greater-than draggable-icon p-2"></i>
+                            </div>
+                            <div class="col d-flex justify-content-center p-2" draggable="true" ondragstart="drag(event)" id = "less">
+                                <i class="fas fa-less-than draggable-icon p-2"></i>
+                            </div>
+                            <div class="col d-flex justify-content-center p-2" draggable="true" ondragstart="drag(event)" id = "greater-equal">
+                                <i class="fas fa-greater-than-equal draggable-icon p-2"></i>
+                            </div>
+                            <div class="col d-flex justify-content-center p-2" draggable="true" ondragstart="drag(event)" id = "less-equal">
+                                <i class="fas fa-less-than-equal draggable-icon p-2"></i>
+                            </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    </div>
+                   
+                   
 </body>
 </html>
 
 <style scoped>
-    .navcolor {
-        background-color: #563d7c;
+    .button-color{
+        background-color: #311b92;
+        color: white;
+    }
+
+    .nav-color {
+        background-color: #000063;
         border:1px solid black;
         border-radius:4px;
     }
+    h2{
+        font-size: 2.0rem;
+        font-weight: bold;
+    }
+    .main-body{
+        width: 60%;
+        border: 2px solid violet;
+        padding: 10px;
+        margin: 10px auto;
+        max-width: 900px;
+    }
+    .border-block{
+        border: 1px solid black;
+        width: 15%;
+        /* margin: 1.66%; */
+        float: left;
+    }
+    .padding-block{
+        padding: 5px;
+    }
+    .padding-left{
+        padding-left: 2px;
+    }
+    .padding-right{
+        padding-right: 2px;
+    }
+
+    .grid-item{
+        width: 20%;
+        height: 70px;
+        border-radius: 10px;
+        border: 1px solid black;    
+    }
+    .add-slot{
+        position: absolute;
+        top: 5;
+        right: 5;
+    }
+    .canvas-item{
+        width: 20%;
+        height: 90px;
+        border-radius: 10px;
+        border: 1px solid black;
+    }
+    
+    .draggable-item{
+        font-size: 35px;
+        
+    }
+    .draggable-icon{
+        font-size: 35px;
+        color: #12005e;
+        margin-top: 12px;
+    }
+
+    .btn-primary{
+        background-color: #6746c3;
+    }
 </style>
+
+
+
