@@ -21,6 +21,17 @@ app.config['PROPAGATE_EXCEPTIONS'] = None
 def home():
     return render_template('StudentView.html')
 
+#API to return list of questions. Currently static, should fetch data from DB
+@app.route("/GetQuestions", methods=['GET'])
+def getQuestions():	
+	questions={
+	1: "5+4=_",
+	2: "9-7=_",
+	3: "_+_=6",
+	4: "3+4=_",
+	5: "_-_=2"
+	}
+	return jsonify(questions)
 
 @app.route("/TeacherView")
 def teacherDashboard():
@@ -32,4 +43,4 @@ def auth():
     return render_template('LogReg.html')
 
 
-app.run(port=5000)
+app.run(port=5000, debug=True)
