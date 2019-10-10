@@ -4,7 +4,7 @@ from flask import Flask, jsonify, request, render_template
 # from flask_jwt_extended import JWTManager
 
 
-app = Flask(__name__, template_folder='../View')
+app = Flask(__name__, template_folder='../View', static_folder='../Controller')
 app.config['PROPAGATE_EXCEPTIONS'] = None
 
 # USER AUTH and User Session [for next sprint]
