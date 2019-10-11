@@ -1,0 +1,103 @@
+<!-- 
+      Created by IntelliJ IDEA.
+      User: Sneha
+      Date: 10/10/19
+      Time: 12:56 PM
+      Description: Dashboard for Sign up and Login. -->
+<!-- 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %> -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Select Action</title>
+</head>
+<body>
+<form class="panel" method="get">
+    <h1>Select your action</h1>
+    <div class="wrapper">
+        <input type="submit" class="signup" formaction="./signup.html" name="action" value="signup"/>
+        <input type="submit" class="login" formaction="./login.html" name="action" value="login"/>
+    </div>
+</form>
+</body>
+
+<style>
+    .panel {
+        align: center;
+        background-color: #4a154b;
+        margin-right: -15px;
+        margin-left: -15px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+    }
+    .wrapper {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        padding-bottom: 30px;
+    }
+    body {
+        background-color: #4a154b;
+    }
+    .signup {
+        display: inline-block;
+        white-space: nowrap;
+        flex-basis: auto;
+        width: auto;
+        font-size: .875rem;
+        background-color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        text-align: center;
+        font-family: CircularPro, "Helvetica Neue", Helvetica, "Segoe UI", Tahoma, Arial, sans-serif;
+        font-weight: 700;
+        line-height: 1.28571429;
+        letter-spacing: .8px;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 19px 40px 20px;
+        transition: box-shadow 420ms cubic-bezier(.165, .84, .44, 1), color 420ms cubic-bezier(.165, .84, .44, 1), background 420ms cubic-bezier(.165, .84, .44, 1);
+        color: #4a154b;
+    }
+    .login {
+        display: inline-block;
+        white-space: nowrap;
+        flex-basis: auto;
+        width: auto;
+        font-size: .875rem;
+        background-color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        text-align: center;
+        font-family: CircularPro, "Helvetica Neue", Helvetica, "Segoe UI", Tahoma, Arial, sans-serif;
+        font-weight: 700;
+        line-height: 1.28571429;
+        letter-spacing: .8px;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 19px 40px 20px;
+        transition: box-shadow 420ms cubic-bezier(.165, .84, .44, 1), color 420ms cubic-bezier(.165, .84, .44, 1), background 420ms cubic-bezier(.165, .84, .44, 1);
+        color: #4a154b;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    h1 {
+        text-align: center;
+        color: white;
+        font-size: 80px;
+        padding-left: 20px;
+        font-family: CircularPro, "Helvetica Neue", Helvetica, "Segoe UI", Tahoma, Arial, sans-serif;
+    }
+</style>
+</html>
