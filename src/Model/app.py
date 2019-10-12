@@ -17,8 +17,12 @@ app.config['PROPAGATE_EXCEPTIONS'] = None
 
 # studentDashboard will be a placeholder for home (login/register) [for next sprint]
 @app.route("/")
-@app.route("/StudentView")
 def home():
+    return render_template('dashboard.html')
+
+
+@app.route("/StudentView")
+def studentView():
     return render_template('StudentView.html')
 
 
@@ -27,9 +31,14 @@ def teacherDashboard():
     return render_template('TeacherView.html')
 
 
-@app.route("/auth")
-def auth():
-    return render_template('LogReg.html')
+@app.route("/login")
+def login():
+    return render_template('Login.html')
 
 
-app.run(port=5000)
+@app.route("/register")
+def register():
+    return render_template('Register.html')
+
+
+app.run(port=5000, debug=True)
