@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request, render_template
 # from flask_jwt import JWT
 # from flask_jwt_extended import JWTManager
 
+import sqlite3
 
 app = Flask(__name__, template_folder='../View', static_folder='../Controller')
 app.config['PROPAGATE_EXCEPTIONS'] = None
@@ -21,17 +22,20 @@ app.config['PROPAGATE_EXCEPTIONS'] = None
 def home():
     return render_template('StudentView.html')
 
-#API to return list of questions. Currently static, should fetch data from DB
+# API to return list of questions. Currently static, should fetch data from DB
+
+
 @app.route("/GetQuestions", methods=['GET'])
-def getQuestions():	
-	questions={
-	1: "5+4=_",
-	2: "9-7=_",
-	3: "_+_=6",
-	4: "3+4=_",
-	5: "_-_=2"
-	}
-	return jsonify(questions)
+def getQuestions():
+    questions = {
+        1: "5+4=_",
+        2: "9-7=_",
+        3: "_+_=6",
+        4: "3+4=_",
+        5: "_-_=2"
+    }
+    return jsonify(questions)
+
 
 @app.route("/TeacherView")
 def teacherDashboard():
