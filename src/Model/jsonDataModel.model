@@ -1,6 +1,5 @@
 question_DM = {
     Num: {
-        QuestionID: id,
         Question: 'question',
         Answer: 'Answer',
         Grade: 'Grade',
