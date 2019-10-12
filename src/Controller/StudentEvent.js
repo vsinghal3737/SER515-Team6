@@ -1,3 +1,5 @@
+var currentQuestion;
+var qctr = 0;
 function addSlot(value) {
     var slot = document.createElement('div');
     slot.className = 'canvas-item d-flex justify-content-center';
@@ -59,6 +61,7 @@ function drop(ev, el) {
 }
 
  function addQuestion(ev){
+        currentQuestion = ev.target.id;
         var question = ev.target.value;
         var i;
         for(i = 0; i<question.length; i++)
@@ -71,8 +74,8 @@ function drop(ev, el) {
 function loadPage(){
     //Calling flask api to fetch questions
     $.get("/GetQuestions", function(data){
-    //var question = JSON.parse(data);
     var item;
+    //Parsing JSON object to create the questions
     for(item in data) {
         var questionDiv = document.createElement('div');
         questionDiv.className = 'row p-2';
@@ -80,10 +83,40 @@ function loadPage(){
         questionButton.className = 'btn btn-primary btn-lg btn-block';
         questionButton.setAttribute("onclick", "addQuestion(event)");
         questionButton.type = 'button';
+        questionButton.id = 'question'+qctr.toString();
+        qctr++;
         questionButton.value = data[item];
         questionButton.innerHTML = data[item];
         questionDiv.appendChild(questionButton);
         document.getElementById('question-list').appendChild(questionDiv);    
     }    
   });
+}
+
+function submitAnswer(ev){
+    alert("Answer Submitted");
+    var equation = '';
+    var canvas = document.getElementById("canvas");
+    while (canvas.childNodes.length>1) {  
+        if(canvas.childNodes[1].firstChild.className.search('fa-plus') != -1)
+        {
+            equation = equation+'+';
+        }
+        else if(canvas.childNodes[1].firstChild.className.search('fa-minus') != -1)
+        {
+            equation = equation+'-';
+        }
+        else if(canvas.childNodes[1].firstChild.className.search('fa-equals') != -1)
+        {
+            equation = equation+'=';
+        }
+        else
+        {
+            equation = equation+canvas.childNodes[1].firstChild.innerHTML;
+        }
+        canvas.removeChild(canvas.childNodes[1]);
+    }
+    canvas.removeChild(canvas.firstChild);
+    var questionFrame = document.getElementById("question-list");
+    questionFrame.removeChild(document.getElementById(currentQuestion).parentNode);
 }
