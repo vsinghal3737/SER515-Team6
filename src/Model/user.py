@@ -14,17 +14,11 @@ class User:
         cursor = connection.cursor()
 
         query = "SELECT * FROM UserAuth WHERE username=?"
-        result = cursor.execute(query, (username, ))
-
-        row = result.fetchone()
-
-        if row:
-            user = cls(*row)
-        else:
-            user = None
+        result = cursor.execute(query, (username, )).fetchone()
 
         connection.close()
-        return user
+
+        return cls(*result[:-1]) if result else None
 
     @classmethod
     def find_by_id(cls, _id):

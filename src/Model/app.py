@@ -1,10 +1,10 @@
 from flask import Flask, jsonify, request, render_template
 # from flask_restful import Api
 from flask_jwt import JWT, jwt_required
+from user import User
 # from flask_jwt_extended import JWTManager
 
 from security import authenticate, identity
-
 
 app = Flask(__name__, template_folder='../View', static_folder='../Controller')
 app.config['PROPAGATE_EXCEPTIONS'] = None
@@ -35,9 +35,14 @@ def teacherDashboard():
     return render_template('TeacherView.html')
 
 
-@app.route("/login")
+@app.route("/login", methods=['POST'])
 def login():
-    return render_template('Login.html')
+    data = request.get_json()
+    username = data['username']
+    password = data['password']
+    if User.find_by_username(username):
+        return render_template('StudentView.html')
+    return render_template('dashboard.html')
 
 
 @app.route("/register")
