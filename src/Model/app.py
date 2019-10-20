@@ -22,7 +22,7 @@ jwt = JWT(app, authenticate, identity)  # /auth
 # studentDashboard will be a placeholder for home (login/register) [for next sprint]
 @app.route("/")
 def home():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', retry=False)
 
 
 @app.route("/StudentView")
@@ -47,8 +47,14 @@ def login():
         if userRole == "Student":
             HistoryQuestions = usr.getHistoryQuestions()
             Questions = usr.getQuestions()
-            return render_template('StudentView.html', role=userRole, grade=userGrade, HistoryQuestions=HistoryQuestions, Questions=Questions)
-    return render_template('dashboard.html')
+            return render_template('StudentView.html', grade=userGrade, HistoryQuestions=HistoryQuestions, Questions=Questions)
+        elif userRole == "Teacher":
+            Questions = usr.getQuestions()
+            return render_template("TeacherView", grade=userGrade, Questions=Questions)
+        elif userRole == "Admin":
+            AllUsers = usr.getAllUsers()
+            return render_template("AdminView", AllUsers=AllUsers)
+    return render_template('dashboard.html', retry=True)
 
 
 @app.route("/register")
