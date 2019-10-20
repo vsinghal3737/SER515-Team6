@@ -34,7 +34,7 @@ def studentView():
 def teacherDashboard():
     return render_template('TeacherView.html')
 
-
+# Login Api
 @app.route("/login", methods=['POST'])
 def login():
     data = request.get_json()
