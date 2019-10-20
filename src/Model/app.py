@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, render_template
 # from flask_restful import Api
 from flask_jwt import JWT, jwt_required
-from user import User
+from user import UserDB
 # from flask_jwt_extended import JWTManager
 
 from security import authenticate, identity
@@ -34,6 +34,7 @@ def studentView():
 def teacherDashboard():
     return render_template('TeacherView.html')
 
+
 # Login Api
 @app.route("/login", methods=['POST'])
 def login():
@@ -42,17 +43,17 @@ def login():
     password = data['password']
     usr = authenticate(username, password)
     if usr:
-        userRole = usr.getRole()
-        userGrade = usr.getGrade()
+        userRole = UserDB.getRole(usr.username)
+        userGrade = UserDB.getGrade(usr.username)
         if userRole == "Student":
-            HistoryQuestions = usr.getHistoryQuestions()
-            Questions = usr.getQuestions()
+            HistoryQuestions = UserDB.getHistoryQuestions(usr.username)
+            Questions = UserDB.getQuestions(usr.username)
             return render_template('StudentView.html', grade=userGrade, HistoryQuestions=HistoryQuestions, Questions=Questions)
         elif userRole == "Teacher":
-            Questions = usr.getQuestions()
+            Questions = UserDB.getQuestions(usr.username)
             return render_template("TeacherView", grade=userGrade, Questions=Questions)
         elif userRole == "Admin":
-            AllUsers = usr.getAllUsers()
+            AllUsers = UserDB.getAllUsers(usr.username)
             return render_template("AdminView", AllUsers=AllUsers)
     return render_template('dashboard.html', retry=True)
 

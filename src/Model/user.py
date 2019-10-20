@@ -39,6 +39,28 @@ class User:
         return user
 
 
+class UserDB:
+    @classmethod
+    def getRole(cls, username):
+        pass
+
+    @classmethod
+    def getGrade(cls, username):
+        pass
+
+    @classmethod
+    def getHistoryQuestions(cls, username):
+        pass
+
+    @classmethod
+    def getQuestions(cls, username):
+        pass
+
+    @classmethod
+    def getAllUsers(cls, username):
+        pass
+
+
 # In testing phase
 
 # class UserRegister(Resource):
