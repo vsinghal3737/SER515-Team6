@@ -40,8 +40,14 @@ def login():
     data = request.get_json()
     username = data['username']
     password = data['password']
-    if User.find_by_username(username):
-        return render_template('StudentView.html')
+    usr = authenticate(username, password)
+    if usr:
+        userRole = usr.getRole()
+        userGrade = usr.getGrade()
+        if userRole == "Student":
+            HistoryQuestions = usr.getHistoryQuestions()
+            Questions = usr.getQuestions()
+            return render_template('StudentView.html', role=userRole, grade=userGrade, HistoryQuestions=HistoryQuestions, Questions=Questions)
     return render_template('dashboard.html')
 
 

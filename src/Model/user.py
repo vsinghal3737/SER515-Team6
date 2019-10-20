@@ -14,7 +14,7 @@ class User:
         cursor = connection.cursor()
 
         query = "SELECT * FROM UserAuth WHERE username=?"
-        result = cursor.execute(query, (username, )).fetchone()
+        result = cursor.execute(query, username).fetchone()
 
         connection.close()
 
