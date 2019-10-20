@@ -1,5 +1,13 @@
 var currentQuestion;
 var qctr = 0;
+
+function clearCanvas(){
+    var canvas = document.getElementById("canvas");
+    while(canvas.childNodes.length>0) {
+        canvas.removeChild(canvas.childNodes[0]);
+    }
+}
+
 function addSlot(value) {
     var slot = document.createElement('div');
     slot.className = 'canvas-item d-flex justify-content-center';
@@ -61,6 +69,7 @@ function drop(ev, el) {
 }
 
  function addQuestion(ev){
+        clearCanvas();
         currentQuestion = ev.target.id;
         var question = ev.target.value;
         var i;
@@ -70,11 +79,16 @@ function drop(ev, el) {
         }
  }
 
+function createQuestionList(data) {
+    //Should contain the code to populate the question list
+}
+
 
 function loadPage(){
     //Calling flask api to fetch questions
     $.get("/GetQuestions", function(data){
     var item;
+    createQuestionList(data);
     //Parsing JSON object to create the questions
     for(item in data) {
         var questionDiv = document.createElement('div');
@@ -93,6 +107,8 @@ function loadPage(){
   });
 }
 
+
+
 function submitAnswer(ev){
     alert("Answer Submitted");
     var equation = '';
@@ -108,7 +124,7 @@ function submitAnswer(ev){
         }
         else if(canvas.childNodes[1].firstChild.className.search('fa-equals') != -1)
         {
-            equation = equation+'=';
+            equation = equation+'='; 
         }
         else
         {
@@ -119,4 +135,7 @@ function submitAnswer(ev){
     canvas.removeChild(canvas.firstChild);
     var questionFrame = document.getElementById("question-list");
     questionFrame.removeChild(document.getElementById(currentQuestion).parentNode);
+    //Should contain code to send POST request to back-end with the submitted answer
+
+
 }

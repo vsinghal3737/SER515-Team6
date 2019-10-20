@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, render_template
 # from flask_restful import Api
 # from flask_jwt import JWT
 # from flask_jwt_extended import JWTManager
-
+import Question
 import sqlite3
 
 app = Flask(__name__, template_folder='../View', static_folder='../Controller')
@@ -35,6 +35,11 @@ def getQuestions():
         5: "_-_=2"
     }
     return jsonify(questions)
+
+
+@app.route("/SubmitAnswer", methods=['POST'])
+def submitQuestion(data):
+    question = jsonify(request.args.get())
 
 
 @app.route("/TeacherView")
