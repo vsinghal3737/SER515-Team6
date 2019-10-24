@@ -1,6 +1,7 @@
 question_DM = {
     Num: {
         Question: 'question',
+        QuestionID: QuestionID
         Answer: 'Answer',
         Grade: 'Grade',
         ProfID: 'ProfessorID',
@@ -8,6 +9,11 @@ question_DM = {
     },
     ...  (multiple)
 }
+
+answer_DM = {
+    QuestionID: QuestionID,
+    Result: 'Pass'/'Fail',
+    Date: 'AttemptedDate'
 
 HistoryQues_DM = {
     Num: {
