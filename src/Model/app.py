@@ -28,12 +28,47 @@ def home():
 @app.route("/GetQuestions", methods=['GET'])
 def getQuestions():
     questions = {
-        1: "5+4=_",
-        2: "9-7=_",
-        3: "_+_=6",
-        4: "3+4=_",
-        5: "_-_=2"
+    'Q1': {
+        'Question': '5+4=_',
+        'QuestionID': 'Q1',
+        'Answer': '9',
+        'Grade': 1,
+        'ProfID': '2',
+        'SubmittedOn': '2019-10-12 21:33:48'
+    },
+    'Q2': {
+        'Question': '9-7=_',
+        'QuestionID': 'Q2',
+        'Answer': '2',
+        'Grade': 1,
+        'ProfID': '2',
+        'SubmittedOn': '2019-10-12 21:34:48'
+    },
+    'Q3': {
+        'Question': '_+_=6',
+        'QuestionID': 'Q3',
+        'Answer': 'na',
+        'Grade': 1,
+        'ProfID': '2',
+        'SubmittedOn': '2019-10-12 21:35:48'
+    },
+    'Q4': {
+        'Question': '3+4=_',
+        'QuestionID': 'Q4',
+        'Answer': '7',
+        'Grade': 1,
+        'ProfID': '2',
+        'SubmittedOn': '2019-10-12 21:36:48'
+    },
+    'Q5': {
+        'Question': '_-_=2',
+        'QuestionID': 'Q5',
+        'Answer': 'na',
+        'Grade': 1,
+        'ProfID': '2',
+        'SubmittedOn': '2019-10-12 21:37:48'
     }
+}
     return jsonify(questions)
 
 

@@ -1,6 +1,6 @@
 var currentQuestion;
 var qctr = 0;
-
+var questionList;
 function clearCanvas(){
     var canvas = document.getElementById("canvas");
     while(canvas.childNodes.length>0) {
@@ -88,7 +88,7 @@ function loadPage(){
     //Calling flask api to fetch questions
     $.get("/GetQuestions", function(data){
     var item;
-    createQuestionList(data);
+    questionList = data;
     //Parsing JSON object to create the questions
     for(item in data) {
         var questionDiv = document.createElement('div');
@@ -97,10 +97,10 @@ function loadPage(){
         questionButton.className = 'btn btn-primary btn-lg btn-block';
         questionButton.setAttribute("onclick", "addQuestion(event)");
         questionButton.type = 'button';
-        questionButton.id = 'question'+qctr.toString();
+        questionButton.id = data[item]['QuestionID'];
         qctr++;
-        questionButton.value = data[item];
-        questionButton.innerHTML = data[item];
+        questionButton.value = data[item]['Question'];
+        questionButton.innerHTML = data[item]['Question'];
         questionDiv.appendChild(questionButton);
         document.getElementById('question-list').appendChild(questionDiv);    
     }    
@@ -110,32 +110,32 @@ function loadPage(){
 
 
 function submitAnswer(ev){
-    alert("Answer Submitted");
     var equation = '';
     var canvas = document.getElementById("canvas");
-    while (canvas.childNodes.length>1) {  
-        if(canvas.childNodes[1].firstChild.className.search('fa-plus') != -1)
+    while (canvas.childNodes.length>=1) {  
+        if(canvas.childNodes[0].firstChild.className.search('fa-plus') != -1)
         {
             equation = equation+'+';
         }
-        else if(canvas.childNodes[1].firstChild.className.search('fa-minus') != -1)
+        else if(canvas.childNodes[0].firstChild.className.search('fa-minus') != -1)
         {
             equation = equation+'-';
         }
-        else if(canvas.childNodes[1].firstChild.className.search('fa-equals') != -1)
+        else if(canvas.childNodes[0].firstChild.className.search('fa-equals') != -1)
         {
             equation = equation+'='; 
         }
         else
         {
-            equation = equation+canvas.childNodes[1].firstChild.innerHTML;
+            equation = equation+canvas.childNodes[0].firstChild.innerHTML;
         }
-        canvas.removeChild(canvas.childNodes[1]);
+        canvas.removeChild(canvas.childNodes[0]);
     }
-    canvas.removeChild(canvas.firstChild);
+    questionList[currentQuestion]['Answer'] = equation;
+    alert(equation);
     var questionFrame = document.getElementById("question-list");
     questionFrame.removeChild(document.getElementById(currentQuestion).parentNode);
     //Should contain code to send POST request to back-end with the submitted answer
-
+    //Access JSON object of current question using: questionList[currentQuestion]
 
 }
