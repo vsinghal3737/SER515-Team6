@@ -1,70 +1,85 @@
 from flask import jsonify
-import sqlite3
+import SQLAlchemyCreateDB as sql
+from sqlalchemy.sql.expression import false, true
+from DummyQuestions import Questions
 
 
-def addQuestion(questionDict):
-    connection = sqlite3.connect('app.db')
-    cursor = connection.cursor()
-
-    for key in sorted(questionDict.keys()):
-        cursor.execute(
-            "INSERT INTO Question (Question, Answer, Grade, ProfID, SubmittedOn) VALUES (?,?,?,?,?)",
-            [
-                questionDict[key]['Question'],
-                questionDict[key]['Answer'],
-                questionDict[key]['Grade'],
-                questionDict[key]['ProfID'],
-                questionDict[key]['SubmittedOn'],
-            ]
+def addQuestion(Question):
+    sql.db.session.add(
+        sql.Question(
+            QuestionID=Question['QuestionID'],
+            Question=Question['Question'],
+            Answer=Question['Answer'],
+            Grade=Question['Grade'],
+            ProfPublicID=Question['ProfPublicID'],
+            SubmittedOn=Question['SubmittedOn']
         )
-    connection.commit()
-    connection.close()
+    )
+    sql.db.commit()
+    return True
 
 
-def getQuestion(grade):
-    connection = sqlite3.connect('app.db')
-    cursor = connection.cursor()
-    questions = cursor.execute("SELECT * FROM Question where Grade=?", grade if type(grade) == str else int(grade)).fetchall()
-    connection.commit()
-    connection.close()
-    return jsonify({'questions': {k: questions[k - 1] for k in range(1, len(questions) + 1)}})
+'''
+remove all from questions which contains this unique(
+    studentID filter
+    remove True attempted
+    get unique
+)
+'''
 
 
-DummyQuestions = {
-    1: {
-        'Question': '5 + 4 = _',
-        'Answer': '9',
-        'Grade': 1,
-        'ProfID': '2',
-        'SubmittedOn': '2019-10-12 21:33:48'
-    },
-    2: {
-        'Question': '9 - 7 = _',
-        'Answer': '2',
-        'Grade': 1,
-        'ProfID': '2',
-        'SubmittedOn': '2019-10-12 21:34:48'
-    },
-    3: {
-        'Question': '_ + _ = 6',
-        'Answer': 'na',
-        'Grade': 1,
-        'ProfID': '2',
-        'SubmittedOn': '2019-10-12 21:35:48'
-    },
-    4: {
-        'Question': '3 + 4 = _',
-        'Answer': '7',
-        'Grade': 1,
-        'ProfID': '2',
-        'SubmittedOn': '2019-10-12 21:36:48'
-    },
-    5: {
-        'Question': '_ - _ = 2',
-        'Answer': 'na',
-        'Grade': 1,
-        'ProfID': '2',
-        'SubmittedOn': '2019-10-12 21:37:48'
+def getQuestionPerStud(PublicID):
+    user = sql.User.query.filter_by(PublicID=PublicID).first()
+
+    submittedQuestions = list(set(map(
+        lambda x: x[1],
+        sql.HistoryQuestion.query.filter_by(StudPublicID=user[1]).filter_by(Result=True).all()
+    )))
+
+    Questions = {
+        row[0]: {
+            'QuestionID': row[0],
+            'Question': row[1],
+            'Answer': '',
+            'Grade': row[3],
+            'ProfPublicID': row[4],
+            'SubmittedOn': ''
+        } for row in sql.Question.query.filter_by(Grade=user[6]).all() if row[0] not in submittedQuestions
     }
-}
-# addQuestion(DummyQuestions)
+    return jsonify({'questions': Questions})
+
+
+def getQuestion(PublicID):
+    user = sql.User.query.filter_by(PublicID=PublicID).first()
+    Questions = {
+        row[0]: {
+            'QuestionID': row[0],
+            'Question': row[1],
+            'Answer': row[2],
+            'Grade': row[3],
+            'ProfPublicID': row[4],
+            'SubmittedOn': row[5]
+        } for row in sql.Question.query.filter_by(Grade=user[6]).all()
+    }
+    return jsonify({'questions': Questions})
+
+
+def getHistQuestion(PublicID):
+    userID = sql.User.query.filter_by(PublicID=PublicID).first()[1]
+
+    Questions = {
+        row[0]: {
+            'HisID': row[0],
+            'HisQuestionID': row[1],
+            'StudPublicID': row[2],
+            'AttemptedAns': row[3],
+            'Result': 'Pass' if row[4] is True else 'Fail',
+            'SubmittedOn': row[5]
+        } for row in sql.HistoryQuestion.query.filter_by(StudPublicID=userID).all()
+    }
+    return jsonify({'questions': Questions})
+
+
+if __name__ == '__main__':
+    for i in Questions.keys():
+        addQuestion(Questions[i])
