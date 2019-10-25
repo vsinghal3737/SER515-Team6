@@ -31,44 +31,44 @@ def getQuestions():
     'Q1': {
         'Question': '5+4=_',
         'QuestionID': 'Q1',
-        'Answer': '9',
+        'Answer': '',
         'Grade': 1,
         'ProfID': '2',
-        'SubmittedOn': '2019-10-12 21:33:48'
+        'SubmittedOn': ''
     },
     'Q2': {
         'Question': '9-7=_',
         'QuestionID': 'Q2',
-        'Answer': '2',
+        'Answer': '',
         'Grade': 1,
         'ProfID': '2',
-        'SubmittedOn': '2019-10-12 21:34:48'
+        'SubmittedOn': ''
     },
     'Q3': {
         'Question': '_+_=6',
         'QuestionID': 'Q3',
-        'Answer': 'na',
+        'Answer': '',
         'Grade': 1,
         'ProfID': '2',
-        'SubmittedOn': '2019-10-12 21:35:48'
+        'SubmittedOn': ''
     },
     'Q4': {
         'Question': '3+4=_',
         'QuestionID': 'Q4',
-        'Answer': '7',
+        'Answer': '',
         'Grade': 1,
         'ProfID': '2',
-        'SubmittedOn': '2019-10-12 21:36:48'
+        'SubmittedOn': ''
     },
     'Q5': {
         'Question': '_-_=2',
         'QuestionID': 'Q5',
-        'Answer': 'na',
+        'Answer': '',
         'Grade': 1,
         'ProfID': '2',
-        'SubmittedOn': '2019-10-12 21:37:48'
+        'SubmittedOn': ''
     }
-}
+    }
     return jsonify(questions)
 
 
@@ -76,6 +76,18 @@ def getQuestions():
 def submitQuestion(data):
     question = jsonify(request.args.get())
 
+@app.route("/GetHistoryQuestions" methods=['POST'])
+def getHistoryQuestions():
+    HistoryQues_DM = {
+    Num: {
+        HisID: id,
+        StudentID: StudentID,
+        QuestionID: QuestionID,
+        AttemptedAns: 'StudentAns',
+        Result: 'Pass' / 'Fail',
+        Date: 'AttemptedDate'
+    }
+    }
 
 @app.route("/TeacherView")
 def teacherDashboard():

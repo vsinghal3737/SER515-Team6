@@ -79,9 +79,6 @@ function drop(ev, el) {
         }
  }
 
-function createQuestionList(data) {
-    //Should contain the code to populate the question list
-}
 
 
 function loadPage(){
@@ -104,13 +101,25 @@ function loadPage(){
         questionDiv.appendChild(questionButton);
         document.getElementById('question-list').appendChild(questionDiv);    
     }    
-  });
+    });
+
+    $.get("/GetHistoryQuestions", function(data){
+
 }
 
-
+function removeCurrentQuestion() {
+    var questionFrame = document.getElementById("question-list");
+    questionFrame.removeChild(document.getElementById(currentQuestion).parentNode);
+}
 
 function submitAnswer(ev){
     var equation = '';
+    var lhs, rhs;
+    var answer = {
+        'QuestionID': '',
+        'Result': '',
+        'Date': ''
+    }
     var canvas = document.getElementById("canvas");
     while (canvas.childNodes.length>=1) {  
         if(canvas.childNodes[0].firstChild.className.search('fa-plus') != -1)
@@ -123,7 +132,8 @@ function submitAnswer(ev){
         }
         else if(canvas.childNodes[0].firstChild.className.search('fa-equals') != -1)
         {
-            equation = equation+'='; 
+            lhs = equation;
+            equation = '';
         }
         else
         {
@@ -131,10 +141,18 @@ function submitAnswer(ev){
         }
         canvas.removeChild(canvas.childNodes[0]);
     }
-    questionList[currentQuestion]['Answer'] = equation;
-    alert(equation);
-    var questionFrame = document.getElementById("question-list");
-    questionFrame.removeChild(document.getElementById(currentQuestion).parentNode);
+    rhs = equation;
+    if(eval(lhs) == eval(rhs))
+        answer['Result'] = 'Pass';
+    else
+        answer['Result'] = 'Fail';
+    answer['QuestionID'] = currentQuestion;
+    var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
+    answer['Date'] = localISOTime;
+    alert(answer['Result']);
+    if(answer['Result'] == 'Pass')
+        removeCurrentQuestion();    
     //Should contain code to send POST request to back-end with the submitted answer
     //Access JSON object of current question using: questionList[currentQuestion]
 
