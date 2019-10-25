@@ -15,7 +15,7 @@ from functools import wraps
 app = Flask(__name__, template_folder='../View', static_folder='../Controller')
 
 app.config['SECRET_KEY'] = 'deadMenTellNoTales'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(str(os.path.abspath(os.path.dirname(__file__))) + '/new.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(str(os.path.abspath(os.path.dirname(__file__))) + '/DataBase.db')
 
 db = SQLAlchemy(app)
 
