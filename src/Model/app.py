@@ -25,7 +25,7 @@ def home():
 # API to return list of questions. Currently static, should fetch data from DB
 
 
-@app.route("/GetQuestions", methods=['GET'])
+@app.route("/GetQuestions", methods=['POST'])
 def getQuestions():
     questions = {
     'Q1': {
@@ -73,19 +73,43 @@ def getQuestions():
 
 
 @app.route("/SubmitAnswer", methods=['POST'])
-def submitQuestion(data):
+def submitAnswer(data):
     question = jsonify(request.args.get())
 
 @app.route("/GetHistoryQuestions" methods=['POST'])
 def getHistoryQuestions():
-    HistoryQues_DM = {
-    Num: {
-        HisID: id,
-        StudentID: StudentID,
-        QuestionID: QuestionID,
-        AttemptedAns: 'StudentAns',
-        Result: 'Pass' / 'Fail',
-        Date: 'AttemptedDate'
+    historyQuestions = {
+    'HQ1': {
+        'HisID': 'HQ1',
+        'StudentID': 'S1',
+        'QuestionID': 'Q4',
+        'AttemptedAns': '9-7=2',
+        'Result': 'Pass',
+        'Date': '2019-10-24 17:55:21'
+    },
+    'HQ1': {
+        'HisID': 'HQ1',
+        'StudentID': 'S1',
+        'QuestionID': 'Q4',
+        'AttemptedAns': '9-7=3',
+        'Result': 'Pass',
+        'Date': '2019-10-24 17:55:21'
+    },
+    'HQ1': {
+        'HisID': 'HQ1',
+        'StudentID': 'S1',
+        'QuestionID': 'Q4',
+        'AttemptedAns': '9-7=2',
+        'Result': 'Pass',
+        'Date': '2019-10-24 17:55:21'
+    },
+    'HQ1': {
+        'HisID': 'HQ1',
+        'StudentID': 'S1',
+        'QuestionID': 'Q4',
+        'AttemptedAns': '9-7=2',
+        'Result': 'Pass',
+        'Date': '2019-10-24 17:55:21'
     }
     }
 

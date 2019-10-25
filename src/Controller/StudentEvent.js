@@ -118,7 +118,8 @@ function submitAnswer(ev){
     var answer = {
         'QuestionID': '',
         'Result': '',
-        'Date': ''
+        'Date': '',
+        'Answer': ''
     }
     var canvas = document.getElementById("canvas");
     while (canvas.childNodes.length>=1) {  
