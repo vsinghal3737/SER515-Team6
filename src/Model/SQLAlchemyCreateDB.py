@@ -35,9 +35,9 @@ def firstRun():
     db.create_all()
     FirstUser = \
         User(
-            public_id=str(uuid.uuid4()),
-            username='Admin',
-            password=generate_password_hash('password', method='sha256'),
+            PublicID=str(uuid.uuid4()),
+            Username='Admin',
+            Password=generate_password_hash('password', method='sha256'),
             FName='Vaibhav',
             LName='Singhal',
             Grade=1,
@@ -45,3 +45,34 @@ def firstRun():
         )
     db.session.add(FirstUser)
     db.session.commit()
+
+
+'''
+how to add user
+dir -> where SQLAlchemyCreateDB is located
+
+import SQLAlchemyCreateDB as sql
+from SQLAlchemyCreateDB import generate_password_hash
+import uuid
+
+user = \
+    sql.User(
+        PublicID=str(uuid.uuid4()),
+        Username='<UniqueUserName>',
+        Password=generate_password_hash('<Password>', method='sha256'),
+        FName='<FName>',
+        LName='<LName>',
+        Grade=1/2/3,
+        Role='Prof'/'Stud'
+    )
+sql.db.session.add(user)
+sql.db.session.commit()
+
+
+to check if its working
+dir -> where SQLAlchemyCreateDB is located
+sqlite3 DataBase.db
+.tables  # to see all the tables
+select * from User  # To see PublicID if needed
+
+'''
