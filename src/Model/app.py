@@ -1,25 +1,25 @@
-from flask import Flask, jsonify, request, render_template
-# from flask_restful import Api
-from flask_jwt import JWT, jwt_required
-from user import UserDB
-# from flask_jwt_extended import JWTManager
+from flask import Flask, jsonify, request, render_template, make_response
+from flask_sqlalchemy import SQLAlchemy
+import uuid
+from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.dialects.postgresql import UUID
+import os
+import jwt
+import datetime
+from functools import wraps
 
-from security import authenticate, identity
+
+# from user import UserDB
+# from security import authenticate, identity
 
 app = Flask(__name__, template_folder='../View', static_folder='../Controller')
-app.config['PROPAGATE_EXCEPTIONS'] = None
 
-# USER AUTH and User Session [for next sprint]
-# app.config['JWT_BLACKLIST_ENABLED'] = None
-# app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
-# app.config['JWT_EXPIRATION_DELTA'] = datetime.timedelta(days=7)
+app.config['SECRET_KEY'] = 'deadMenTellNoTales'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(str(os.path.abspath(os.path.dirname(__file__))) + '/new.db')
 
-app.secret_key = 'SER515TEAM6'  # app.secret_key = app.config['JWT_SECRET_KEY']
-
-jwt = JWT(app, authenticate, identity)  # /auth
+db = SQLAlchemy(app)
 
 
-# studentDashboard will be a placeholder for home (login/register) [for next sprint]
 @app.route("/")
 def home():
     return render_template('dashboard.html', retry=False)
@@ -63,4 +63,5 @@ def register():
     return render_template('Register.html')
 
 
-app.run(port=5000, debug=True)
+if __name__ == '__main__':
+    app.run(port=5000, debug=True)

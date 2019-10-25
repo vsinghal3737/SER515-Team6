@@ -10,6 +10,7 @@ connection = sqlite3.connect('app.db')
 cursor = connection.cursor()
 
 createTable = [
+
     "CREATE TABLE IF NOT EXISTS UserAuth (AuthID INTEGER PRIMARY KEY, username text not null UNIQUE, password text not null, UserAuth_UserID int not null)",
     "CREATE TABLE IF NOT EXISTS User (UserID INTEGER PRIMARY KEY, FName text not null, LName text, Email text UNIQUE not null, Phone INTEGER UNIQUE, Grade text, Role text)",
     "CREATE TABLE IF NOT EXISTS Question (QuestionID INTEGER PRIMARY KEY, Question text not null, Answer text not null, Grade text not null, ProfID int, SubmittedOn date)",
