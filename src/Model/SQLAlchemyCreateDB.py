@@ -69,7 +69,7 @@ sql.db.session.add(user)
 sql.db.session.commit()
 
 
-to check if its working
+to check if its working (Install sqlite3)
 dir -> where SQLAlchemyCreateDB is located
 sqlite3 DataBase.db
 .tables  # to see all the tables
