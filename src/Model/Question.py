@@ -80,6 +80,6 @@ def getHistQuestion(PublicID):
     return jsonify({'questions': Questions})
 
 
-if __name__ == '__main__':
+def DummyRun():
     for i in Questions.keys():
         addQuestion(Questions[i])

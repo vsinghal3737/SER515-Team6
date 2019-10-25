@@ -31,7 +31,7 @@ class HistoryQuestion(db.Model):
     SubmittedOn = db.Column(db.Date)
 
 
-def firstRun():
+def FirstRun():
     db.create_all()
     FirstUser = \
         User(
