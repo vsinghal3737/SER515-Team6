@@ -87,6 +87,3 @@ select * from User  # To see PublicID if needed
 #     )
 # db.session.add(usr)
 # db.session.commit()
-
-
-# check_password_hash(User.query.get(2).Password, 'pass')
