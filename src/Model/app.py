@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template, make_response, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
 import os
@@ -40,25 +40,32 @@ def loginOption():
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
-    # data = request.get_json()
-    # username = data['username']
-    # password = data['password']
+    username = request.form['username']
+    password = request.form['password']
     user = authenticate(username, password)
-    if user:
-        login_user(user)
-        if user.Role == 'stud':
-            return render_template('StudentView.html')
-        elif user.Role == "Prof":
-            return render_template("TeacherView")
-        elif user.Role == "Admin":
-            return render_template("AdminView")
-    return render_template('dashboard.html')
+    # if user:
+    #     login_user(user)
+    #     if user.Role == 'stud':
+    #         return render_template('StudentView.html')
+    #     elif user.Role == "Prof":
+    #         return render_template("TeacherView")
+    #     elif user.Role == "Admin":
+    #         return render_template("AdminView")
+    # return render_template('dashboard.html')
+    return ' '.join([user.Username, user.Password])
 
 
 @app.route("/signup", methods=['POST', 'GET'])
 def register():
 
     return ''
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return render_template('dashboard.html')
 
 
 if __name__ == '__main__':

@@ -10,3 +10,8 @@ def authenticate(username, password):
 
 def identity(user_id):
     return User.find_by_id(user_id)
+
+
+def FirstTime(username, password):
+    newPassword = generate_password_hash(password, method='sha256')
+    User.NewPassword(username, newPassword)

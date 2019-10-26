@@ -1,4 +1,3 @@
-import sqlite3
 # from flask_restful import Resource, reqparse
 import SQLAlchemyCreateDB as sql
 
@@ -12,6 +11,9 @@ class User:
     def find_by_id(cls, _id):
         return sql.User.query.get(_id)
 
+    @classmethod
+    def NewPassword(cls, username, newPassword):
+        sql.User.query.filter_by(Username=username).first().Password = newPassword
 
 # In testing phase
 
