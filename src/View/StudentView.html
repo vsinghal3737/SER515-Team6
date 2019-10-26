@@ -14,9 +14,11 @@
         <a class="navbar-brand mr-1" href="\#">Student Dashboard</a>
         <div class="collapse navbar-collapse navbar-ws">
             <ul class="nav-items nav navbar-nav">
-                <span>
-                    <a href="#" class="navbar-brand mr-1 nav-link">Log Out</a>
-                </span>
+                
+                <button href="\#" type="button" class="navbar-right textColr-log btn btn-log navbar-brand"> 
+                    Log Out
+                </button>
+                
             </ul>
         </div>
     </nav>   
@@ -203,6 +205,32 @@
 </html>
 
 <style scoped>
+    .btn-log {
+        display: inline-block;
+        white-space: nowrap;
+        flex-basis: auto;
+        width: auto;
+        font-size: .875rem;
+        background-color: #000063;
+        border:none;
+        cursor: pointer;
+        border-radius: 4px;
+        text-align: center;
+        font-family: CircularPro, "Helvetica Neue", Helvetica, "Segoe UI", Tahoma, Arial, sans-serif;
+        font-weight: 700;
+        line-height: 1.28571429;
+        letter-spacing: .8px;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 19px 40px 20px;
+        transition: box-shadow 420ms cubic-bezier(.165, .84, .44, 1), color 420ms cubic-bezier(.165, .84, .44, 1), background 420ms cubic-bezier(.165, .84, .44, 1);
+        color: #000063;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .textColr-log {
+        color: #000063;
+    }
     .textColr {
         color: white;
     }
