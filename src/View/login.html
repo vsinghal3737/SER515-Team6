@@ -43,20 +43,20 @@
         <div class="jumbotron">
             <h3>Please login</h3>       
 
-            <form method = "POST">
+            <form method = "POST" action="/login.html">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="email" name="username" class="form-control" placeholder="Enter Username" required="true">
+                    <input id="email" type="text" name="username" class="form-control" placeholder="Enter Username" required="true">
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="password" type="password" name="password" class="form-control" placeholder="Enter password" required="true">
+                    <input id="password" type="text" name="password" class="form-control" placeholder="Enter password" required="true">
                 </div>
 
                 <div class="custom-checkbox">
-                    <label><input type="checkbox"> Remember me</label>
+                    <label><input type="checkbox">Remember me</label>
                 </div>
-                    <input type="submit" class="btn-primary form-control" name="action" formaction="./quiz" value = "Login">
+                    <input type="submit" class="btn-primary form-control" name="action" value = "Login">
 
                 <div class="mt-4">
                     <div class="d-flex justify-content-center links">
