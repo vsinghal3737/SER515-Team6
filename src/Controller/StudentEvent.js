@@ -8,7 +8,7 @@ function clearCanvas(){
     }
 }
 
-function addSlot(value) {
+function loadQuestionOnCanvas(value) {
     var slot = document.createElement('div');
     slot.className = 'canvas-item d-flex justify-content-center';
     slot.setAttribute("ondrop", "drop(event, this)"); 
@@ -68,14 +68,14 @@ function drop(ev, el) {
         return false;
 }
 
- function addQuestion(ev){
+ function loadQuestion(ev){
         clearCanvas();
         currentQuestion = ev.target.id;
         var question = ev.target.value;
         var i;
         for(i = 0; i<question.length; i++)
         {
-            addSlot(question.charAt(i));
+            loadQuestionOnCanvas(question.charAt(i));
         }
  }
 
@@ -87,12 +87,12 @@ function loadPage(){
     var item;
     questionList = data;
     //Parsing JSON object to create the questions
-    for(item in data) {
+    for(item in data['questions']) {
         var questionDiv = document.createElement('div');
         questionDiv.className = 'row p-2';
         var questionButton = document.createElement('button');
         questionButton.className = 'btn btn-primary btn-lg btn-block';
-        questionButton.setAttribute("onclick", "addQuestion(event)");
+        questionButton.setAttribute("onclick", "loadQuestion(event)");
         questionButton.type = 'button';
         questionButton.id = data[item]['QuestionID'];
         qctr++;
@@ -103,8 +103,12 @@ function loadPage(){
     }    
     });
 
-    $.get("/GetHistoryQuestions", function(data){
+    /*$.get("/GetHistoryQuestions", function(data){
+        for(item in data['Questions']) {
 
+        }
+    }
+    */
 }
 
 function removeCurrentQuestion() {

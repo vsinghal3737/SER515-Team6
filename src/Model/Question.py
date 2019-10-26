@@ -46,7 +46,7 @@ def getQuestionPerStud(PublicID):
             'SubmittedOn': ''
         } for row in sql.Question.query.filter_by(Grade=user[6]).all() if row[0] not in submittedQuestions
     }
-    return jsonify({'questions': Questions})
+    return jsonify(Questions)
 
 
 def getQuestion(PublicID):
@@ -61,7 +61,7 @@ def getQuestion(PublicID):
             'SubmittedOn': row[5]
         } for row in sql.Question.query.filter_by(Grade=user[6]).all()
     }
-    return jsonify({'questions': Questions})
+    return jsonify(Questions)
 
 
 def getHistQuestion(PublicID):
@@ -77,7 +77,7 @@ def getHistQuestion(PublicID):
             'SubmittedOn': row[5]
         } for row in sql.HistoryQuestion.query.filter_by(StudPublicID=userID).all()
     }
-    return jsonify({'questions': Questions})
+    return jsonify(Questions)
 
 
 def DummyRun():
