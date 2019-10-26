@@ -1,64 +1,16 @@
 import sqlite3
 # from flask_restful import Resource, reqparse
+import SQLAlchemyCreateDB as sql
 
 
 class User:
-    def __init__(self, _id, username, password):
-        self.id = _id
-        self.username = username
-        self.password = password
-
     @classmethod
     def find_by_username(cls, username):
-        connection = sqlite3.connect('app.db')
-        cursor = connection.cursor()
-
-        query = "SELECT * FROM UserAuth WHERE username=?"
-        result = cursor.execute(query, username).fetchone()
-
-        connection.close()
-
-        return cls(*result[:-1]) if result else None
+        return sql.User.query.filter_by(Username=username).first()
 
     @classmethod
     def find_by_id(cls, _id):
-        connection = sqlite3.connect('app.db')
-        cursor = connection.cursor()
-
-        query = "SELECT * FROM UserAuth WHERE id=?"
-        result = cursor.execute(query, (_id, ))
-
-        row = result.fetchone()
-
-        if row:
-            user = cls(*row)
-        else:
-            user = None
-
-        connection.close()
-        return user
-
-
-class UserDB:
-    @classmethod
-    def getRole(cls, username):
-        pass
-
-    @classmethod
-    def getGrade(cls, username):
-        pass
-
-    @classmethod
-    def getHistoryQuestions(cls, username):
-        pass
-
-    @classmethod
-    def getQuestions(cls, username):
-        pass
-
-    @classmethod
-    def getAllUsers(cls, username):
-        pass
+        return sql.User.query.get(_id)
 
 
 # In testing phase

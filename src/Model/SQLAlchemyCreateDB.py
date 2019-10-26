@@ -1,4 +1,5 @@
-from app import db, generate_password_hash, UserMixin
+from app import db, UserMixin
+from werkzeug.security import generate_password_hash
 
 
 class User(UserMixin, db.Model):
