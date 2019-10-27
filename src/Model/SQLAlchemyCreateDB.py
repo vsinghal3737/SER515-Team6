@@ -17,14 +17,14 @@ class Question(db.Model):
     Question = db.Column(db.String(500), nullable=False)
     Answer = db.Column(db.String(100))
     Grade = db.Column(db.Integer)
-    ProfPublicID = db.Column(db.Integer)
+    ProfID = db.Column(db.Integer)
     SubmittedOn = db.Column(db.Date)
 
 
 class HistoryQuestion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    HisQuestionID = db.Column(db.Integer, nullable=False)
-    StudPublicID = db.Column(db.Integer, nullable=False)
+    His_QuesID = db.Column(db.Integer, nullable=False)
+    StudID = db.Column(db.Integer, nullable=False)
     AttemptedAns = db.Column(db.String(50))
     Result = db.Column(db.Boolean)
     SubmittedOn = db.Column(db.Date)
@@ -84,6 +84,19 @@ select * from User  # To see PublicID if needed
 #         LName='aneja',
 #         Grade=1,
 #         Role='Stud'
+#     )
+# db.session.add(usr)
+# db.session.commit()
+
+# from werkzeug.security import check_password_hash
+# usr = \
+#     User(
+#         Username='prof1',
+#         Password=generate_password_hash('pass', method='sha256'),
+#         FName='Akhil',
+#         LName='',
+#         Grade=1,
+#         Role='Prof'
 #     )
 # db.session.add(usr)
 # db.session.commit()

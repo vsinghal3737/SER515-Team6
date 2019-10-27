@@ -2,9 +2,6 @@ from flask import Flask, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 import os
-import jwt
-import datetime
-from functools import wraps
 
 
 app = Flask(__name__, template_folder='../View', static_folder='../Controller')
@@ -49,19 +46,24 @@ def login():
     user = Security.authenticate(username, password)
     if user:
         login_user(user)
+        jsonUser = {
+            'username': user.Username,
+            'first_name': user.FName,
+            'last_name': user.LName,
+            'grade': user.Grade,
+            'role': user.Role
+        }
         if user.Role == 'Stud':
-            return render_template('StudentView.html')
+            return render_template('StudentView.html', userInfo=jsonify({'user': jsonUser}))
         elif user.Role == "Prof":
-            return render_template("TeacherView")
+            return render_template('TeacherView.html', userInfo=jsonify({'user': jsonUser}))
         elif user.Role == "Admin":
-            return render_template("AdminView")
+            return render_template('AdminView.html', userInfo=jsonify({'user': jsonUser}))
     return render_template('dashboard.html')
-    # return str(user.Username)
 
 
 @app.route("/signup", methods=['POST', 'GET'])
 def register():
-
     return ''
 
 
