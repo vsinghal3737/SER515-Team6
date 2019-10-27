@@ -1,10 +1,9 @@
-from app import db, generate_password_hash
-import uuid
+from app import db, UserMixin
+from werkzeug.security import generate_password_hash
 
 
-class User(db.Model):
-    UserID = db.Column(db.Integer, primary_key=True)
-    PublicID = db.Column(db.String(100), nullable=False)
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     Username = db.Column(db.String(50), unique=True)
     Password = db.Column(db.String(80), nullable=False)
     FName = db.Column(db.String(50), nullable=False)
@@ -14,7 +13,7 @@ class User(db.Model):
 
 
 class Question(db.Model):
-    QuestionID = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     Question = db.Column(db.String(500), nullable=False)
     Answer = db.Column(db.String(100))
     Grade = db.Column(db.Integer)
@@ -23,7 +22,7 @@ class Question(db.Model):
 
 
 class HistoryQuestion(db.Model):
-    HisID = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     HisQuestionID = db.Column(db.Integer, nullable=False)
     StudPublicID = db.Column(db.Integer, nullable=False)
     AttemptedAns = db.Column(db.String(50))
@@ -35,7 +34,6 @@ def FirstRun():
     db.create_all()
     FirstUser = \
         User(
-            PublicID=str(uuid.uuid4()),
             Username='Admin',
             Password=generate_password_hash('password', method='sha256'),
             FName='Vaibhav',
@@ -76,3 +74,16 @@ sqlite3 DataBase.db
 select * from User  # To see PublicID if needed
 
 '''
+
+# from werkzeug.security import check_password_hash
+# usr = \
+#     User(
+#         Username='std1',
+#         Password=generate_password_hash('pass', method='sha256'),
+#         FName='namit',
+#         LName='aneja',
+#         Grade=1,
+#         Role='Stud'
+#     )
+# db.session.add(usr)
+# db.session.commit()

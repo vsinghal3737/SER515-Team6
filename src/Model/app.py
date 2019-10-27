@@ -1,17 +1,9 @@
-from flask import Flask, jsonify, request, render_template, make_response
+from flask import Flask, request, render_template, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
-import uuid
-from werkzeug.security import generate_password_hash, check_password_hash
-from sqlalchemy.dialects.postgresql import UUID
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 import os
-import jwt
-import datetime
-from functools import wraps
 
-import Question
-
-# from user import UserDB
-# from security import authenticate, identity
+from Question import Question
 
 app = Flask(__name__, template_folder='../View', static_folder='../Controller')
 
@@ -20,14 +12,76 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(str(os.path.abspat
 
 db = SQLAlchemy(app)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'home'
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Security.identity(int(user_id))
+
 
 @app.route("/")
-@app.route("/StudentView")
 def home():
-    return render_template('StudentView.html')
+    return render_template('dashboard.html')
 
 
-# API to return list of questions. Currently static, should fetch data from DB
+@app.route('/LogReg', methods=['POST', 'GET'])
+def loginOption():
+    return render_template('login.html') if request.form['submit'] == 'login' \
+        else render_template('signup.html') if request.form['submit'] == 'signup' \
+        else render_template('dashboard.html')
+
+
+@app.route("/Login")
+@app.route("/login")
+def Login():
+    return render_template('login.html')
+
+
+@app.route("/login", methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+    user = Security.authenticate(username, password)
+    if user:
+        login_user(user)
+        jsonUser = {
+            'username': user.Username,
+            'first_name': user.FName,
+            'last_name': user.LName,
+            'grade': user.Grade,
+            'role': user.Role
+        }
+        if user.Role == 'Stud':
+            return render_template('StudentView.html', userInfo=jsonify({'user': jsonUser}))
+        elif user.Role == "Prof":
+            return render_template('TeacherView.html', userInfo=jsonify({'user': jsonUser}))
+        elif user.Role == "Admin":
+            return render_template('AdminView.html', userInfo=jsonify({'user': jsonUser}))
+    return render_template('dashboard.html')
+
+
+@app.route("/signup", methods=['POST', 'GET'])
+def register():
+    return ''
+
+
+@app.route('/check')
+@login_required
+def check():
+    return '{} {} {}'.format(current_user.Username, current_user.Grade, current_user.Role)
+
+
+@app.route("/logout")
+@app.route("/Logout")
+@login_required
+def logout():
+    logout_user()
+    return render_template('dashboard.html')
+
+
 @app.route("/GetQuestions", methods=['POST'])
 def getQuestions():
 
@@ -35,14 +89,12 @@ def getQuestions():
         return jsonify({'message': 'grade not found'})
     Questions = Question.getQuestions(request.json['grade'])
 
-    return jsonify({'Questions': Question})
-
-    # jsonify(request.args.get())
+    return jsonify({'Questions': Questions})
 
 
 @app.route("/SubmitAnswer", methods=['POST'])
 def submitAnswer(data):
-    question = jsonify(request.args.get())
+    return ''
 
 
 @app.route("/GetHistoryQuestions", methods=['POST'])
@@ -57,15 +109,6 @@ def getHistoryQuestions():
     return jsonify({'Questions': hisQues})
 
 
-@app.route("/TeacherView")
-def teacherDashboard():
-    return render_template('TeacherView.html')
-
-
-@app.route("/auth")
-def auth():
-    return render_template('LogReg.html')
-
-
 if __name__ == '__main__':
+    from security import Security
     app.run(port=5000, debug=True)
