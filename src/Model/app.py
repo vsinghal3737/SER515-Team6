@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 import os
 
-from Question import Question
 
 app = Flask(__name__, template_folder='../View', static_folder='../Controller')
 
@@ -82,14 +81,34 @@ def logout():
     return render_template('dashboard.html')
 
 
-@app.route("/GetQuestions", methods=['POST'])
-def getQuestions():
+@app.route("/GetQuestionsPerStud", methods=['POST'])
+def getQuestionsPerStud():
+    if not request.json or 'username' not in request.json:
+        return jsonify({'message': 'username not found'})
+    questions = QuestionsConnection.getQuestionPerStud(request.json['username'])
 
+    return jsonify({'Questions': questions})
+
+
+@app.route("/GetQuestionsPerGrade", methods=['POST'])
+def getQuestionsPerGrade():
     if not request.json or 'grade' not in request.json:
         return jsonify({'message': 'grade not found'})
-    Questions = Question.getQuestions(request.json['grade'])
+    questions = QuestionsConnection.getQuestionPerGrade(request.json['grade'])
 
-    return jsonify({'Questions': Questions})
+    return jsonify({'Questions': questions})
+
+
+@app.route("/GetHistoryQuestions", methods=['POST'])
+def getHistoryQuestions():
+    if not request.json:
+        return jsonify({'message': 'request not found'})
+    elif 'username' not in request.json:
+        return jsonify({'message': 'username not found'})
+
+    hisQues = QuestionsConnection.getHistQuestions(request.json['username'])
+
+    return jsonify({'Questions': hisQues})
 
 
 @app.route("/SubmitAnswer", methods=['POST'])
@@ -97,18 +116,7 @@ def submitAnswer(data):
     return ''
 
 
-@app.route("/GetHistoryQuestions", methods=['POST'])
-def getHistoryQuestions():
-    if not request.json:
-        return jsonify({'message': 'request not found'})
-    elif 'PublicID' not in request.json:
-        return jsonify({'message': 'id not found'})
-
-    hisQues = Question.getHistQuestions(request.json['PublicID'])
-
-    return jsonify({'Questions': hisQues})
-
-
 if __name__ == '__main__':
     from security import Security
+    from Question import QuestionsConnection
     app.run(port=5000, debug=True)

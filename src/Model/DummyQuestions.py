@@ -1,77 +1,68 @@
-Questions = {
-    'Q1': {
-        'Question': '5+4=_',
-        'QuestionID': 'Q1',
-        'Answer': '',
-        'Grade': 1,
-        'ProfPublicID': '2',
-        'SubmittedOn': ''
+dummy_questions = {
+    1: {
+        "Question": "5+4=_",
+        "Answer": "123",
+        "Grade": 1,
+        "ProfID": 3,
+        "SubmittedOn": "2019-10-24 16:56:21"
     },
-    'Q2': {
-        'Question': '9-7=_',
-        'QuestionID': 'Q2',
-        'Answer': '',
-        'Grade': 1,
-        'ProfPublicID': '2',
-        'SubmittedOn': ''
+    2: {
+        "Question": "9-7=_",
+        "Answer": "123",
+        "Grade": 1,
+        "ProfID": 3,
+        "SubmittedOn": "2019-10-24 16:56:21"
     },
-    'Q3': {
-        'Question': '_+_=6',
-        'QuestionID': 'Q3',
-        'Answer': '',
-        'Grade': 1,
-        'ProfPublicID': '2',
-        'SubmittedOn': ''
+    3: {
+        "Question": "_+_=6",
+        "Answer": "123",
+        "Grade": 1,
+        "ProfID": 3,
+        "SubmittedOn": "2019-10-24 16:56:21"
     },
-    'Q4': {
-        'Question': '3+4=_',
-        'QuestionID': 'Q4',
-        'Answer': '',
-        'Grade': 1,
-        'ProfPublicID': '2',
-        'SubmittedOn': ''
+    4: {
+        "Question": "3+4=_",
+        "Answer": "123",
+        "Grade": 1,
+        "ProfID": 3,
+        "SubmittedOn": "2019-10-24 16:56:21"
     },
-    'Q5': {
-        'Question': '_-_=2',
-        'QuestionID': 'Q5',
-        'Answer': '',
-        'Grade': 1,
-        'ProfPublicID': '2',
-        'SubmittedOn': ''
+    5: {
+        "Question": "_-_=2",
+        "Answer": "123",
+        "Grade": 1,
+        "ProfID": 3,
+        "SubmittedOn": "2019-10-24 16:56:21"
     }
 }
 
-historyQuestions = {
-    'HQ1': {
-        'HisID': 'HQ1',
-        'StudentID': 'S1',
-        'QuestionID': 'Q4',
-        'AttemptedAns': '9-7=2',
-        'Result': 'Pass',
-        'Date': '2019-10-24 17:55:21'
+Dummy_history_questions = {
+    1: {
+        "His_QuesID": 1,
+        "StudID": 2,
+        "AttemptedAns": "5+4=9",
+        "Result": "Pass",
+        "SubmittedOn": "2019-10-24 17:54:21"
     },
-    'HQ1': {
-        'HisID': 'HQ1',
-        'StudentID': 'S1',
-        'QuestionID': 'Q4',
-        'AttemptedAns': '9-7=3',
-        'Result': 'Pass',
-        'Date': '2019-10-24 17:55:21'
+    2: {
+        "His_QuesID": 2,
+        "StudID": 2,
+        "AttemptedAns": "9-7=6",
+        "Result": "Fail",
+        "SubmittedOn": "2019-10-24 17:55:21"
     },
-    'HQ1': {
-        'HisID': 'HQ1',
-        'StudentID': 'S1',
-        'QuestionID': 'Q4',
-        'AttemptedAns': '9-7=2',
-        'Result': 'Pass',
-        'Date': '2019-10-24 17:55:21'
+    3: {
+        "His_QuesID": 2,
+        "StudID": 2,
+        "AttemptedAns": "9-7=2",
+        "Result": "Pass",
+        "SubmittedOn": "2019-10-24 17:56:21"
     },
-    'HQ1': {
-        'HisID': 'HQ1',
-        'StudentID': 'S1',
-        'QuestionID': 'Q4',
-        'AttemptedAns': '9-7=2',
-        'Result': 'Pass',
-        'Date': '2019-10-24 17:55:21'
+    4: {
+        "His_QuesID": 3,
+        "StudID": 2,
+        "AttemptedAns": "3+3=6",
+        "Result": "Pass",
+        "SubmittedOn": "2019-10-24 17:57:21"
     }
 }
