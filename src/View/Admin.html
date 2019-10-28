@@ -1,137 +1,141 @@
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>admin</title>
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
-  <link href="css/student.css" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
- <!--> <script type="text/javascript" src="{{ url_for('static', filename='AdminEvent.js') }}"></script> <!-->
- <script src="AdminEvent.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<head>
+		<meta charset="utf-8">
+			<title>admin</title>
+			<link rel="stylesheet" href="css/styles.css?v=1.0">
+				<link href="css/student.css" rel="stylesheet">
+					<script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
+					<!--> <script type="text/javascript" src="{{ url_for('static', filename='AdminEvent.js') }}"></script> <!-->
+					<script src="AdminEvent.js"></script>
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>			
-<body id="page-top" >
-    <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
-        <a class="navbar-brand mr-1" href="\#">Admin</a>
-    </nav>
-	<div id="content-wrapper">
-	   <div class = "container-fluid">
-	      <div class = "row padding-block">
-	         <div class="card mb-7 col-sm-12 breadcrumb border-block padding-right">
-	           <div class="input-group mb-3">
-                   <div class="input-group-prepend">
-                   <!-->   <span class="input-group-text" id="inputGroup-sizing-default" onclick="search()">Search</span> <!-->
-					<!-->    <Button class="btn btn-primary btn-lg" id="search_button" onclick="search()"> Search</Button> <!-->
-                   </div>
-                      <input type="text" class="form-control" id="search_text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                </div>
-                <table class="table table-striped"  style="overflow:scroll;height:55" >
-                 <thead>
-				
-                      <tr>
-                         <th scope="col" id="1">User ID</th>
-                         <th scope="col">First name</th>
-                         <th scope="col">Last name</th>
-                         <th scope="col">Role</th>
-	                     <th scope="col">Grade</th>
-	                     <th scope="col">Contact Number</th>
-                     </tr>
-                </thead>
-				
-                <tbody>
-				
-                     <tr >
-					  
-                       <td>1216246559</th>
-                       <td>Bradley</td>
-                       <td>Pitt</td>
-                       <td>student</td>
-	                   <td>
-					         <select class="table table-striped" id="select_tag1">        
-                               <option value="1">1</option>
-                               <option value="4">4</option>
-                               <option value="10">10</option>
-                           </select>
-					   </td>
-	                   <td>480-561-4985</td>
-                     </tr>
-                     <tr>
-                       <td>1216394586</td>
-                       <td>Saul</td>
-                       <td>Goodman</td>
-                       <td>teacher</td>
-	                   <td>
-					      <select class="table table-striped" id="select_tag2">        
-                           <option value="1">1</option>
-                           <option value="4">4</option>
-                           <option value="10">10</option>
-                          </select>
-					   </td>
-	                   <td>480-895-2654</td>
-                     </tr>
-                     <tr>
-                       <td>1265364687</td>
-                       <td>Jesse</td>
-                       <td>Pinkman</td>
-                       <td>student</td>
-	                   <td>
-					      <select class="table table-striped" id="select_tag3">        
-                            <option value="1">1</option>
-                            <option value="4">4</option>
-                            <option value="10">10</option>
-                          </select>
-					   </td>
-	                   <td>480-545-0007</td>
-                     </tr>
-                </tbody>
-         </table>
-		 
-                  <button type="button" class="btn btn-primary btn-lg" onclick="saveChanges()">Save Changes</button>
-				
-               </div>
-           </div>
-       </div>
-    </div>
-</body>
-</html>
-<style scoped>
-.button-color{
-        background-color: #311b92;
-        color: white;
-    }
-    .nav-color {
-        background-color: #000063;
-        border:1px solid black;
-        border-radius:4px;
-    }
-    h2{
-        font-size: 2.0rem;
-        font-weight: bold;
-    }
-    .main-body{
-        width: 60%;
-        border: 2px solid violet;
-        padding: 10px;
-        margin: 10px auto;
-        max-width: 900px;
-    }
-    .border-block{
-        border: 1px solid black;
-        width: 15%;
-        /* margin: 1.66%; */
-        float: left;
-    }
-    .padding-block{
-        padding: 5px;
-    }
-    .padding-left{
-        padding-left: 2px;
-    }
-    .padding-right{
-        padding-right: 2px;
-    }
-    .btn-primary{
-        background-color: #6746c3;
-    }
-</style>    
+					<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+					</head>			
+					<body id="page-top" >
+						<nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
+							<a class="navbar-brand mr-1" href="\#">Admin</a>
+						</nav>
+						<div id="content-wrapper">
+							<div class = "container-fluid">
+								<div class = "row padding-block">
+									<div class="card mb-7 col-sm-12 breadcrumb border-block padding-right" >
+
+										<div class="input-group mb-3" >
+											<div class="input-group-prepend" >
+												<Button class="input-group-text" id="search_button" onclick="search()"> Search</Button>
+
+
+												<input type="text" class="form-control" id="search_text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+												</div>
+
+											</div>
+										<div  style="overflow-y:scroll;  max-height: 250px;">
+											<table class="table table-striped"  >
+												<thead>
+
+													<tr>
+														<th scope="col" id="1">User ID</th>
+														<th scope="col">First name</th>
+														<th scope="col">Last name</th>
+														<th scope="col">Role</th>
+														<th scope="col">Grade</th>
+														<th scope="col">Contact Number</th>
+													</tr>
+												</thead>
+
+												<tbody>
+
+													<tr >
+
+														<td>1216246559</th>
+														<td>Bradley</td>
+														<td>Pitt</td>
+														<td>student</td>
+														<td>
+															<select class="table table-striped" id="select_tag1">        
+																<option value="1">1</option>
+																<option value="4">4</option>
+																<option value="10">10</option>
+															</select>
+														</td>
+														<td>480-561-4985</td>
+													</tr>
+													<tr>
+														<td>1216394586</td>
+														<td>Saul</td>
+														<td>Goodman</td>
+														<td>teacher</td>
+														<td>
+															<select class="table table-striped" id="select_tag2">        
+																<option value="1">1</option>
+																<option value="4">4</option>
+																<option value="10">10</option>
+															</select>
+														</td>
+														<td>480-895-2654</td>
+													</tr>
+													<tr>
+														<td>1265364687</td>
+														<td>Jesse</td>
+														<td>Pinkman</td>
+														<td>student</td>
+														<td>
+															<select class="table table-striped" id="select_tag3">        
+																<option value="1">1</option>
+																<option value="4">4</option>
+																<option value="10">10</option>
+															</select>
+														</td>
+														<td>480-545-0007</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+											<button type="button" class="btn btn-primary btn-lg" onclick="saveChanges()">Save Changes</button>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</body>
+					</html>
+					<style scoped>
+						.button-color{
+						background-color: #311b92;
+						color: white;
+						}
+						.nav-color {
+						background-color: #000063;
+						border:1px solid black;
+						border-radius:4px;
+						}
+						h2{
+						font-size: 2.0rem;
+						font-weight: bold;
+						}
+						.main-body{
+						width: 60%;
+						border: 2px solid violet;
+						padding: 10px;
+						margin: 10px auto;
+						max-width: 900px;
+						}
+						.border-block{
+						border: 1px solid black;
+						width: 15%;
+						/* margin: 1.66%; */
+						float: left;
+						}
+						.padding-block{
+						padding: 5px;
+						}
+						.padding-left{
+						padding-left: 2px;
+						}
+						.padding-right{
+						padding-right: 2px;
+						}
+						.btn-primary{
+						background-color: #6746c3;
+						}
+					</style>    
