@@ -83,6 +83,7 @@ function drop(ev, el) {
 
 function loadPage(){
     //Calling flask api to fetch questions
+    removeCurrentQuestion();
     $.get("/GetQuestionsPerStud", function(data){
     var item;
     questionList = data;
@@ -115,7 +116,7 @@ function loadPage(){
 function removeCurrentQuestion() {
     var questionFrame = document.getElementById("question-list");
     while (questionFrame.firstChild) {
-    myNode.removeChild(questionFrame.firstChild);
+    questionFrame.removeChild(questionFrame.firstChild);
   }
 }
 
@@ -123,10 +124,7 @@ function removeCurrentQuestion() {
 
 function submitAnswer(ev){
     var equation = '';
-    var lhs, rhs;
-    var answer = {
-        
-    }
+    var lhs, rhs, result;
     var canvas = document.getElementById("canvas");
     while (canvas.childNodes.length>=1) {  
         if(canvas.childNodes[0].firstChild.className.search('fa-plus') != -1)
@@ -149,21 +147,20 @@ function submitAnswer(ev){
         canvas.removeChild(canvas.childNodes[0]);
     }
     rhs = equation;
-    equation = lhs+'='+rhs;
-    if(eval(lhs) == eval(rhs))
-        answer['Result'] = 'Pass';
+    if(eval(lhs)==eval(rhs))
+        result = 'Pass'
     else
-        answer['Result'] = 'Fail';
-    answer['His_QuesID'] = currentQuestion;
+        result = 'Fail'
+    equation = lhs+'='+rhs;
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
-    alert(answer['Date']);
-    $.post("/SubmitAnswer", {
-        'His_QuesID': currentQuestion,
-        'Result': 'Fail',
+    answer = {'His_QuesID': currentQuestion,
+        'Result': result,
         'Date': localISOTime,
         'Attempt': equation
-    }, "json");
+    };
+    $.post("/SubmitAnswer", answer);
+    loadPage();
     //Should contain code to send POST request to back-end with the submitted answer
     //Access JSON object of current question using: questionList[currentQuestion]
 
