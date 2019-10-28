@@ -85,8 +85,7 @@ def logout():
 @login_required
 def getQuestionsPerStud():
     questions = QuestionsConnection.getQuestionPerStud(current_user.Username)
-    
-    return jsonify({'Questions':questions})
+    return jsonify({'Questions': questions})
 
 
 @app.route("/GetQuestionsPerGrade", methods=['POST'])
@@ -94,7 +93,6 @@ def getQuestionsPerGrade():
     if not request.json or 'grade' not in request.json:
         return jsonify({'message': 'grade not found'})
     questions = QuestionsConnection.getQuestionPerGrade(request.json['grade'])
-
     return jsonify({'Questions': questions})
 
 
@@ -107,8 +105,13 @@ def getHistoryQuestions():
 
 
 @app.route("/SubmitAnswer", methods=['POST'])
+@login_required
 def submitAnswer(data):
-    return ''
+    if current_user.Role == 'Stud':
+        data['StudID'] = current_user.id
+        QuestionsConnection.addHistoryQuestion(data)
+    else:
+        return jsonify({'message': 'user role is not Student'})
 
 
 if __name__ == '__main__':
