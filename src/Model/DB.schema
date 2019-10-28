@@ -1,21 +1,21 @@
-App.db
+DataBase.db
 
-UserAuth
-	AuthID | username | password | UserID
+User
+    id | Username | Password | FName | LName | Grade | Role
 
-UserTable
-	UserID | FirstN | LastN | Email | Phone | Grade | Role
+Question
+    id | Question | Answer | Grade | ProfID | SubmittedOn
 
-Questions
-	QuestionID | Question | Answer | Grade | ProfID | Date
-
-HistoryQues
-	HisID | StudentID | QuestionID | AttemptedAns | Result | Date
+HistoryQuestion
+    id | His_QuesID | StudID | AttemptedAns | Result | SubmittedOn
 
 
+User
+    id INTEGER PRIMARY KEY, Username text not null UNIQUE, Password text not null, FName text not null, LName text, Grade text, Role text
 
-AuthID INTEGER PRIMARY KEY, username text not null UNIQUE, password text not null, UserAuth_UserID int not null
-UserID INTEGER PRIMARY KEY, FirstName text not null, LastN text, Email text UNIQUE not null, Phone INTEGER UNIQUE, Grade text, Role text
-QuestionID INTEGER PRIMARY KEY, Question text not null, Answer text not null, Grade text not null, ProfID int, SubmittedOn date
-HisID INTEGER PRIMARY KEY, StudentID INTEGER not null, HISID_QuestionID INTEGER not null, AttemptedAns text, Result text, SubmittedOn date
+Question
+    id INTEGER PRIMARY KEY, Question text not null, Answer text not null, Grade text not null, ProfID int, SubmittedOn date
+
+HistoryQuestion
+    id INTEGER PRIMARY KEY, His_QuesIDINTEGER not null, StudID INTEGER not null, AttemptedAns text, Result boolean, SubmittedOn date
 
