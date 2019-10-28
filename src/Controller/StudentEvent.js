@@ -113,8 +113,12 @@ function loadPage(){
 
 function removeCurrentQuestion() {
     var questionFrame = document.getElementById("question-list");
-    questionFrame.removeChild(document.getElementById(currentQuestion).parentNode);
+    while (questionFrame.firstChild) {
+    myNode.removeChild(questionFrame.firstChild);
+  }
 }
+
+
 
 function submitAnswer(ev){
     var equation = '';
