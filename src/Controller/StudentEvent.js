@@ -83,7 +83,7 @@ function drop(ev, el) {
 
 function loadPage(){
     //Calling flask api to fetch questions
-    $.get("/GetQuestions", function(data){
+    $.get("/GetQuestionsPerStud", function(data){
     var item;
     questionList = data;
     //Parsing JSON object to create the questions
