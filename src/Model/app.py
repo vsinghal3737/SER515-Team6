@@ -81,13 +81,12 @@ def logout():
     return render_template('dashboard.html')
 
 
-@app.route("/GetQuestionsPerStud", methods=['POST'])
+@app.route("/GetQuestionsPerStud", methods=['GET'])
+@login_required
 def getQuestionsPerStud():
-    if not request.json or 'username' not in request.json:
-        return jsonify({'message': 'username not found'})
-    questions = QuestionsConnection.getQuestionPerStud(request.json['username'])
-
-    return jsonify({'Questions': questions})
+    questions = QuestionsConnection.getQuestionPerStud(current_user.Username)
+    
+    return jsonify({'Questions':questions})
 
 
 @app.route("/GetQuestionsPerGrade", methods=['POST'])
@@ -99,14 +98,10 @@ def getQuestionsPerGrade():
     return jsonify({'Questions': questions})
 
 
-@app.route("/GetHistoryQuestions", methods=['POST'])
+@app.route("/GetHistoryQuestions")
+@login_required
 def getHistoryQuestions():
-    if not request.json:
-        return jsonify({'message': 'request not found'})
-    elif 'username' not in request.json:
-        return jsonify({'message': 'username not found'})
-
-    hisQues = QuestionsConnection.getHistQuestions(request.json['username'])
+    hisQues = QuestionsConnection.getHistQuestion(current_user.Username)
 
     return jsonify({'Questions': hisQues})
 

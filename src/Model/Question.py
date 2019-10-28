@@ -1,4 +1,3 @@
-from flask import jsonify
 import SQLAlchemyCreateDB as sql
 from datetime import datetime
 
@@ -46,50 +45,50 @@ class QuestionsConnection:
         user = sql.User.query.filter_by(Username=username).first()
 
         submitted_questions = list(set(map(
-            lambda x: x[1],
-            sql.HistoryQuestion.query.filter_by(StudID=user[0]).filter_by(Result=True).all()
+            lambda x: x.His_QuesID,
+            sql.HistoryQuestion.query.filter_by(StudID=user.id).filter_by(Result=True).all()
         )))
 
         questions = {
-            row[0]: {
-                'id': row[0],
-                'question': row[1],
-                'answer': row[2],
-                'grade': row[3],
-                'prof_id': row[4],
-                'submitted_on': row[5]
-            } for row in sql.Question.query.filter_by(Grade=user[5]).all() if row[0] not in submitted_questions
+            row.id: {
+                'id': row.id,
+                'question': row.Question,
+                'answer': row.Answer,
+                'grade': row.Grade,
+                'prof_id': row.ProfID,
+                'submitted_on': row.SubmittedOn
+            } for row in sql.Question.query.filter_by(Grade=user.Grade).all() if row not in submitted_questions
         }
-        return jsonify({'questions': questions})
+        return questions
 
     @classmethod
     def getQuestionPerGrade(cls, grade):
         questions = {
-            row[0]: {
-                'id': row[0],
-                'question': row[1],
-                'answer': row[2],
-                'grade': row[3],
-                'prof_id': row[4],
-                'submitted_on': row[5]
+            row.id: {
+                'id': row.id,
+                'question': row.Question,
+                'answer': row.Answer,
+                'grade': row.Grade,
+                'prof_id': row.ProfID,
+                'submitted_on': row.SubmittedOn
             } for row in sql.Question.query.filter_by(Grade=grade).all()
         }
-        return jsonify({'questions': questions})
+        return questions
 
     @classmethod
     def getHistQuestion(cls, username):
-        user_id = sql.User.query.filter_by(Username=username).first()[0]
+        user_id = sql.User.query.filter_by(Username=username).first().id
         questions = {
-            row[0]: {
-                'id': row[0],
-                'his_question_id': row[1],
-                'stud_id': row[2],
-                'attempted_ans': row[3],
-                'result': 'Pass' if row[4] is True else 'Fail',
-                'submitted_on': row[5]
+            row.id: {
+                'id': row.id,
+                'his_question_id': row.His_QuesID,
+                'stud_id': row.StudID,
+                'attempted_ans': row.AttemptedAns,
+                'result': 'Pass' if row.Result is True else 'Fail',
+                'submitted_on': row.SubmittedOn
             } for row in sql.HistoryQuestion.query.filter_by(StudID=user_id).all()
         }
-        return jsonify({'questions': questions})
+        return questions
 
 
 def DummyRun():

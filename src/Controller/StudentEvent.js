@@ -86,29 +86,30 @@ function loadPage(){
     $.get("/GetQuestionsPerStud", function(data){
     var item;
     questionList = data;
+    data = data['Questions']
     //Parsing JSON object to create the questions
-    for(item in data['questions']) {
+    for(item in data) {
         var questionDiv = document.createElement('div');
         questionDiv.className = 'row p-2';
         var questionButton = document.createElement('button');
         questionButton.className = 'btn btn-primary btn-lg btn-block';
         questionButton.setAttribute("onclick", "loadQuestion(event)");
         questionButton.type = 'button';
-        questionButton.id = data[item]['QuestionID'];
+        questionButton.id = data[item]['id'];
         qctr++;
-        questionButton.value = data[item]['Question'];
-        questionButton.innerHTML = data[item]['Question'];
+        questionButton.value = data[item]['question'];
+        questionButton.innerHTML = data[item]['question'];
         questionDiv.appendChild(questionButton);
         document.getElementById('question-list').appendChild(questionDiv);    
     }    
     });
 
-    /*$.get("/GetHistoryQuestions", function(data){
+    $.get("/GetHistoryQuestions", function(data){
         for(item in data['Questions']) {
-
+            console.log(item)
         }
-    }
-    */
+    });
+    
 }
 
 function removeCurrentQuestion() {
