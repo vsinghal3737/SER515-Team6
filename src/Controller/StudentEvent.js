@@ -95,7 +95,7 @@ function loadPage(){
         questionButton.className = 'btn btn-primary btn-lg btn-block';
         questionButton.setAttribute("onclick", "loadQuestion(event)");
         questionButton.type = 'button';
-        questionButton.id = data[item]['id'];
+        questionButton.id = 'Q'+data[item]['id'].toString();
         qctr++;
         questionButton.value = data[item]['question'];
         questionButton.innerHTML = data[item]['question'];
@@ -125,10 +125,7 @@ function submitAnswer(ev){
     var equation = '';
     var lhs, rhs;
     var answer = {
-        'QuestionID': '',
-        'Result': '',
-        'Date': '',
-        'Answer': ''
+        
     }
     var canvas = document.getElementById("canvas");
     while (canvas.childNodes.length>=1) {  
@@ -152,17 +149,21 @@ function submitAnswer(ev){
         canvas.removeChild(canvas.childNodes[0]);
     }
     rhs = equation;
+    equation = lhs+'='+rhs;
     if(eval(lhs) == eval(rhs))
         answer['Result'] = 'Pass';
     else
         answer['Result'] = 'Fail';
-    answer['QuestionID'] = currentQuestion;
+    answer['His_QuesID'] = currentQuestion;
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
-    answer['Date'] = localISOTime;
-    alert(answer['Result']);
-    if(answer['Result'] == 'Pass')
-        removeCurrentQuestion();    
+    alert(answer['Date']);
+    $.post("/SubmitAnswer", {
+        'His_QuesID': currentQuestion,
+        'Result': 'Fail',
+        'Date': localISOTime,
+        'Attempt': equation
+    }, "json");
     //Should contain code to send POST request to back-end with the submitted answer
     //Access JSON object of current question using: questionList[currentQuestion]
 

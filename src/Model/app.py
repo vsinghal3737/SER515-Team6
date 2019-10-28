@@ -106,13 +106,25 @@ def getHistoryQuestions():
 
 @app.route("/SubmitAnswer", methods=['POST'])
 @login_required
-def submitAnswer(data):
-    if current_user.Role == 'Stud':
-        data['StudID'] = current_user.id
-        QuestionsConnection.addHistoryQuestion(data)
-    else:
-        return jsonify({'message': 'user role is not Student'})
-
+def submitAnswer():
+    # print({
+    #             'His_QuesID':request.args.get('His_QuesID'),
+    #             'Result':request.args.get('Result'),
+    #             'SubmittedOn':request.args.get('Date'),
+    #             'AttemptedAns':request.args.get('Attempt'),
+    #             'StudID':current_user.id
+    #         })
+        if current_user.Role == 'Stud':
+            QuestionsConnection.addHistoryQuestion({
+                    'His_QuesID':request.args.get('His_QuesID'),
+                    'Result':request.args.get('Result'),
+                    'SubmittedOn':request.args.get('Date'),
+                    'AttemptedAns':request.args.get('Attempt'),
+                    'StudID':current_user.id
+                }
+            )
+        else:
+            return jsonify({'message': 'user role is not Student'})
 
 if __name__ == '__main__':
     from security import Security
