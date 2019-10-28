@@ -66,3 +66,24 @@ function drop(ev, el) {
             addSlot(question.charAt(i));
         }
  }
+
+
+function loadPage(){
+    //Calling flask api to fetch questions
+    $.get("/GetQuestions", function(data){
+    //var question = JSON.parse(data);
+    var item;
+    for(item in data) {
+        var questionDiv = document.createElement('div');
+        questionDiv.className = 'row p-2';
+        var questionButton = document.createElement('button');
+        questionButton.className = 'btn btn-primary btn-lg btn-block';
+        questionButton.setAttribute("onclick", "addQuestion(event)");
+        questionButton.type = 'button';
+        questionButton.value = data[item];
+        questionButton.innerHTML = data[item];
+        questionDiv.appendChild(questionButton);
+        document.getElementById('question-list').appendChild(questionDiv);    
+    }    
+  });
+}

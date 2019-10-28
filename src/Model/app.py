@@ -66,6 +66,17 @@ def login():
 def register():
     return ''
 
+#API to return list of questions. Currently static, should fetch data from DB
+@app.route("/GetQuestions", methods=['GET'])
+def getQuestions():	
+	questions={
+	1: "5+4=_",
+	2: "9-7=_",
+	3: "_+_=6",
+	4: "3+4=_",
+	5: "_-_=2"
+	}
+	return jsonify(questions)
 
 @app.route('/check')
 @login_required

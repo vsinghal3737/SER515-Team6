@@ -7,10 +7,12 @@
   <link href="css/student.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='StudentEvent.js') }}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>			
-<body id="page-top">
-    <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">
+<body id="page-top" onload="loadPage()">
+    <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
         <a class="navbar-brand mr-1" href="\#">Student Dashboard</a>
         <div class="collapse navbar-collapse navbar-ws">
             <ul class="nav-items nav navbar-nav">
@@ -29,27 +31,9 @@
                     <div class="card-header button-color">
                         Questions
                     </div>
-                        <div class="container-fluid">
+                        <div class="container-fluid" id="question-list">
                                              
-                           <div class="row p-2">
-                             <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)" type="button" id="button_1" value = "_+_=12">___  +  ___ = 12</button> 
-                           </div>
-                        
-                            <div class="row p-2">
-                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)" type="button" id="button_2" value = "5+4=_">5 + 4</button> 
-                            </div>
-                        
-                            <div class="row p-2">
-                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)"type="button" id="button_3" value = "9-7=_">9 - 7</button>
-                            </div>
-                        
-                            <div class="row p-2">
-                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)"type="button" id="button_4" value = "8+5=_">8 + 5</button> 
-                            </div>
-                        
-                             <div class="row p-2">
-                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)"type="button" id="button_5" value = "_-_=3">___  -  ___ = 3</button>
-                             </div>
+                           
                       </div>
                     </div>  
                 <div class="card breadcrumb mb-6 col-sm-6 border-block padding-right">
