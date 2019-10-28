@@ -14,7 +14,16 @@
 <body id="page-top" onload="loadPage()">
     <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
         <a class="navbar-brand mr-1" href="\#">Student Dashboard</a>
-    </nav>    
+        <div class="collapse navbar-collapse navbar-ws">
+            <ul class="nav-items nav navbar-nav">
+                
+                <button href="\#" type="button" class="navbar-right textColr-log btn btn-log navbar-brand"> 
+                    Log Out
+                </button>
+                
+            </ul>
+        </div>
+    </nav>   
     <div id="content-wrapper ">
         <div class="container-fluid">
             <div class="row padding-block">
@@ -180,6 +189,59 @@
 </html>
 
 <style scoped>
+    .btn-log {
+        display: inline-block;
+        white-space: nowrap;
+        flex-basis: auto;
+        width: auto;
+        font-size: .875rem;
+        background-color: #000063;
+        border:none;
+        cursor: pointer;
+        border-radius: 4px;
+        text-align: center;
+        font-family: CircularPro, "Helvetica Neue", Helvetica, "Segoe UI", Tahoma, Arial, sans-serif;
+        font-weight: 700;
+        line-height: 1.28571429;
+        letter-spacing: .8px;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 19px 40px 20px;
+        transition: box-shadow 420ms cubic-bezier(.165, .84, .44, 1), color 420ms cubic-bezier(.165, .84, .44, 1), background 420ms cubic-bezier(.165, .84, .44, 1);
+        color: #000063;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .textColr-log {
+        color: #000063;
+    }
+    .textColr {
+        color: white;
+    }
+    .navbar-nav {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+    .nav-link {
+        padding-right: .5rem;
+        padding-left: .5rem;
+    }
+    .nav-items {
+        list-style: none;
+        display: inline-block;
+        padding: 1.5em 0.9em;
+        font-size: 13px;
+        font-weight: bold;
+    }
+    
     .button-color{
         background-color: #311b92;
         color: white;
