@@ -1,4 +1,4 @@
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash, safe_str_cmp as strcmp
 from user import User
 
 
@@ -14,6 +14,9 @@ class Security:
         return User.find_by_id(user_id)
 
     @classmethod
-    def FirstTime(cls, username, password):
-        newPassword = generate_password_hash(password, method='sha256')
-        User.NewPassword(username, newPassword)
+    def FirstTime(cls, username, password1, password2):
+        if strcmp(password1, password2):
+            newPassword = generate_password_hash(password, method='sha256')
+            User.NewPassword(username, newPassword)
+            return True
+        return False
