@@ -67,6 +67,7 @@ def register():
     return ''
 
 
+
 @app.route('/check')
 @login_required
 def check():
@@ -100,8 +101,8 @@ def getQuestionsPerGrade():
 @login_required
 def getHistoryQuestions():
     hisQues = QuestionsConnection.getHistQuestion(current_user.Username)
-
     return jsonify({'Questions': hisQues})
+
 
 
 @app.route("/SubmitAnswer", methods=['POST'])

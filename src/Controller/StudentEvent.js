@@ -77,6 +77,7 @@ function drop(ev, el) {
         }
  }
 
+
 function removeHistoryQuestions()
 {
     var tr = '';
@@ -197,3 +198,4 @@ function submitAnswer(ev){
     //Access JSON object of current question using: questionList[currentQuestion]
 
 }
+
