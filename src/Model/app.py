@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, jsonify
+from flask import Flask, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 import os
@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'home'
+login_manager.login_view = 'login'
 
 
 @login_manager.user_loader
@@ -46,26 +46,29 @@ def login():
     user = Security.authenticate(username, password)
     if user:
         login_user(user)
-        jsonUser = {
-            'username': user.Username,
-            'first_name': user.FName,
-            'last_name': user.LName,
-            'grade': user.Grade,
-            'role': user.Role
-        }
+        jsonUser = getUser(user)
         if user.Role == 'Stud':
             return render_template('StudentView.html', userInfo=jsonify({'user': jsonUser}))
         elif user.Role == "Prof":
             return render_template('TeacherView.html', userInfo=jsonify({'user': jsonUser}))
         elif user.Role == "Admin":
             return render_template('AdminView.html', userInfo=jsonify({'user': jsonUser}))
-    return render_template('dashboard.html')
+    return render_template('login.html')
+
+
+def getUser(user):
+    return {
+        'username': user.Username,
+        'first_name': user.FName,
+        'last_name': user.LName,
+        'grade': user.Grade,
+        'role': user.Role
+    }
 
 
 @app.route("/signup", methods=['POST', 'GET'])
 def register():
-    return ''
-
+    return 'For Third Sprint'
 
 
 @app.route('/check')
@@ -79,7 +82,7 @@ def check():
 @login_required
 def logout():
     logout_user()
-    return render_template('dashboard.html')
+    return render_template('login.html')
 
 
 @app.route("/GetQuestionsPerStud", methods=['GET'])
@@ -104,24 +107,25 @@ def getHistoryQuestions():
     return jsonify({'Questions': hisQues})
 
 
-
 @app.route("/SubmitAnswer", methods=['POST'])
 @login_required
 def submitAnswer():
     data = request.form
     if current_user.Role == 'Stud':
-        QuestionsConnection.addHistoryQuestion({
-                'His_QuesID':data['His_QuesID'][1:],
-                'Result':data['Result'],
-                'SubmittedOn':data['Date'],
-                'AttemptedAns':data['Attempt'],
-                'StudID':current_user.id
+        QuestionsConnection.addHistoryQuestion(
+            {
+                'His_QuesID': data['His_QuesID'][1:],
+                'Result': data['Result'],
+                'SubmittedOn': data['Date'],
+                'AttemptedAns': data['Attempt'],
+                'StudID': current_user.id
             }
         )
         return jsonify({'message': 'Answer Submitted'})
-    return jsonify({'message': 'user role is not Student'})
+    return jsonify({'message': '{} role is not valid for this Task'.format(current_user.Username)})
+
 
 if __name__ == '__main__':
     from security import Security
     from Question import QuestionsConnection
-    app.run(port=5000, debug=True)
+    app.run(port=5000)
