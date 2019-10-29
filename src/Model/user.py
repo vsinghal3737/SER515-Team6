@@ -15,6 +15,7 @@ class User:
     def NewPassword(cls, username, newPassword):
         sql.User.query.filter_by(Username=username).first().Password = newPassword
 
+
 # In testing phase
 
 # class UserRegister(Resource):
@@ -42,3 +43,4 @@ class User:
 #         connection.close()
 
 #         return {"message": "User Created successfully."}, 201
+

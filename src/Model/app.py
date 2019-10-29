@@ -67,6 +67,7 @@ def register():
     return ''
 
 
+
 @app.route('/check')
 @login_required
 def check():
@@ -81,6 +82,46 @@ def logout():
     return render_template('dashboard.html')
 
 
+@app.route("/GetQuestionsPerStud", methods=['GET'])
+@login_required
+def getQuestionsPerStud():
+    questions = QuestionsConnection.getQuestionPerStud(current_user.Username)
+    return jsonify({'Questions': questions})
+
+
+@app.route("/GetQuestionsPerGrade", methods=['POST'])
+def getQuestionsPerGrade():
+    if not request.json or 'grade' not in request.json:
+        return jsonify({'message': 'grade not found'})
+    questions = QuestionsConnection.getQuestionPerGrade(request.json['grade'])
+    return jsonify({'Questions': questions})
+
+
+@app.route("/GetHistoryQuestions")
+@login_required
+def getHistoryQuestions():
+    hisQues = QuestionsConnection.getHistQuestion(current_user.Username)
+    return jsonify({'Questions': hisQues})
+
+
+
+@app.route("/SubmitAnswer", methods=['POST'])
+@login_required
+def submitAnswer():
+    data = request.form
+    if current_user.Role == 'Stud':
+        QuestionsConnection.addHistoryQuestion({
+                'His_QuesID':data['His_QuesID'][1:],
+                'Result':data['Result'],
+                'SubmittedOn':data['Date'],
+                'AttemptedAns':data['Attempt'],
+                'StudID':current_user.id
+            }
+        )
+        return jsonify({'message': 'Answer Submitted'})
+    return jsonify({'message': 'user role is not Student'})
+
 if __name__ == '__main__':
     from security import Security
+    from Question import QuestionsConnection
     app.run(port=5000, debug=True)

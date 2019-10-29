@@ -75,6 +75,10 @@ select * from User  # To see PublicID if needed
 
 '''
 
+
+# copy from here
+# from SQLAlchemyCreateDB import *
+
 # from werkzeug.security import check_password_hash
 # usr = \
 #     User(
@@ -88,15 +92,5 @@ select * from User  # To see PublicID if needed
 # db.session.add(usr)
 # db.session.commit()
 
-# from werkzeug.security import check_password_hash
-# usr = \
-#     User(
-#         Username='prof1',
-#         Password=generate_password_hash('pass', method='sha256'),
-#         FName='Akhil',
-#         LName='',
-#         Grade=1,
-#         Role='Prof'
-#     )
-# db.session.add(usr)
-# db.session.commit()
+# till here
+
