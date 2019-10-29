@@ -6,12 +6,22 @@
   <link rel="stylesheet" href="css/styles.css?v=1.0">
   <link href="css/student.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
-  <script src="../Controller/StudentEvent.js"></script>
+  <script src="{{ url_for('static', filename='StudentEvent.js') }}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>			
-<body id="page-top">
-    <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">
+</head>         
+<body id="page-top" onload="loadPage()">
+    <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
         <a class="navbar-brand mr-1" href="\#">Student Dashboard</a>
+        <div class="collapse navbar-collapse navbar-ws">
+            <ul class="nav-items nav navbar-nav">
+                
+                <button href="\#" type="button" class="navbar-right textColr-log btn btn-log navbar-brand"> 
+                    Log Out
+                </button>
+                
+            </ul>
+        </div>
     </nav>    
     <div id="content-wrapper ">
         <div class="container-fluid">
@@ -20,27 +30,9 @@
                     <div class="card-header button-color">
                         Questions
                     </div>
-                        <div class="container-fluid">
+                        <div class="container-fluid" id="question-list">
                                              
-                           <div class="row p-2">
-                             <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)" type="button" id="button_1" value = "_+_=12">___  +  ___ = 12</button> 
-                           </div>
-                        
-                            <div class="row p-2">
-                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)" type="button" id="button_2" value = "5+4=_">5 + 4</button> 
-                            </div>
-                        
-                            <div class="row p-2">
-                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)"type="button" id="button_3" value = "9-7=_">9 - 7</button>
-                            </div>
-                        
-                            <div class="row p-2">
-                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)"type="button" id="button_4" value = "8+5=_">8 + 5</button> 
-                            </div>
-                        
-                             <div class="row p-2">
-                                  <button class = "btn btn-primary btn-lg btn-block" onclick="addQuestion(event)"type="button" id="button_5" value = "_-_=3">___  -  ___ = 3</button>
-                             </div>
+                           
                       </div>
                     </div>  
                 <div class="card breadcrumb mb-6 col-sm-6 border-block padding-right">
@@ -53,7 +45,7 @@
                         <canvas id="myAreaChart" width="100%" height="200">  
                         </canvas>
                     </div>     
-                    <button class="card-footer small button-color" width="98%">Submit</button>
+                    <button class="card-footer small button-color" width="98%" onclick="submitAnswer(event)">Submit</button>
                 </div>    
                 <div class="card breadcrumb col-sm-3 border-block card-header">
                     <div class="card-header button-color">
@@ -109,48 +101,33 @@
                     </div>
                     <div class="col-sm-13 breadcrumb border-block" style="height:400px;width:100%;overflow:scroll;">
                         <div class = "container-fluid">
-                            <div class="row">
-                                <div class="col grid-item">
-                                    <p class="draggable-item">Q1 </p>
-                                </div>
-                                <div class="col grid-item">
-                                    <p class="draggable-item">A1</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col grid-item">
-                                    <p class="draggable-item">Q2</p>
-                                </div>
-                                <div class="col grid-item">
-                                    <p class="draggable-item">A2</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col grid-item">
-                                    <p class="draggable-item">Q3</p>
-                                </div>
-                                <div class="col grid-item">
-                                    <p class="draggable-item">A3</p>
-                                </div>
-                            </div>
-                            <div class="row"> 
-                                <div class="col grid-item">
-                                    <p class="draggable-item">Q4</p>
-                                </div>
-                                <div class="col grid-item">
-                                    <p class="draggable-item">A4</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col grid-item">
-                                    <p class="draggable-item">Q5</p>
-                                </div>
-                                <div class="col grid-item">
-                                    <p class="draggable-item">A5</p>
-                                </div>
-                            </div>
+                            <table class="table" style="font-size: 25px">
+                                <thead>
+                                      <th scope="col" style="text-align: center">#</th>
+                                      <th scope="col" style="text-align: center">Question</th>
+                                      <th scope="col" style="text-align: center">Answer</th>
+                                      <th scope="col" style="text-align: center">Result</th>
+                                </thead>
+                                <tbody>
+                                    <tr id="tr1">
+                                                                              
+                                    </tr>
+                                    <tr id="tr2">                                      
+                                      
+                                    </tr>
+                                    <tr id="tr3">                                      
+                                      
+                                    </tr>
+                                    <tr id="tr4">                                      
+                                      
+                                    </tr>
+                                    <tr id="tr5">                                    
+                                      
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-				</div>
+                </div>
             </div>
         </div>
     </div>
@@ -196,6 +173,59 @@
 </html>
 
 <style scoped>
+    .btn-log {
+        display: inline-block;
+        white-space: nowrap;
+        flex-basis: auto;
+        width: auto;
+        font-size: .875rem;
+        background-color: #000063;
+        border:none;
+        cursor: pointer;
+        border-radius: 4px;
+        text-align: center;
+        font-family: CircularPro, "Helvetica Neue", Helvetica, "Segoe UI", Tahoma, Arial, sans-serif;
+        font-weight: 700;
+        line-height: 1.28571429;
+        letter-spacing: .8px;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 19px 40px 20px;
+        transition: box-shadow 420ms cubic-bezier(.165, .84, .44, 1), color 420ms cubic-bezier(.165, .84, .44, 1), background 420ms cubic-bezier(.165, .84, .44, 1);
+        color: #000063;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+    .textColr-log {
+        color: #000063;
+    }
+    .textColr {
+        color: white;
+    }
+    .navbar-nav {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+    .nav-link {
+        padding-right: .5rem;
+        padding-left: .5rem;
+    }
+    .nav-items {
+        list-style: none;
+        display: inline-block;
+        padding: 1.5em 0.9em;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
     .button-color{
         background-color: #311b92;
         color: white;
