@@ -1,6 +1,4 @@
 var currentQuestion;
-var qctr = 0;
-var questionList;
 function clearCanvas(){
     var canvas = document.getElementById("canvas");
     while(canvas.childNodes.length>0) {
@@ -79,14 +77,31 @@ function drop(ev, el) {
         }
  }
 
-
+function removeHistoryQuestions()
+{
+    var tr = '';
+    var ctr = 1;
+    var row;
+    for(ctr = 1; ctr<=5; ctr++)
+    {
+        tr = 'tr'+ctr;
+        row = document.getElementById(tr);
+        while(row.firstChild)
+            row.removeChild(row.firstChild);
+    }
+    
+}
 
 function loadPage(){
     //Calling flask api to fetch questions
+    var ctr = 1;
+    var tr = '';
+    var row, col;
+
     removeCurrentQuestion();
+    removeHistoryQuestions();
     $.get("/GetQuestionsPerStud", function(data){
     var item;
-    questionList = data;
     data = data['Questions']
     //Parsing JSON object to create the questions
     for(item in data) {
@@ -97,17 +112,30 @@ function loadPage(){
         questionButton.setAttribute("onclick", "loadQuestion(event)");
         questionButton.type = 'button';
         questionButton.id = 'Q'+data[item]['id'].toString();
-        qctr++;
         questionButton.value = data[item]['question'];
         questionButton.innerHTML = data[item]['question'];
         questionDiv.appendChild(questionButton);
         document.getElementById('question-list').appendChild(questionDiv);    
     }    
     });
-
-    $.get("/GetHistoryQuestions", function(data){
-        for(item in data['Questions']) {
-            console.log(item)
+    $.get("/GetHistoryQuestions", function(hist_data){
+        hist_data = hist_data['Questions'];
+        for(item = Object.keys(hist_data).length; item>=0; item--) {
+            tr = 'tr'+ctr;
+            row = document.getElementById(tr);
+            col = row.insertCell(0);
+            col.innerHTML = ctr.toString();
+            col.style = "text-align: center";
+            col = row.insertCell(1);
+            col.innerHTML = hist_data[item]['attempted_ans'];
+            col.style = "text-align: center";
+            col = row.insertCell(2);
+            col.innerHTML = hist_data[item]['attempted_ans'];
+            col.style = "text-align: center";
+            col = row.insertCell(3);
+            col.innerHTML = hist_data[item]['result'];
+            col.style = "text-align: center";
+            ctr++;
         }
     });
     
@@ -160,6 +188,10 @@ function submitAnswer(ev){
         'Attempt': equation
     };
     $.post("/SubmitAnswer", answer);
+    if(result == 'Pass')
+        alert("Submitted answer is correct");
+    else
+        alert("Submitted answer is wrong");
     loadPage();
     //Should contain code to send POST request to back-end with the submitted answer
     //Access JSON object of current question using: questionList[currentQuestion]
