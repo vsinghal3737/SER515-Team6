@@ -1,7 +1,14 @@
 from flask import Flask, request, render_template, jsonify
+from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 import os
+
+
+from db import db
+from resources.user import UserRegister, User, UserLogin, UserList, UserLogout, TokenRefresh
+from resources.item import Item, ItemList
+from resources.store import Store, StoreList
 
 
 app = Flask(__name__, template_folder='../View', static_folder='../Controller')
@@ -9,6 +16,7 @@ app = Flask(__name__, template_folder='../View', static_folder='../Controller')
 app.config['SECRET_KEY'] = 'deadMenTellNoTales'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(str(os.path.abspath(os.path.dirname(__file__))) + '/DataBase.db')
 
+api = Api(app)
 db = SQLAlchemy(app)
 
 login_manager = LoginManager()
@@ -123,6 +131,29 @@ def submitAnswer():
         )
         return jsonify({'message': 'Answer Submitted'})
     return jsonify({'message': '{} role is not valid for this Task'.format(current_user.Username)})
+
+
+
+# Resources
+api.add_resource(UserLogin, '/login')  # /auth endpoint
+api.add_resource(UserLogout, '/logout')  # /auth endpoint
+
+
+api.add_resource(Item, '/item/<string:name>')  # http://127.0.0.1:5000/item/<string:item_name>
+# similar to this, @app.route('/student/<string:name>'), but in RESTful form
+
+api.add_resource(ItemList, '/items')
+
+api.add_resource(Store, '/store/<string:name>')
+api.add_resource(StoreList, '/stores')
+
+# api.add_resource(user, '/user/<int:user_id>')
+api.add_resource(UserRegister, '/register')
+api.add_resource(User, '/user/<int:user_id>')
+
+api.add_resource(UserList, '/users')
+
+api.add_resource(TokenRefresh, '/refresh')
 
 
 if __name__ == '__main__':
