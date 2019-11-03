@@ -1,13 +1,13 @@
 from flask import jsonify, request
 from flask_login import login_required, current_user
-from Model.Question import Questions
+from Model.question import Questions
 from flask_restful import Resource
 
 
 class QuestionsPerStud(Resource):
 
     @login_required
-    def get(self):
+    def get(cls):
         questions = Questions.getQuestionPerStud(current_user.Username)
         return jsonify({'Questions': questions})
 
@@ -15,7 +15,7 @@ class QuestionsPerStud(Resource):
 class QuestionsPerGrade(Resource):
 
     @login_required
-    def get(self):
+    def get(cls):
         if not request.form or 'grade' not in request.form:
             return jsonify({'message': 'grade not found'})
         questions = Questions.getQuestionPerGrade(request.form['grade'])
@@ -25,7 +25,7 @@ class QuestionsPerGrade(Resource):
 class HistoryQuestions(Resource):
 
     @login_required
-    def get(self):
+    def get(cls):
         hisQues = Questions.getHistQuestion(current_user.Username)
         return jsonify({'Questions': hisQues})
 
@@ -33,7 +33,7 @@ class HistoryQuestions(Resource):
 class SubmitAnswer(Resource):
 
     @login_required
-    def post(self):
+    def post(cls):
         data = request.form
         if current_user.Role == 'Stud':
             Questions.addHistoryQuestion(
@@ -52,5 +52,5 @@ class SubmitAnswer(Resource):
 class SubmitQuestion(Resource):
 
     @login_required
-    def post(self):
+    def post(cls):
         pass

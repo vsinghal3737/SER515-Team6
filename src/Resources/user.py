@@ -1,18 +1,21 @@
 from security import Security
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 from flask import request, render_template, jsonify, make_response
 from flask_login import login_required, login_user, logout_user, current_user
 
 
 class LogReg(Resource):
-    def post(self):
-        return render_template('login.html') if request.form['submit'] == 'login' \
-            else render_template('signup.html') if request.form['submit'] == 'signup' \
-            else render_template('dashboard.html')
+    def post(cls):
+        return make_response(render_template('login.html')) if request.form['submit'] == 'login' \
+            else make_response(render_template('signup.html')) if request.form['submit'] == 'signup' \
+            else make_response(render_template('dashboard.html'))
+
+    def get(cls):
+        return "logreg"
 
 
 class Login(Resource):
-    def post(self):
+    def post(cls):
         username = request.form['username']
         password = request.form['password']
         user = Security.authenticate(username, password)
@@ -20,15 +23,15 @@ class Login(Resource):
             login_user(user)
             jsonUser = getUser(user)
             if user.Role == 'Stud':
-                return render_template('StudentView.html', userInfo=jsonify({'user': jsonUser}))
+                return make_response(render_template('StudentView.html', userInfo=jsonify({'user': jsonUser})))
             elif user.Role == "Prof":
-                return render_template('TeacherView.html', userInfo=jsonify({'user': jsonUser}))
+                return make_response(render_template('TeacherView.html', userInfo=jsonify({'user': jsonUser})))
             elif user.Role == "Admin":
-                return render_template('AdminView.html', userInfo=jsonify({'user': jsonUser}))
-        return render_template('login.html')
+                return make_response(render_template('AdminView.html', userInfo=jsonify({'user': jsonUser})))
+        return make_response(render_template('login.html'))
 
-    def get(self):
-        return render_template('login.html')
+    def get(cls):
+        return make_response(render_template('login.html'))
 
 
 def getUser(user):
@@ -44,9 +47,9 @@ def getUser(user):
 class Logout(Resource):
 
     @login_required
-    def get(self):
+    def get(cls):
         logout_user()
-        return render_template('login.html')
+        return make_response(render_template('login.html'))
 
 
 # class Register(Resource):
@@ -88,7 +91,7 @@ class Logout(Resource):
 #         return {'Users': [x.json() for x in UserModel.find_all()]}
 
 
-class check(Resource):
+class Check(Resource):
     @login_required
-    def get():
+    def get(cls):
         return '{} {} {}'.format(current_user.Username, current_user.Grade, current_user.Role)
