@@ -5,10 +5,9 @@ from flask_login import LoginManager, UserMixin, login_required, login_user, log
 import os
 
 
-from db import db
-from resources.user import UserRegister, User, UserLogin, UserList, UserLogout, TokenRefresh
-from resources.item import Item, ItemList
-from resources.store import Store, StoreList
+from Resources.home import *
+from Resources.user import *
+from Resources.question import *
 
 
 app = Flask(__name__, template_folder='../View', static_folder='../Controller')
@@ -29,132 +28,23 @@ def load_user(user_id):
     return Security.identity(int(user_id))
 
 
-@app.route("/")
-def home():
-    return render_template('dashboard.html')
-
-
-@app.route('/LogReg', methods=['POST', 'GET'])
-def loginOption():
-    return render_template('login.html') if request.form['submit'] == 'login' \
-        else render_template('signup.html') if request.form['submit'] == 'signup' \
-        else render_template('dashboard.html')
-
-
-@app.route("/Login")
-@app.route("/login")
-def Login():
-    return render_template('login.html')
-
-
-@app.route("/login", methods=['POST'])
-def login():
-    username = request.form['username']
-    password = request.form['password']
-    user = Security.authenticate(username, password)
-    if user:
-        login_user(user)
-        jsonUser = getUser(user)
-        if user.Role == 'Stud':
-            return render_template('StudentView.html', userInfo=jsonify({'user': jsonUser}))
-        elif user.Role == "Prof":
-            return render_template('TeacherView.html', userInfo=jsonify({'user': jsonUser}))
-        elif user.Role == "Admin":
-            return render_template('AdminView.html', userInfo=jsonify({'user': jsonUser}))
-    return render_template('login.html')
-
-
-def getUser(user):
-    return {
-        'username': user.Username,
-        'first_name': user.FName,
-        'last_name': user.LName,
-        'grade': user.Grade,
-        'role': user.Role
-    }
-
-
-@app.route("/signup", methods=['POST', 'GET'])
-def register():
-    return 'For Third Sprint'
-
-
-@app.route('/check')
-@login_required
-def check():
-    return '{} {} {}'.format(current_user.Username, current_user.Grade, current_user.Role)
-
-
-@app.route("/logout")
-@app.route("/Logout")
-@login_required
-def logout():
-    logout_user()
-    return render_template('login.html')
-
-
-@app.route("/GetQuestionsPerStud", methods=['GET'])
-@login_required
-def getQuestionsPerStud():
-    questions = QuestionsConnection.getQuestionPerStud(current_user.Username)
-    return jsonify({'Questions': questions})
-
-
-@app.route("/GetQuestionsPerGrade", methods=['POST'])
-def getQuestionsPerGrade():
-    if not request.json or 'grade' not in request.json:
-        return jsonify({'message': 'grade not found'})
-    questions = QuestionsConnection.getQuestionPerGrade(request.json['grade'])
-    return jsonify({'Questions': questions})
-
-
-@app.route("/GetHistoryQuestions")
-@login_required
-def getHistoryQuestions():
-    hisQues = QuestionsConnection.getHistQuestion(current_user.Username)
-    return jsonify({'Questions': hisQues})
-
-
-@app.route("/SubmitAnswer", methods=['POST'])
-@login_required
-def submitAnswer():
-    data = request.form
-    if current_user.Role == 'Stud':
-        QuestionsConnection.addHistoryQuestion(
-            {
-                'His_QuesID': data['His_QuesID'][1:],
-                'Result': data['Result'],
-                'SubmittedOn': data['Date'],
-                'AttemptedAns': data['Attempt'],
-                'StudID': current_user.id
-            }
-        )
-        return jsonify({'message': 'Answer Submitted'})
-    return jsonify({'message': '{} role is not valid for this Task'.format(current_user.Username)})
-
-
-
 # Resources
-api.add_resource(UserLogin, '/login')  # /auth endpoint
-api.add_resource(UserLogout, '/logout')  # /auth endpoint
+api.add_resource(Home, '/')  # /auth endpoint
 
+api.add_resource(Login, '/login')  # /auth endpoint
+api.add_resource(Logout, '/logout')  # /auth endpoint
 
-api.add_resource(Item, '/item/<string:name>')  # http://127.0.0.1:5000/item/<string:item_name>
-# similar to this, @app.route('/student/<string:name>'), but in RESTful form
+api.add_resource(LogReg, '/logout')  # /auth endpoint
 
-api.add_resource(ItemList, '/items')
+# api.add_resource(Register, '/register')
+# api.add_resource(User, '/user/<int:user_id>')
+# api.add_resource(UserList, '/users')
 
-api.add_resource(Store, '/store/<string:name>')
-api.add_resource(StoreList, '/stores')
-
-# api.add_resource(user, '/user/<int:user_id>')
-api.add_resource(UserRegister, '/register')
-api.add_resource(User, '/user/<int:user_id>')
-
-api.add_resource(UserList, '/users')
-
-api.add_resource(TokenRefresh, '/refresh')
-
+api.add_resource(QuestionsPerStud, '/GetQuestionsPerStud')
+api.add_resource(QuestionsPerGrade, '/GetQuestionsPerGrade')
+api.add_resource(HistoryQuestions, '/GetHistoryQuestions')
+api.add_resource(SubmitAnswer, '/SubmitAnswer')
+api.add_resource(SubmitQuestion, '/SubmitQuestion')
 
 if __name__ == '__main__':
     from security import Security

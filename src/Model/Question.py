@@ -2,7 +2,7 @@ import SQLAlchemyCreateDB as sql
 from datetime import datetime
 
 
-class QuestionsConnection:
+class Questions:
     @classmethod
     def addQuestion(cls, question):
         x = question['SubmittedOn']
