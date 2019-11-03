@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from flask_login import login_required, current_user
-from model.Question import Questions
+from Model.Question import Questions
 from flask_restful import Resource
 
 

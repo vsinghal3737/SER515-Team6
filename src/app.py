@@ -5,10 +5,9 @@ from flask_login import LoginManager, UserMixin, login_required, login_user, log
 import os
 
 
-from Resources.home import *
-from Resources.user import *
-from Resources.question import *
-
+from Resources.home import Home
+from Resources.user import LogReg, Login, Logout, Register, User, UserList, Check
+from Resources.question import QuestionsPerStud, QuestionsPerGrade, HistoryQuestions, SubmitAnswer, SubmitQuestion
 
 app = Flask(__name__, template_folder='../View', static_folder='../Controller')
 
@@ -34,11 +33,12 @@ api.add_resource(Home, '/')  # /auth endpoint
 api.add_resource(Login, '/login')  # /auth endpoint
 api.add_resource(Logout, '/logout')  # /auth endpoint
 
-api.add_resource(LogReg, '/logout')  # /auth endpoint
+api.add_resource(LogReg, '/logreg')  # /auth endpoint
 
 # api.add_resource(Register, '/register')
 # api.add_resource(User, '/user/<int:user_id>')
 # api.add_resource(UserList, '/users')
+# api.add_resource(Check, '/check')
 
 api.add_resource(QuestionsPerStud, '/GetQuestionsPerStud')
 api.add_resource(QuestionsPerGrade, '/GetQuestionsPerGrade')
@@ -48,5 +48,5 @@ api.add_resource(SubmitQuestion, '/SubmitQuestion')
 
 if __name__ == '__main__':
     from security import Security
-    from Question import QuestionsConnection
+    from Model.question import Questions
     app.run(port=5000)

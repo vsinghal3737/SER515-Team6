@@ -1,4 +1,4 @@
-from .. import Security
+from security import Security
 from flask_restful import Resource, reqparse
 from flask import request, render_template, jsonify
 from flask_login import login_required, login_user, logout_user, current_user
@@ -27,7 +27,7 @@ class Login(Resource):
                 return render_template('AdminView.html', userInfo=jsonify({'user': jsonUser}))
         return render_template('login.html')
 
-    def Login(self):
+    def get(self):
         return render_template('login.html')
 
 
@@ -42,13 +42,14 @@ def getUser(user):
 
 
 class Logout(Resource):
+
     @login_required
-    def logout(self):
+    def get(self):
         logout_user()
         return render_template('login.html')
 
 
-# class UserRegister(Resource):
+# class Register(Resource):
 #     def post(self):
 
 #         data = _user_parser.parse_args()
