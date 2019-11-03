@@ -34,12 +34,12 @@ if __name__ == '__main__':
     # Resources
     api.add_resource(Home, '/')
 
-    api.add_resource(Login, '/login')  # /auth endpoint
+    api.add_resource(Login, '/login')
     api.add_resource(Check, '/check')
 
-    api.add_resource(Logout, '/logout')  # /auth endpoint
+    api.add_resource(Logout, '/logout')
 
-    api.add_resource(LogReg, '/logreg')  # /auth endpoint
+    api.add_resource(LogReg, '/logreg')
 
     # api.add_resource(Register, '/register')
     # api.add_resource(User, '/user/<int:user_id>')

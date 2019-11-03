@@ -1,6 +1,6 @@
 from security import Security
 from flask_restful import Resource
-from flask import request, render_template, jsonify, make_response
+from flask import request, render_template, jsonify, make_response, redirect, url_for
 from flask_login import login_required, login_user, logout_user, current_user
 
 
@@ -21,7 +21,7 @@ class Login(Resource):
         user = Security.authenticate(username, password)
         if user:
             login_user(user)
-            jsonUser = getUser(user)
+            jsonUser = cls.__getUser(user)
             if user.Role == 'Stud':
                 return make_response(render_template('StudentView.html', userInfo=jsonify({'user': jsonUser})))
             elif user.Role == "Prof":
@@ -33,15 +33,14 @@ class Login(Resource):
     def get(cls):
         return make_response(render_template('login.html'))
 
-
-def getUser(user):
-    return {
-        'username': user.Username,
-        'first_name': user.FName,
-        'last_name': user.LName,
-        'grade': user.Grade,
-        'role': user.Role
-    }
+    def __getUser(cls, user):
+        return {
+            'username': user.Username,
+            'first_name': user.FName,
+            'last_name': user.LName,
+            'grade': user.Grade,
+            'role': user.Role
+        }
 
 
 class Logout(Resource):
@@ -49,20 +48,16 @@ class Logout(Resource):
     @login_required
     def get(cls):
         logout_user()
-        return make_response(render_template('login.html'))
-
+        # return make_response(render_template('dashboard.html'))
+        return redirect('/')
 
 # class Register(Resource):
 #     def post(self):
-
 #         data = _user_parser.parse_args()
-
 #         if UserModel.find_by_username(data['username']):
 #             return {"message": "Username Already Exists."}, 400
-
 #         user = UserModel(**data)
 #         user.save_to_db()
-
 #         return {"message": "User Created successfully."}, 201
 
 
