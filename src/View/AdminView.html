@@ -5,7 +5,7 @@
 			<link rel="stylesheet" href="css/styles.css?v=1.0">
 				<link href="css/student.css" rel="stylesheet">
 					<script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
-					<!--> <script type="text/javascript" src="{{ url_for('static', filename='AdminEvent.js') }}"></script> <!-->
+					<!-- <script type="text/javascript" src="{{ url_for('static', filename='AdminEvent.js') }}"></script> <!-->
 					<script src="AdminEvent.js"></script>
 					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -14,6 +14,9 @@
 					<body id="page-top" >
 						<nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
 							<a class="navbar-brand mr-1" href="\#">Admin</a>
+							<form action="/logout">
+                    			<input type="submit" value="Logout" class="navbar-right textColr-log btn btn-log navbar-brand"/>
+                			</form>
 						</nav>
 						<div id="content-wrapper">
 							<div class = "container-fluid">
