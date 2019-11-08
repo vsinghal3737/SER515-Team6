@@ -7,41 +7,52 @@ function clearCanvas(){
 }
 
 
-function loadQuestionOnCanvas(value) {
-    var slot = document.createElement('div');
-    slot.className = 'canvas-item d-flex justify-content-center';
-    slot.setAttribute("ondrop", "drop(event, this)"); 
-    slot.setAttribute("ondragover", "allowDrop(event)");
-    document.getElementById("canvas").appendChild(slot);
+function loadQuestionOnCanvas(question) {
+    var i = 0;
+    while(i < question.length)
+        {
+            var value = question.charAt(i);
+            var slot = document.createElement('div');
+            slot.className = 'canvas-item d-flex justify-content-center';
+            slot.setAttribute("ondrop", "drop(event, this)"); 
+            slot.setAttribute("ondragover", "allowDrop(event)");
+            document.getElementById("canvas").appendChild(slot);
+            if(value >='0' && value<='9')
+            {
+                while(question.charAt(i) >= '0' && question.charAt(i) <= '9')
+                {
+                    var nodeCopy = document.getElementById(question.charAt(i)).childNodes[1].cloneNode(true);
+                    nodeCopy.style.fontSize = "45px";
+                    slot.appendChild(nodeCopy);
+                    i++;
+                }
+                i--;
+                
+            }
+            else if(value == '+')
+            {
+                var operator = document.createElement('i');
+                operator.className = 'fas fa-plus draggable-icon p-2';
+                operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+            else if(value == '-')
+            {
+                var operator = document.createElement('i');
+                operator.className = 'fas fa-minus draggable-icon p-2';
+                operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+            else if(value == '=')
+            {
+                var operator = document.createElement('i');
+                operator.className = 'fas fa-equals draggable-icon p-2';
+                operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+            i++;
+        }
     
-    if(value >='0' && value<='9')
-    {
-        var nodeCopy = document.getElementById(value).childNodes[1].cloneNode(true);
-        nodeCopy.style.fontSize = "45px";
-        slot.appendChild(nodeCopy);
-    }
-    else if(value == '+')
-    {
-        var operator = document.createElement('i');
-        operator.className = 'fas fa-plus draggable-icon p-2';
-        operator.style.fontSize = "45px";
-        slot.appendChild(operator);
-    }
-    else if(value == '-')
-    {
-        var operator = document.createElement('i');
-        operator.className = 'fas fa-minus draggable-icon p-2';
-        operator.style.fontSize = "45px";
-        slot.appendChild(operator);
-    }
-    else if(value == '=')
-    {
-        var operator = document.createElement('i');
-        operator.className = 'fas fa-equals draggable-icon p-2';
-        operator.style.fontSize = "45px";
-        slot.appendChild(operator);
-    }
-
 }
 function allowDrop(ev) {
     ev.preventDefault(); 
@@ -54,16 +65,19 @@ function drag(ev) {
 
 function drop(ev, el) {
         ev.preventDefault();
+        if(el.hasChildNodes()) {
+            if(el.firstChild.tagName == 'I')
+                return;
+        }
+        
         var id = ev.dataTransfer.getData("text");
         var childNode = document.getElementById(id).childNodes[1];
         var nodeCopy = childNode.cloneNode(true);
         //nodeCopy.id = id + ev.target.id;
         nodeCopy.style.fontSize = "45px";
-        // clean target space if needed 
+        // Only allow drop if slot does not contain operator and restricting number of digits to two.
         if(el.childNodes.length <= 1)
             el.appendChild(nodeCopy);
-            //el.removeChild(el.childNodes[0]);
-        
 
         
         ev.stopPropagation();
@@ -75,10 +89,9 @@ function drop(ev, el) {
         currentQuestion = ev.target.id;
         var question = ev.target.value;
         var i;
-        for(i = 0; i<question.length; i++)
-        {
-            loadQuestionOnCanvas(question.charAt(i));
-        }
+        matches = question.match(/\d+/g);
+        loadQuestionOnCanvas(question);
+        
  }
 
 
@@ -105,6 +118,7 @@ function loadPage(){
 
     removeCurrentQuestion();
     removeHistoryQuestions();
+    loadQuestionOnCanvas("_+_=40");
     $.get("/GetQuestionsPerStud", function(data){
     var item;
     data = data['Questions']
