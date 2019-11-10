@@ -11,7 +11,27 @@ function addSlot(value) {
         nodeCopy.style.fontSize = "45px";
         slot.appendChild(nodeCopy);
     }
-
+    else if(value == '+')
+    {
+        var operator = document.createElement('i');
+        operator.className = 'fas fa-plus draggable-icon p-2';
+        operator.style.fontSize = "45px";
+        slot.appendChild(operator);
+    }
+    else if(value == '-')
+    {
+        var operator = document.createElement('i');
+        operator.className = 'fas fa-minus draggable-icon p-2';
+        operator.style.fontSize = "45px";
+        slot.appendChild(operator);
+    }
+    else if(value == '=')
+    {
+        var operator = document.createElement('i');
+        operator.className = 'fas fa-equals draggable-icon p-2';
+        operator.style.fontSize = "45px";
+        slot.appendChild(operator);
+    }
 
 }
 
