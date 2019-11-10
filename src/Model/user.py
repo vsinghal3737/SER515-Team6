@@ -16,6 +16,19 @@ class User:
         sql.User.query.filter_by(Username=username).first().Password = newPassword
 
 
+class UserList:
+    @classmethod
+    def GetAllUsers(cls):
+        return [
+            {
+                'Username': user.Username,
+                'FName': user.FName,
+                'LName': user.LName,
+                'Grade': user.Grade,
+                'Role': user.Role,
+            } for user in sql.User.query.filter_by(Username != 'Admin').all()
+        ]
+
 # In testing phase
 
 # class UserRegister(Resource):
@@ -43,4 +56,3 @@ class User:
 #         connection.close()
 
 #         return {"message": "User Created successfully."}, 201
-
