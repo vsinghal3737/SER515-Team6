@@ -4,6 +4,14 @@ function addSlot(value) {
     slot.setAttribute("ondrop", "drop(event, this)"); 
     slot.setAttribute("ondragover", "allowDrop(event)");
     document.getElementById("canvas").appendChild(slot);
+    
+    if(value >='0' && value<='9')
+    {
+        var nodeCopy = document.getElementById(value).childNodes[1].cloneNode(true);
+        nodeCopy.style.fontSize = "45px";
+        slot.appendChild(nodeCopy);
+    }
+
 
 }
 
