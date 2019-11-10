@@ -1,4 +1,6 @@
 from security import Security
+from Model.user import UserList
+
 from flask_restful import Resource
 from flask import request, render_template, jsonify, make_response, redirect, url_for
 from flask_login import login_required, login_user, logout_user, current_user
@@ -78,13 +80,14 @@ class Logout(Resource):
 #             return {"message": "User deleted successfully."}, 200
 #         return {'message': 'user not found'}, 404
 
-# class UserList(Resource):
-#     @login_required
-#     def get(self):
-#         claims = get_jwt_claims()
-#         if not claims['is_admin']:
-#             return {'mesasge': 'admin user only'}, 401
-#         return {'Users': [x.json() for x in UserModel.find_all()]}
+
+class ALLUserList(Resource):
+    @login_required
+    def get(self):
+        if current_user.Role != 'Admin':
+            return {'mesasge': 'admin user only'}, 401
+
+        return {'Users': UserList.GetAllUsers()}
 
 
 class Check(Resource):
