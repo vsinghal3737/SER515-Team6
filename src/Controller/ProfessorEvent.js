@@ -32,6 +32,12 @@ function addSlot(value) {
         operator.style.fontSize = "45px";
         slot.appendChild(operator);
     }
+    else if(value == '_')
+    {
+      var nodeCopy = document.getElementById(value).childNodes[1].cloneNode(true);
+        nodeCopy.style.fontSize = "45px";
+        slot.appendChild(nodeCopy);
+    }
 
 }
 
