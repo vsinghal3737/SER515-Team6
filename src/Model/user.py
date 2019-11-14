@@ -54,6 +54,12 @@ class UserMode:
         sql.db.session.delete(user)
         sql.db.session.commit()
 
+    @classmethod
+    def UpdateGrade(cls, username, grade):
+        user = User.query.filter_by(Username=username).first()
+        user.Grade = grade
+        sql.db.session.commit()
+
 
 # In testing phase
 # class UserRegister(Resource):
