@@ -81,7 +81,7 @@ class Logout(Resource):
 #         return {'message': 'user not found'}, 404
 
 
-class ALLUserList(Resource):
+class AllUserList(Resource):
     @login_required
     def get(self):
         if current_user.Role != 'Admin':
