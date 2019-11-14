@@ -61,6 +61,15 @@ class UserMode:
         sql.db.session.commit()
 
 
+class TransferRole:
+
+    @classmethod
+    def post(cls, username):
+        user = User.query.filter_by(Username=username).first()
+        user.Role = 'Admin'
+        sql.db.session.commit()
+
+
 # In testing phase
 # class UserRegister(Resource):
 #     parser = reqparse.RequestParser()
