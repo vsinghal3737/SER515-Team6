@@ -20,7 +20,30 @@
                 </button>
             </ul>
         </div>
-    </nav>    
+    </nav> 
+    <div id="content-wrapper ">
+        <div class="container-fluid">
+            <div class="row padding-block">
+                <div class="card mb-6 col-sm-3 breadcrumb border-block padding-right">
+                    <div class="card-header button-color">
+                        Questions
+                    </div>
+                <div class="container-fluid" id="question-list">                           
+            </div>
+        </div>   
+        <div class="card breadcrumb mb-6 col-sm-6 border-block padding-right">
+            <div class="card-header button-color">
+                Workspace
+            </div>                  
+            <div class="card-body">
+                <div class = "container-fluid d-flex align-items-center" id = "canvas">
+                </div>
+                <canvas id="myAreaChart" width="100%" height="200">  
+                </canvas>
+            </div>     
+            <button class="card-footer small button-color" width="98%" onclick="submitAnswer(event)">Submit</button>
+        </div>
+    </div>
 
 </body>
 </html>
