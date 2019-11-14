@@ -1,3 +1,7 @@
+function clearCanvas(){
+
+    }
+}
 function addSlot(value) {
     var slot = document.createElement('div');
     slot.className = 'canvas-item d-flex justify-content-center';
