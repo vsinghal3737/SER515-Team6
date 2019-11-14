@@ -48,6 +48,12 @@ class UserMode:
         sql.db.session.commit()
         return True
 
+    @classmethod
+    def DeleteUser(cls, username):
+        user = User.query.filter_by(Username=username).first()
+        sql.db.session.delete(user)
+        sql.db.session.commit()
+
 
 # In testing phase
 # class UserRegister(Resource):
