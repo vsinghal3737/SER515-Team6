@@ -14,8 +14,6 @@ function loadQuestionOnCanvas(question) {
             var value = question.charAt(i);
             var slot = document.createElement('div');
             slot.className = 'canvas-item d-flex justify-content-center';
-            slot.setAttribute("ondrop", "drop(event, this)"); 
-            slot.setAttribute("ondragover", "allowDrop(event)");
             document.getElementById("canvas").appendChild(slot);
             if(value >='0' && value<='9')
             {
@@ -50,6 +48,11 @@ function loadQuestionOnCanvas(question) {
                 operator.style.fontSize = "45px";
                 slot.appendChild(operator);
             }
+            else        //Only allow drop on empty slot
+            {
+                slot.setAttribute("ondrop", "drop(event, this)"); 
+                slot.setAttribute("ondragover", "allowDrop(event)");
+            }
             i++;
         }
     
@@ -62,14 +65,14 @@ function allowDrop(ev) {
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
 }
-
 function drop(ev, el) {
         ev.preventDefault();
+        /*
         if(el.hasChildNodes()) {
             if(el.firstChild.tagName == 'I')
                 return;
         }
-        
+        */
         var id = ev.dataTransfer.getData("text");
         var childNode = document.getElementById(id).childNodes[1];
         var nodeCopy = childNode.cloneNode(true);
@@ -89,7 +92,6 @@ function drop(ev, el) {
         currentQuestion = ev.target.id;
         var question = ev.target.value;
         var i;
-        matches = question.match(/\d+/g);
         loadQuestionOnCanvas(question);
         
  }
@@ -118,7 +120,6 @@ function loadPage(){
 
     removeCurrentQuestion();
     removeHistoryQuestions();
-    loadQuestionOnCanvas("_+_=40");
     $.get("/GetQuestionsPerStud", function(data){
     var item;
     data = data['Questions']
