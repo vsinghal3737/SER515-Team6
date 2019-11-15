@@ -7,11 +7,11 @@
   <link rel="stylesheet" href="css/styles.css?v=1.0">
   <link href="css/student.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
-  <script src="{{ url_for('static', filename='StudentEvent.js') }}"></script>
+  <script src="../Controller/TeacherEventGrade1.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>         
-<body id="page-top" onload="loadPage()">
+<body id="page-top" >
     <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
         <a class="navbar-brand mr-1" href="\#">Teacher Dashboard</a>
         <div class="collapse navbar-collapse navbar-ws">
@@ -53,7 +53,7 @@
                         <div class = "container-fluid d-flex align-items-center" id = "canvas">
                         </div>
                         <button class="card-footer small button-color leftClear" width="40%" > Clear</button>
-                        <button class="card-footer small button-color rightClear" width="40%" > Add Slot</button>
+                        <button class="card-footer small button-color rightClear" width="40%" onclick = "addSlot()"  > Add Slot</button>
                         <canvas id="myAreaChart" width="100%" height="200">  
                         </canvas>
                     </div>     
