@@ -12,3 +12,7 @@ function clearCanvas(){
         canvas.removeChild(canvas.childNodes[0]);
     }
 }
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
