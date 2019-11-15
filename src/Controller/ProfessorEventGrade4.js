@@ -75,6 +75,12 @@ function removeHistoryQuestions()
     var tr = '';
     var ctr = 1;
     var row;
-
+    for(ctr = 1; ctr<=5; ctr++)
+    {
+        tr = 'tr'+ctr;
+        row = document.getElementById(tr);
+        while(row.firstChild)
+            row.removeChild(row.firstChild);
+    }
     
 }
