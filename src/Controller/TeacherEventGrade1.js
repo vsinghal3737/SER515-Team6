@@ -31,3 +31,29 @@ function drop(ev, el) {
         ev.stopPropagation();
         return false;
 }
+
+function submitQuestion(ev){
+    var question = '';
+    var result;
+    var canvas = document.getElementById("canvas");
+    while (canvas.childNodes.length>=1) {  
+        
+        question = question+canvas.childNodes[0].firstChild;
+    }
+    if(eval(question) != NaN){
+        alert(question)
+        result = 'Pass'
+        }
+    else{
+        alert(question)
+        result = 'Fail'
+        }
+
+    if(result == 'Pass')
+        alert("Submitted answer is correct");
+    else
+        alert("Submitted answer is wrong");
+    //Should contain code to send POST request to back-end with the submitted answer
+    //Access JSON object of current question using: questionList[currentQuestion]
+
+}
