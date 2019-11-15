@@ -6,3 +6,9 @@ function addSlot() {
 	document.getElementById('canvas').appendChild(slot);
 }
 
+function clearCanvas(){
+    var canvas = document.getElementById("canvas");
+    while(canvas.childNodes.length>0) {
+        canvas.removeChild(canvas.childNodes[0]);
+    }
+}
