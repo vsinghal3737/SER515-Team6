@@ -20,3 +20,11 @@ function drag(ev) {
 function allowDrop(ev) {
     ev.preventDefault(); 
 }
+
+function drop(ev, el) {
+        ev.preventDefault();
+        var id = ev.dataTransfer.getData("text");
+        var childNode = document.getElementById(id).childNodes[1];
+        var nodeCopy = childNode.cloneNode(true); 
+
+}
