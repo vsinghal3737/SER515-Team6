@@ -4,6 +4,7 @@ function clearCanvas(){
         canvas.removeChild(canvas.childNodes[0]);
     }
 }
+
 function addSlot(value) {
     var slot = document.createElement('div');
     slot.className = 'canvas-item d-flex justify-content-center';
@@ -38,12 +39,6 @@ function addSlot(value) {
         operator.style.fontSize = "45px";
         slot.appendChild(operator);
     }
-    else if(value == '_')
-    {
-      var nodeCopy = document.getElementById(value).childNodes[1].cloneNode(true);
-        nodeCopy.style.fontSize = "45px";
-        slot.appendChild(nodeCopy);
-    }
 
 }
 
@@ -73,4 +68,13 @@ function drop(ev, el) {
         
         ev.stopPropagation();
         return false;
+}
+
+function removeHistoryQuestions()
+{
+    var tr = '';
+    var ctr = 1;
+    var row;
+
+    
 }
