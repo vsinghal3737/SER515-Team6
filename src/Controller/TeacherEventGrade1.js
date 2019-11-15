@@ -16,3 +16,7 @@ function clearCanvas(){
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
 }
+
+function allowDrop(ev) {
+    ev.preventDefault(); 
+}
