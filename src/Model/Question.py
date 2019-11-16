@@ -3,16 +3,17 @@ from datetime import datetime
 
 
 class Questions:
+    format = '%Y-%m-%d %H:%M:%S'
+
     @classmethod
     def addQuestion(cls, question):
-        x = question['SubmittedOn']
         sql.db.session.add(
             sql.Question(
                 Question=question['Question'],
                 Answer=question['Answer'],
                 Grade=question['Grade'],
                 ProfID=question['ProfID'],
-                SubmittedOn=datetime(int(x[0:4]), int(x[5:7]), int(x[8:10]), int(x[11:13]), int(x[14:16]), int(x[17:19]))
+                SubmittedOn=datetime.strptime(question['SubmittedOn'], cls.format)
             )
         )
         sql.db.session.commit()
@@ -20,14 +21,13 @@ class Questions:
 
     @classmethod
     def addHistoryQuestion(cls, question):
-        x = question['SubmittedOn']
         sql.db.session.add(
             sql.HistoryQuestion(
                 His_QuesID=question['His_QuesID'],
                 StudID=question['StudID'],
                 AttemptedAns=question['AttemptedAns'],
                 Result=True if question['Result'] == 'Pass' else False,
-                SubmittedOn=datetime(int(x[0:4]), int(x[5:7]), int(x[8:10]), int(x[11:13]), int(x[14:16]), int(x[17:19]))
+                SubmittedOn=datetime.strptime(question['SubmittedOn'], cls.format)
             )
         )
         sql.db.session.commit()
