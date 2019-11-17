@@ -50,6 +50,7 @@ function loadQuestionOnCanvas(question) {
             }
             else        //Only allow drop on empty slot
             {
+
                 slot.setAttribute("ondrop", "drop(event, this)"); 
                 slot.setAttribute("ondragover", "allowDrop(event)");
             }
@@ -205,6 +206,7 @@ function submitAnswer(ev){
     equation = lhs+'='+rhs;
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
+    alert(localISOTime);
     answer = {'His_QuesID': currentQuestion,
         'Result': result,
         'Date': localISOTime,
