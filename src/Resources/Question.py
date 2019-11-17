@@ -53,4 +53,16 @@ class SubmitQuestion(Resource):
 
     @login_required
     def post(cls):
-        pass
+        data = request.form
+        if current_user.Role == 'Prof':
+            Questions.addQuestion(
+                {
+                    'Question': data['Question'],
+                    'Answer': data['Answer'],
+                    'Grade': data['Grade'],
+                    'ProfID': data['ProfID'],
+                    'SubmittedOn': data['SubmittedOn']
+                }
+            )
+            return jsonify({'message': 'Question Submitted'})
+        return jsonify({'message': '{} role is not valid for this Task'.format(current_user.Username)})
