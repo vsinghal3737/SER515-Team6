@@ -27,7 +27,7 @@ class UserList:
                 'LName': user.LName,
                 'Grade': user.Grade,
                 'Role': user.Role,
-            } for user in sql.User.query.filter_by(Username != 'Admin').all()
+            } for user in sql.User.query.filter(sql.User.Username != 'Admin').all()
         ]
 
 
