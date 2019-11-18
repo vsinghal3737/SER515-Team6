@@ -1,7 +1,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Teacher Dashboard</title>
+        <title>Instructor Dashboard</title>
         <link rel="stylesheet" href="css/styles.css?v=1.0">
         <link href="css/student.css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
@@ -11,24 +11,63 @@
     </head>           
 
 <body>
-    <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
-        <a class="navbar-brand mr-1" href="\#">Student Dashboard</a>
-        <div class="collapse navbar-collapse navbar-ws">
-            <ul class="nav-items nav navbar-nav">
-                <button href="\#" type="button" class="navbar-right textColr-log btn btn-log navbar-brand"> 
-                    Log Out
-                </button>
-            </ul>
-        </div>
-    </nav> 
     <div id="content-wrapper ">
+        <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
+            <a class="navbar-brand mr-1" href="\#">Instructor Dashboard</a>
+            <div class="collapse navbar-collapse navbar-ws">
+                <ul class="nav-items nav navbar-nav">
+                    <button href="\#" type="button" class="navbar-right textColr-log btn btn-log navbar-brand"> 
+                        Log Out
+                    </button>
+                </ul>
+            </div>
+        </nav>
         <div class="container-fluid">
             <div class="row padding-block">
                 <div class="card mb-6 col-sm-3 breadcrumb border-block padding-right">
                     <div class="card-header button-color">
-                        Questions
+                        Operations Toolbar
                     </div>
-                <div class="container-fluid" id="question-list">                           
+                <div class="container-fluid" id="question-list">   
+                    <div class = "container-fluid ">
+                        <div class="row">
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
+                                <p class="draggable-item p-2">+</p>
+                            </div>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "1">
+                                <p class="draggable-item p-2">-</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
+                                <p class="draggable-item p-2">*</p>
+                            </div>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "1">
+                                <p class="draggable-item p-2">/</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
+                                <p class="draggable-item p-2"><</p>
+                            </div>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "1">
+                                <p class="draggable-item p-2">></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
+                                <p class="draggable-item p-2"><=</p>
+                            </div>
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "1">
+                                <p class="draggable-item p-2">>=</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
+                                <p class="draggable-item p-2">|---------</p>
+                            </div>
+                        </div>
+                    </div>                
             </div>
         </div>   
         <div class="card breadcrumb mb-6 col-sm-6 border-block padding-right">
@@ -40,9 +79,99 @@
                 </div>
                 <canvas id="myAreaChart" width="100%" height="200">  
                 </canvas>
+                <div class="card-body">
+                    <div>
+                       <button class="card-footer small button-color rightClear" width="40%" onclick = "addSlot()"  > Add Slot</button>
+                       <button class="card-footer small button-color leftClear" width="40%" onclick = "clearCanvas()" > Clear</button>
+                    </div>
+                    <div class = "container-fluid d-flex align-items-center" id = "canvas">
+                    </div>
+                </div> 
             </div>     
             <button class="card-footer small button-color" width="98%" onclick="submitAnswer(event)">Submit</button>
         </div>
+        <div class="card breadcrumb col-sm-3 border-block card-header">
+            <div class="card-header button-color">
+                Number Toolbar
+            </div>
+            <div class = "container-fluid ">
+                <div class="row">
+                    <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
+                        <p class="draggable-item p-2">0</p>
+                    </div>
+                    <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "1">
+                        <p class="draggable-item p-2">1</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "2">
+                        <p class="draggable-item p-2">2</p>
+                    </div>
+                    <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "3">
+                        <p class="draggable-item p-2">3</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "4">
+                        <p class="draggable-item p-2">4</p>
+                    </div>    
+                
+                    <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "5">
+                        <p class="draggable-item p-2">5</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "6">
+                        <p class="draggable-item p-2">6</p>
+                    </div>
+                    <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "7">
+                        <p class="draggable-item p-2">7</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "8">
+                        <p class="draggable-item p-2">8</p>
+                    </div>
+                    <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "9">
+                        <p class="draggable-item p-2">9</p>
+                    </div>    
+                </div>
+            </div>
+        </div>
+        <div class="card col-sm-12 breadcrumb border-block card-header">
+            <div class="card-header button-color">
+                Work History
+            </div>
+            <div class="col-sm-13 breadcrumb border-block" style="height:400px;width:100%;overflow:scroll;">
+                <div class = "container-fluid">
+                    <table class="table" style="font-size: 25px">
+                        <thead>
+                              <th scope="col" style="text-align: center">#</th>
+                              <th scope="col" style="text-align: center">Question</th>
+                              <th scope="col" style="text-align: center">Answer</th>
+                              <th scope="col" style="text-align: center">Result</th>
+                        </thead>
+                        <tbody>
+                            <tr id="tr1">
+                                                                      
+                            </tr>
+                            <tr id="tr2">                                      
+                              
+                            </tr>
+                            <tr id="tr3">                                      
+                              
+                            </tr>
+                            <tr id="tr4">                                      
+                              
+                            </tr>
+                            <tr id="tr5">                                    
+                              
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
     </div>
 
 </body>
@@ -138,7 +267,12 @@
         .padding-right{
             padding-right: 2px;
         }
-    
+        .leftClear{
+        float: left
+        }
+        .rightClear{
+        float: right
+        }
         .grid-item{
             width: 20%;
             height: 70px;
