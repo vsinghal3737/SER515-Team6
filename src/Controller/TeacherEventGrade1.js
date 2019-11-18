@@ -37,22 +37,27 @@ function submitQuestion(ev){
     var result;
     var canvas = document.getElementById("canvas");
     while (canvas.childNodes.length>=1) {  
-        
-        question = question+canvas.childNodes[0].firstChild;
+        if(canvas.childNodes[0].firstChild.className.search('fa-plus') != -1)
+        {
+            question = question+'+';
+        }
+        else if(canvas.childNodes[0].firstChild.className.search('fa-minus') != -1)
+        {
+            question = question+'-';
+        }
+        else
+            question = question+canvas.childNodes[0].firstChild.innerHTML;
+        canvas.removeChild(canvas.childNodes[0]);
     }
-    if(eval(question) != NaN){
-        alert(question)
-        result = 'Pass'
-        }
+    var result = eval(question);
+    if(result != NaN){
+        alert(result);
+    }
     else{
-        alert(question)
-        result = 'Fail'
-        }
+        alert("INVALID");
+    }
 
-    if(result == 'Pass')
-        alert("Submitted answer is correct");
-    else
-        alert("Submitted answer is wrong");
+    
     //Should contain code to send POST request to back-end with the submitted answer
     //Access JSON object of current question using: questionList[currentQuestion]
 
