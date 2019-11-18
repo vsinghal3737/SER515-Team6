@@ -13,3 +13,9 @@ function clearCanvas(){
     }
 }
 
+function allowDrop(ev) {
+     ev.preventDefault(); 
+   
+}
+
+
