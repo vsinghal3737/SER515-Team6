@@ -58,10 +58,10 @@ class SubmitQuestion(Resource):
             Questions.addQuestion(
                 {
                     'Question': data['Question'],
-                    'Answer': data['Answer'],
-                    'Grade': data['Grade'],
-                    'ProfID': data['ProfID'],
-                    'SubmittedOn': data['SubmittedOn']
+                    'Answer': '',
+                    'Grade': current_user.Grade,
+                    'ProfID': current_user.id,
+                    'SubmittedOn': data['Date']
                 }
             )
             return jsonify({'message': 'Question Submitted'})

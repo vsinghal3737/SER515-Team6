@@ -27,7 +27,8 @@ function drop(ev, el) {
         var childNode = document.getElementById(id).childNodes[1];
         var nodeCopy = childNode.cloneNode(true); 
         nodeCopy.style.fontSize = "45px";
-        el.appendChild(nodeCopy);
+        if(el.childNodes.length == 0)
+            el.appendChild(nodeCopy);
         ev.stopPropagation();
         return false;
 }
@@ -49,13 +50,21 @@ function submitQuestion(ev){
             question = question+canvas.childNodes[0].firstChild.innerHTML;
         canvas.removeChild(canvas.childNodes[0]);
     }
-    var result = eval(question);
-    if(result != NaN){
-        alert(result);
+    try {
+    eval(question); 
+    } 
+    catch (e) {
+        alert("INVALID: "+e.message);
+        return;
     }
-    else{
-        alert("INVALID");
-    }
+    var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
+    question_json = {'Question': question,
+        'Date': localISOTime,
+    };
+    //$.post("/SubmitAnswer", answer);
+    alert(eval(question));
+    
 
     
     //Should contain code to send POST request to back-end with the submitted answer

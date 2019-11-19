@@ -28,7 +28,7 @@ class Login(Resource):
                 print(user.FName)
                 return make_response(render_template('StudentView.html', userInfo={'user': user.FName}))
             elif user.Role == "Prof":
-                return make_response(render_template('TeacherView.html', userInfo=jsonify({'user': jsonUser})))
+                return make_response(render_template('TeacherViewGrade1.html', userInfo=jsonify({'user': jsonUser})))
             elif user.Role == "Admin":
                 return make_response(render_template('AdminView.html', userInfo=jsonify({'user': jsonUser})))
         return make_response(render_template('login.html'))
