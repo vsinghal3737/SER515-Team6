@@ -5,15 +5,17 @@
 			<link rel="stylesheet" href="css/styles.css?v=1.0">
 				<link href="css/student.css" rel="stylesheet">
 					<script src="https://kit.fontawesome.com/b4c078fdab.js" crossorigin="anonymous"></script>
-					<!--> <script type="text/javascript" src="{{ url_for('static', filename='AdminEvent.js') }}"></script> <!-->
-					<script src="AdminEvent.js"></script>
+					<script src="{{ url_for('static', filename='AdminEvent.js') }}"></script>
 					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 					<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 					</head>			
-					<body id="page-top" >
+					<body id="page-top" onload="loadPage()">
 						<nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
 							<a class="navbar-brand mr-1" href="\#">Admin</a>
+							<form action="/logout">
+                    			<input type="submit" value="Logout" class="navbar-right textColr-log btn btn-log navbar-brand"/>
+                			</form>
 						</nav>
 						<div id="content-wrapper">
 							<div class = "container-fluid">
@@ -30,21 +32,22 @@
 
 											</div>
 										<div  style="overflow-y:scroll;  max-height: 250px;">
-											<table class="table table-striped"  >
+											<table class="table table-striped" id="user_table">
+
 												<thead>
 
 													<tr>
-														<th scope="col" id="1">User ID</th>
+														<th scope="col">Username</th>
 														<th scope="col">First name</th>
 														<th scope="col">Last name</th>
 														<th scope="col">Role</th>
 														<th scope="col">Grade</th>
-														<th scope="col">Contact Number</th>
+														
 													</tr>
 												</thead>
 
 												<tbody>
-
+												<!-- 
 													<tr >
 
 														<td>1216246559</th>
@@ -58,7 +61,7 @@
 																<option value="10">10</option>
 															</select>
 														</td>
-														<td>480-561-4985</td>
+														
 													</tr>
 													<tr>
 														<td>1216394586</td>
@@ -72,7 +75,7 @@
 																<option value="10">10</option>
 															</select>
 														</td>
-														<td>480-895-2654</td>
+														
 													</tr>
 													<tr>
 														<td>1265364687</td>
@@ -86,8 +89,8 @@
 																<option value="10">10</option>
 															</select>
 														</td>
-														<td>480-545-0007</td>
-													</tr>
+														
+													</tr><!-->
 												</tbody>
 											</table>
 										</div>

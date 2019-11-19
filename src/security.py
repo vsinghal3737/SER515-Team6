@@ -1,5 +1,5 @@
 from werkzeug.security import check_password_hash, generate_password_hash, safe_str_cmp as strcmp
-from user import User
+from Model.user import User
 
 
 class Security:

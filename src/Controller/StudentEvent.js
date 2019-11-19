@@ -6,41 +6,57 @@ function clearCanvas(){
     }
 }
 
-function loadQuestionOnCanvas(value) {
-    var slot = document.createElement('div');
-    slot.className = 'canvas-item d-flex justify-content-center';
-    slot.setAttribute("ondrop", "drop(event, this)"); 
-    slot.setAttribute("ondragover", "allowDrop(event)");
-    document.getElementById("canvas").appendChild(slot);
-    
-    if(value >='0' && value<='9')
-    {
-        var nodeCopy = document.getElementById(value).childNodes[1].cloneNode(true);
-        nodeCopy.style.fontSize = "45px";
-        slot.appendChild(nodeCopy);
-    }
-    else if(value == '+')
-    {
-        var operator = document.createElement('i');
-        operator.className = 'fas fa-plus draggable-icon p-2';
-        operator.style.fontSize = "45px";
-        slot.appendChild(operator);
-    }
-    else if(value == '-')
-    {
-        var operator = document.createElement('i');
-        operator.className = 'fas fa-minus draggable-icon p-2';
-        operator.style.fontSize = "45px";
-        slot.appendChild(operator);
-    }
-    else if(value == '=')
-    {
-        var operator = document.createElement('i');
-        operator.className = 'fas fa-equals draggable-icon p-2';
-        operator.style.fontSize = "45px";
-        slot.appendChild(operator);
-    }
 
+function loadQuestionOnCanvas(question) {
+    var i = 0;
+    while(i < question.length)
+        {
+            var value = question.charAt(i);
+            var slot = document.createElement('div');
+            slot.className = 'canvas-item d-flex justify-content-center';
+            document.getElementById("canvas").appendChild(slot);
+            if(value >='0' && value<='9')
+            {
+                while(question.charAt(i) >= '0' && question.charAt(i) <= '9')
+                {
+                    var nodeCopy = document.getElementById(question.charAt(i)).childNodes[1].cloneNode(true);
+                    nodeCopy.style.fontSize = "45px";
+                    slot.appendChild(nodeCopy);
+                    i++;
+                }
+                i--;
+                
+            }
+            else if(value == '+')
+            {
+                var operator = document.createElement('i');
+                operator.className = 'fas fa-plus draggable-icon p-2';
+                operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+            else if(value == '-')
+            {
+                var operator = document.createElement('i');
+                operator.className = 'fas fa-minus draggable-icon p-2';
+                operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+            else if(value == '=')
+            {
+                var operator = document.createElement('i');
+                operator.className = 'fas fa-equals draggable-icon p-2';
+                operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+            else        //Only allow drop on empty slot
+            {
+
+                slot.setAttribute("ondrop", "drop(event, this)"); 
+                slot.setAttribute("ondragover", "allowDrop(event)");
+            }
+            i++;
+        }
+    
 }
 function allowDrop(ev) {
     ev.preventDefault(); 
@@ -50,17 +66,23 @@ function allowDrop(ev) {
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
 }
-
 function drop(ev, el) {
         ev.preventDefault();
+        /*
+        if(el.hasChildNodes()) {
+            if(el.firstChild.tagName == 'I')
+                return;
+        }
+        */
         var id = ev.dataTransfer.getData("text");
-        //var isLeft = "example1" == id || "example2" == id;
         var childNode = document.getElementById(id).childNodes[1];
         var nodeCopy = childNode.cloneNode(true);
         //nodeCopy.id = id + ev.target.id;
-        // clean target space if needed 
         nodeCopy.style.fontSize = "45px";
-        el.appendChild(nodeCopy);
+        // Only allow drop if slot does not contain operator and restricting number of digits to two.
+        if(el.childNodes.length <= 1)
+            el.appendChild(nodeCopy);
+
         
         ev.stopPropagation();
         return false;
@@ -71,10 +93,8 @@ function drop(ev, el) {
         currentQuestion = ev.target.id;
         var question = ev.target.value;
         var i;
-        for(i = 0; i<question.length; i++)
-        {
-            loadQuestionOnCanvas(question.charAt(i));
-        }
+        loadQuestionOnCanvas(question);
+        
  }
 
 
@@ -172,6 +192,9 @@ function submitAnswer(ev){
         else
         {
             equation = equation+canvas.childNodes[0].firstChild.innerHTML;
+            if(canvas.childNodes[0].childNodes.length > 1)
+                equation = equation+canvas.childNodes[0].childNodes[1].innerHTML;
+            
         }
         canvas.removeChild(canvas.childNodes[0]);
     }
@@ -183,6 +206,7 @@ function submitAnswer(ev){
     equation = lhs+'='+rhs;
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
+    alert(localISOTime);
     answer = {'His_QuesID': currentQuestion,
         'Result': result,
         'Date': localISOTime,
