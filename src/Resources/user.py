@@ -25,10 +25,15 @@ class Login(Resource):
             login_user(user)
             jsonUser = cls.__getUser(user)
             if user.Role == 'Stud':
-                print(user.FName)
-                return make_response(render_template('StudentView.html', userInfo={'user': user.FName}))
+                if jsonUser['grade'] == 1:
+                    return make_response(render_template('StudentView.html', userInfo={'user': user.FName}))
+                if jsonUser['grade'] == 4:
+                    return make_response(render_template('StudentView4.html', userInfo={'user': jsonUser}))
             elif user.Role == "Prof":
-                return make_response(render_template('TeacherViewGrade1.html', userInfo={'user': user.FName}))
+                if jsonUser['grade'] == 1:
+                    return make_response(render_template('TeacherViewGrade1.html', userInfo={'user': user.FName}))
+                if jsonUser['grade'] == 4:
+                    return make_response(render_template('professor4.html', userInfo=jsonify({'user': jsonUser})))
             elif user.Role == "Admin":
                 return make_response(render_template('AdminView.html', userInfo=jsonify({'user': jsonUser})))
         return make_response(render_template('login.html'))
