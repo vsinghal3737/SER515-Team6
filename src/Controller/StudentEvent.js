@@ -6,6 +6,10 @@ function clearCanvas(){
     }
 }
 
+function clearAnswer() {    
+    while(document.getElementById('answer').firstChild)
+        document.getElementById('answer').removeChild(document.getElementById('answer').firstChild);
+}
 
 function loadQuestionOnCanvas(question) {
     var i = 0;
@@ -17,14 +21,9 @@ function loadQuestionOnCanvas(question) {
             document.getElementById("canvas").appendChild(slot);
             if(value >='0' && value<='9')
             {
-                while(question.charAt(i) >= '0' && question.charAt(i) <= '9')
-                {
-                    var nodeCopy = document.getElementById(question.charAt(i)).childNodes[1].cloneNode(true);
-                    nodeCopy.style.fontSize = "45px";
-                    slot.appendChild(nodeCopy);
-                    i++;
-                }
-                i--;
+                var nodeCopy = document.getElementById(question.charAt(i)).childNodes[1].cloneNode(true);
+                nodeCopy.style.fontSize = "45px";
+                slot.appendChild(nodeCopy);
                 
             }
             else if(value == '+')
@@ -50,7 +49,7 @@ function loadQuestionOnCanvas(question) {
             }
             else        //Only allow drop on empty slot
             {
-
+                slot.id = 'answer';
                 slot.setAttribute("ondrop", "drop(event, this)"); 
                 slot.setAttribute("ondragover", "allowDrop(event)");
             }
@@ -68,12 +67,6 @@ function drag(ev) {
 }
 function drop(ev, el) {
         ev.preventDefault();
-        /*
-        if(el.hasChildNodes()) {
-            if(el.firstChild.tagName == 'I')
-                return;
-        }
-        */
         var id = ev.dataTransfer.getData("text");
         var childNode = document.getElementById(id).childNodes[1];
         var nodeCopy = childNode.cloneNode(true);
@@ -141,7 +134,7 @@ function loadPage(){
     });
     $.get("/GetHistoryQuestions", function(hist_data){
         hist_data = hist_data['Questions'];
-        for(item = Object.keys(hist_data).length; item>=0; item--) {
+            for(item in hist_data) {
             tr = 'tr'+ctr;
             row = document.getElementById(tr);
             col = row.insertCell(0);
@@ -158,6 +151,7 @@ function loadPage(){
             col.style = "text-align: center";
             ctr++;
         }
+        
     });
     
 }

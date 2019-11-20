@@ -1,8 +1,14 @@
+var nodeCounter = 1;
+
+
+//No longer needed
 function addSlot() {
 	var slot = document.createElement('div');
 	slot.className = 'canvas-item d-flex justify-content-center';
-	slot.setAttribute("ondrop", "drop(event, this)"); 
-	slot.setAttribute("ondragover", "allowDrop(event)");
+    slot.setAttribute("draggable", "true");
+    slot.setAttribute("ondragstart", "drag(event)");
+    slot.id = 'canvas'+nodeCounter;
+    nodeCounter++;
 	document.getElementById('canvas').appendChild(slot);
 }
 
@@ -21,19 +27,31 @@ function allowDrop(ev) {
     ev.preventDefault(); 
 }
 
+//Called when node is dragged into canvas
 function drop(ev, el) {
         ev.preventDefault();
         var id = ev.dataTransfer.getData("text");
-        var childNode = document.getElementById(id).childNodes[1];
-        var nodeCopy = childNode.cloneNode(true); 
-        nodeCopy.style.fontSize = "45px";
-        if(el.childNodes.length == 0)
-            el.appendChild(nodeCopy);
+        var childNode = document.getElementById(id);
+        var nodeCopy = childNode.cloneNode(true);
+        nodeCopy.id = 'canvas'+nodeCounter;
+        nodeCounter++;
+        if(document.getElementById('canvas').childNodes.length < 9)
+            document.getElementById('canvas').appendChild(nodeCopy);
+        else
+            alert("Canvas is full");
         ev.stopPropagation();
         return false;
 }
 
-
+//Called when node is dragged away from canvas to delete
+function dropToRemove(ev, el) {
+    ev.preventDefault();
+    var id = ev.dataTransfer.getData("text");
+    var node = document.getElementById(id);
+    document.getElementById('canvas').removeChild(node);
+    ev.stopPropagation();
+    return false;
+}
 function removeHistoryQuestions()
 {
     var tr = '';
@@ -98,14 +116,16 @@ function submitQuestion(ev){
     }
     if(eval(question) == null){
         alert("NOT VALID");
+        return;
     }
-    question = question+'=_';
+    final_question = question+'=_';
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
-    question_json = {'Question': question,
+    question_json = {'Question': final_question,
         'Date': localISOTime,
     };
-    //$.post("/SubmitQuestion", question_json);
+    $.post("/SubmitQuestion", question_json);
+    alert(eval(question));
     loadPage();
 
     
