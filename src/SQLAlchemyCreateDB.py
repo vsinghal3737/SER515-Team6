@@ -45,6 +45,20 @@ def FirstRun():
     db.session.commit()
 
 
+def ProfCreate():
+    user = \
+        User(
+            Username='Prof1',
+            Password=generate_password_hash('pass', method='sha256'),
+            FName='Ankit',
+            LName='',
+            Grade=1,
+            Role='Prof'
+        )
+    db.session.add(user)
+    db.session.commit()
+
+
 '''
 how to add user
 dir -> where SQLAlchemyCreateDB is located
@@ -93,4 +107,3 @@ select * from User  # To see PublicID if needed
 # db.session.commit()
 
 # till here
-
