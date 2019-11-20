@@ -1,5 +1,5 @@
 from security import Security
-from Model.user import UserList
+from Model.user import UserList, UserMode
 
 from flask_restful import Resource
 from flask import request, render_template, jsonify, make_response, redirect, url_for
@@ -28,7 +28,7 @@ class Login(Resource):
                 print(user.FName)
                 return make_response(render_template('StudentView.html', userInfo={'user': user.FName}))
             elif user.Role == "Prof":
-                return make_response(render_template('TeacherViewGrade1.html', userInfo=jsonify({'user': jsonUser})))
+                return make_response(render_template('TeacherViewGrade1.html', userInfo={'user': user.FName}))
             elif user.Role == "Admin":
                 return make_response(render_template('AdminView.html', userInfo=jsonify({'user': jsonUser})))
         return make_response(render_template('login.html'))
@@ -94,3 +94,13 @@ class Check(Resource):
     @login_required
     def get(cls):
         return '{} {} {}'.format(current_user.Username, current_user.Grade, current_user.Role)
+
+
+class UpdateGrade(Resource):
+    @login_required
+    def post(cls):
+        data = request.form
+        if current_user.Role != 'Admin':
+            return {'mesasge': 'Admin user only'}, 401
+        return jsonify({'message': 'Grade Updated'}) if UserMode.UpdateGrade(data['Username'], data['Grade']) \
+            else jsonify({'message': 'Grade Not Updated for {}'.format(data['Username'])})

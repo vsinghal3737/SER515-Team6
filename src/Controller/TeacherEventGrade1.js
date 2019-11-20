@@ -33,6 +33,45 @@ function drop(ev, el) {
         return false;
 }
 
+
+function removeHistoryQuestions()
+{
+    var tr = '';
+    var ctr = 1;
+    var row;
+    for(ctr = 1; ctr<=5; ctr++)
+    {
+        tr = 'tr'+ctr;
+        row = document.getElementById(tr);
+        while(row.firstChild)
+            row.removeChild(row.firstChild);
+    }  
+}
+
+function loadPage() {
+    var ctr = 1;
+    var tr = '';
+    var row, col;
+    removeHistoryQuestions();
+    $.get("/GetQuestionsPerGrade", function(hist_data){
+        hist_data = hist_data['Questions'];
+        for(item in hist_data) {
+            tr = 'tr'+ctr;
+            row = document.getElementById(tr);
+            col = row.insertCell(0);
+            col.innerHTML = ctr.toString();
+            col.style = "text-align: center";
+            col = row.insertCell(1);
+            col.innerHTML = hist_data[item]['question'];
+            col.style = "text-align: center";
+            col = row.insertCell(2);
+            col.innerHTML = hist_data[item]['submitted_on'];
+            col.style = "text-align: center";
+            ctr++;
+        }
+    });
+}
+
 function submitQuestion(ev){
     var question = '';
     var result;
@@ -57,14 +96,17 @@ function submitQuestion(ev){
         alert("INVALID: "+e.message);
         return;
     }
+    if(eval(question) == null){
+        alert("NOT VALID");
+    }
+    question = question+'=_';
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
     question_json = {'Question': question,
         'Date': localISOTime,
     };
-    //$.post("/SubmitAnswer", answer);
-    alert(eval(question));
-    
+    //$.post("/SubmitQuestion", question_json);
+    loadPage();
 
     
     //Should contain code to send POST request to back-end with the submitted answer

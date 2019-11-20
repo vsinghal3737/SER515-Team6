@@ -25,7 +25,7 @@ def load_user(user_id):
 
 if __name__ == '__main__':
     from Resources.home import Home
-    from Resources.user import LogReg, Login, Logout, Check, AllUserList
+    from Resources.user import LogReg, Login, Logout, Check, AllUserList, UpdateGrade
     # from Resources.user import Register, User, UserList
 
     from Resources.question import QuestionsPerStud, QuestionsPerGrade, HistoryQuestions, SubmitAnswer, SubmitQuestion
@@ -52,5 +52,7 @@ if __name__ == '__main__':
     api.add_resource(SubmitQuestion, '/SubmitQuestion')
 
     api.add_resource(AllUserList, '/GetAllUsers')
+
+    api.add_resource(UpdateGrade, '/UpdateGrade')
 
     app.run(port=5000, debug=True)

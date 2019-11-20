@@ -9,11 +9,11 @@ function saveChanges()
 			user = {'Username': document.getElementById("user_table").rows[ctr].cells[0].innerHTML,
 				'Grade': document.getElementById("user_table").rows[ctr].cells[4].firstChild.value
 			};
-			/*$.post("/UpdateUser", user, function(data, status){
+			$.post("/UpdateGrade", user, function(data, status){
     			console.log("Status: " + status);
-  			});*/
+  			});
   			userList['Users'][item]['Grade'] = document.getElementById("user_table").rows[ctr].cells[4].firstChild.value;
-  			alert(user['Username']);
+  			alert(user['Username']+user['Grade']);
 		}
 		ctr++;
 	}

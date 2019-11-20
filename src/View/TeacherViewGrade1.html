@@ -9,7 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>         
-<body id="page-top" >
+<body id="page-top" onload="loadPage()">
     <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
         <h1 style="padding-left: 5px; font-size: 25px" class="navbar-brand mr-1" href="\#">Welcome {{userInfo.user}}</h1>
         <div style="float: right" class="collapse navbar-collapse navbar-ws">
@@ -117,23 +117,18 @@
                                 <thead>
                                       <th scope="col" style="text-align: center">#</th>
                                       <th scope="col" style="text-align: center">Question</th>
-                                     
+                                      <th scope="col" style="text-align: center">Date Created</th>
                                 </thead>
                                 <tbody>
-                                    <tr id="tr1">
-                                                                              
+                                    <tr id="tr1">                                                                             
                                     </tr>
-                                    <tr id="tr2">                                      
-                                      
+                                    <tr id="tr2">                                                                          
                                     </tr>
-                                    <tr id="tr3">                                      
-                                      
+                                    <tr id="tr3">                                                                         
                                     </tr>
-                                    <tr id="tr4">                                      
-                                      
+                                    <tr id="tr4">                                                                         
                                     </tr>
-                                    <tr id="tr5">                                    
-                                      
+                                    <tr id="tr5">                                                                         
                                     </tr>
                                 </tbody>
                             </table>

@@ -34,7 +34,7 @@ class UserList:
 class UserMode:
     @classmethod
     def AddUser(cls, user):
-        if User.query.filter_by(Username=user['Username']).first():
+        if sql.User.query.filter_by(Username=user['Username']).first():
             return False
         newUser = User(
             Username=user['Username'],
@@ -50,15 +50,18 @@ class UserMode:
 
     @classmethod
     def DeleteUser(cls, username):
-        user = User.query.filter_by(Username=username).first()
+        user = sql.User.query.filter_by(Username=username).first()
         sql.db.session.delete(user)
         sql.db.session.commit()
 
     @classmethod
     def UpdateGrade(cls, username, grade):
-        user = User.query.filter_by(Username=username).first()
+        user = sql.User.query.filter_by(Username=username).first()
+        if not user:
+            return False
         user.Grade = grade
         sql.db.session.commit()
+        return True
 
 
 class TransferRole:

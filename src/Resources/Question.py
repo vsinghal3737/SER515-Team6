@@ -16,9 +16,7 @@ class QuestionsPerGrade(Resource):
 
     @login_required
     def get(cls):
-        if not request.form or 'grade' not in request.form:
-            return jsonify({'message': 'grade not found'})
-        questions = Questions.getQuestionPerGrade(request.form['grade'])
+        questions = Questions.getQuestionPerGrade(current_user.Grade)
         return jsonify({'Questions': questions})
 
 
