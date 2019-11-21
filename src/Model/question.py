@@ -44,12 +44,17 @@ class Questions:
         '''
         user = sql.User.query.filter_by(Username=username).first()
 
-        submitted_questions = list(set(map(
-            lambda x: x.His_QuesID,
-            sql.HistoryQuestion.query.filter_by(StudID=user.id).filter_by(Result=True).all()
-        )))
+        submitted_questions = \
+            list(
+                set(
+                    map(
+                        lambda x: x.His_QuesID,
+                        sql.HistoryQuestion.query.filter_by(StudID=user.id).filter_by(Result=True).all()
+                    )
+                )
+            )
 
-        questions = {
+        return {
             row.id: {
                 'id': row.id,
                 'question': row.Question,
@@ -57,13 +62,12 @@ class Questions:
                 'grade': row.Grade,
                 'prof_id': row.ProfID,
                 'submitted_on': row.SubmittedOn
-            } for row in sql.Question.query.filter_by(Grade=user.Grade).all() if row.id not in submitted_questions
+            } for row in sql.Question.query.filter_by(Grade=user.Grade).all()[::-1] if row.id not in submitted_questions
         }
-        return questions
 
     @classmethod
     def getQuestionPerGrade(cls, grade):
-        questions = {
+        return {
             row.id: {
                 'id': row.id,
                 'question': row.Question,
@@ -73,7 +77,6 @@ class Questions:
                 'submitted_on': row.SubmittedOn
             } for row in sql.Question.query.filter_by(Grade=grade).all()[::-1]
         }
-        return questions
 
     @classmethod
     def getHistQuestion(cls, username):
