@@ -80,8 +80,8 @@ class Questions:
 
     @classmethod
     def getHistQuestion(cls, username):
-        user_id = sql.User.query.filter_by(Username=username).first().id
-        questions = {
+
+        return {
             row.id: {
                 'id': row.id,
                 'his_question_id': row.His_QuesID,
@@ -89,9 +89,9 @@ class Questions:
                 'attempted_ans': row.AttemptedAns,
                 'result': 'Pass' if row.Result is True else 'Fail',
                 'submitted_on': row.SubmittedOn
-            } for row in sql.HistoryQuestion.query.filter_by(StudID=user_id).all()
+            } for row in sql.HistoryQuestion.query.filter_by(
+                StudID=sql.User.query.filter_by(Username=username).first().id).all()
         }
-        return questions
 
 
 def DummyRun():
