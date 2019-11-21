@@ -73,17 +73,18 @@ function loadPage() {
     removeHistoryQuestions();
     $.get("/GetQuestionsPerGrade", function(hist_data){
         hist_data = hist_data['Questions'];
-        for(item in hist_data) {
+        var keys = Object.keys(hist_data).reverse();
+        for(item = 0; item < keys.length; item++) {
             tr = 'tr'+ctr;
             row = document.getElementById(tr);
             col = row.insertCell(0);
             col.innerHTML = ctr.toString();
             col.style = "text-align: center";
             col = row.insertCell(1);
-            col.innerHTML = hist_data[item]['question'];
+            col.innerHTML = hist_data[keys[item]]['question'];
             col.style = "text-align: center";
             col = row.insertCell(2);
-            col.innerHTML = hist_data[item]['submitted_on'];
+            col.innerHTML = hist_data[keys[item]]['submitted_on'].slice(0, 17);
             col.style = "text-align: center";
             ctr++;
         }

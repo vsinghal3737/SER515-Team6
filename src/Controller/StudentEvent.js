@@ -134,22 +134,23 @@ function loadPage(){
     });
     $.get("/GetHistoryQuestions", function(hist_data){
         hist_data = hist_data['Questions'];
-            for(item in hist_data) {
+        var keys = Object.keys(hist_data).reverse();
+            for(item = 0; item < keys.length; item++) {
             tr = 'tr'+ctr;
             row = document.getElementById(tr);
             col = row.insertCell(0);
             col.innerHTML = ctr.toString();
             col.style = "text-align: center";
             col = row.insertCell(1);
-            question = hist_data[item]['attempted_ans'];
+            question = hist_data[keys[item]]['attempted_ans'];
             index = question.split('=');
             col.innerHTML = index[0];
             col.style = "text-align: center";
             col = row.insertCell(2);
-            col.innerHTML = hist_data[item]['attempted_ans'];
+            col.innerHTML = hist_data[keys[item]]['attempted_ans'];
             col.style = "text-align: center";
             col = row.insertCell(3);
-            col.innerHTML = hist_data[item]['result'];
+            col.innerHTML = hist_data[keys[item]]['result'];
             col.style = "text-align: center";
             ctr++;
         }
