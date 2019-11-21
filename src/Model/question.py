@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 class Questions:
-    format = '%Y-%m-%d %H:%M:%S'
+    dateFormat = '%Y-%m-%d %H:%M:%S'
 
     @classmethod
     def addQuestion(cls, question):
@@ -13,7 +13,7 @@ class Questions:
                 Answer=question['Answer'],
                 Grade=question['Grade'],
                 ProfID=question['ProfID'],
-                SubmittedOn=datetime.strptime(question['SubmittedOn'], cls.format)
+                SubmittedOn=datetime.strptime(question['SubmittedOn'], cls.dateFormat)
             )
         )
         sql.db.session.commit()
@@ -27,7 +27,7 @@ class Questions:
                 StudID=question['StudID'],
                 AttemptedAns=question['AttemptedAns'],
                 Result=True if question['Result'] == 'Pass' else False,
-                SubmittedOn=datetime.strptime(question['SubmittedOn'], cls.format)
+                SubmittedOn=datetime.strptime(question['SubmittedOn'], cls.dateFormat)
             )
         )
         sql.db.session.commit()
