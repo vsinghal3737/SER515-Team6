@@ -23,9 +23,9 @@
             <a class="navbar-brand mr-1" href="\#">Instructor Dashboard</a>
             <div class="collapse navbar-collapse navbar-ws">
                 <ul class="nav-items nav navbar-nav">
-                    <button href="\#" type="button" class="navbar-right textColr-log btn btn-log navbar-brand"> 
-                        Log Out
-                    </button>
+                    <form style="align-content: right" action="/logout">
+                    <input type="submit" value="Logout" class="navbar-right textColr-log btn btn-log navbar-brand"/>
+                </form>
                 </ul>
             </div>
         </nav>
@@ -83,7 +83,6 @@
                 </canvas>
                 <div class="card-body">
                     <div>
-                       <button class="card-footer small button-color rightClear" width="40%" onclick = "addSlot()"  > Add Slot</button>
                        <button class="card-footer small button-color leftClear" width="40%" onclick = "clearCanvas()" > Clear</button>
                     </div>
                     <div class = "container-fluid d-flex align-items-center" id = "canvas">

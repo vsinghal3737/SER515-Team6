@@ -13,7 +13,7 @@ function saveChanges()
     			console.log("Status: " + status);
   			});
   			userList['Users'][item]['Grade'] = document.getElementById("user_table").rows[ctr].cells[4].firstChild.value;
-  			alert(user['Username']+user['Grade']);
+            alert('User grade updated!');
 		}
 		ctr++;
 	}
