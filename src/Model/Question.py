@@ -71,7 +71,7 @@ class Questions:
                 'grade': row.Grade,
                 'prof_id': row.ProfID,
                 'submitted_on': row.SubmittedOn
-            } for row in sql.Question.query.filter_by(Grade=grade).all()
+            } for row in sql.Question.query.filter_by(Grade=grade).all()[::-1]
         }
         return questions
 
