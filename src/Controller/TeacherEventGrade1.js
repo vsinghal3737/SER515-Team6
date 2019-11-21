@@ -112,21 +112,21 @@ function submitQuestion(ev){
     eval(question); 
     } 
     catch (e) {
-        alert("INVALID: "+e.message);
+        alert("INVALID QUESTION FORMAT!");
         return;
     }
     if(eval(question) == null){
-        alert("NOT VALID");
+        alert("EMPTY QUESTION!");
         return;
     }
-    final_question = question+'=_';
+    question = question+'=_';
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
-    question_json = {'Question': final_question,
+    question_json = {'Question': question,
         'Date': localISOTime,
     };
     $.post("/SubmitQuestion", question_json);
-    alert(eval(question));
+    alert('Question Created Successfully!');
     loadPage();
 
     
