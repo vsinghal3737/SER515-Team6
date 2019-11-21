@@ -110,12 +110,12 @@ function loadPage(){
     //Calling flask api to fetch questions
     var ctr = 1;
     var tr = '';
-    var row, col;
-
+    var row, col, question;
+    var item, index;
     removeCurrentQuestion();
     removeHistoryQuestions();
     $.get("/GetQuestionsPerStud", function(data){
-    var item;
+    
     data = data['Questions']
     //Parsing JSON object to create the questions
     for(item in data) {
@@ -141,7 +141,9 @@ function loadPage(){
             col.innerHTML = ctr.toString();
             col.style = "text-align: center";
             col = row.insertCell(1);
-            col.innerHTML = hist_data[item]['attempted_ans'];
+            question = hist_data[item]['attempted_ans'];
+            index = question.split('=');
+            col.innerHTML = index[0];
             col.style = "text-align: center";
             col = row.insertCell(2);
             col.innerHTML = hist_data[item]['attempted_ans'];
