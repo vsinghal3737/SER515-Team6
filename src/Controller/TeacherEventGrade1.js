@@ -24,16 +24,30 @@ function drag(ev) {
 }
 
 function allowDrop(ev) {
-    ev.preventDefault(); 
+    ev.preventDefault();
+    var className = ev.target.className;
+    if(ev.target.id.search('canvasitem') != -1)
+        ev.target.className = "col grid-item d-flex justify-content-center drag-over";
+    else if(ev.target.parentNode.id.search('canvasitem') != -1)
+        ev.target.parentNode.className = "col grid-item d-flex justify-content-center drag-over";
 }
 
+function onDragLeave(ev) {
+    if(ev.target.id.search('canvasitem') != -1)
+        ev.target.className = "col grid-item d-flex justify-content-center";
+    else if(ev.target.parentNode.id.search('canvasitem') != -1)
+        ev.target.parentNode.className = "col grid-item d-flex justify-content-center";
+}
 //Called when node is dragged into canvas
-function drop(ev, el) {
+function dropOnCanvas(ev, el) {
         ev.preventDefault();
         var id = ev.dataTransfer.getData("text");
         var childNode = document.getElementById(id);
         var nodeCopy = childNode.cloneNode(true);
-        nodeCopy.id = 'canvas'+nodeCounter;
+        nodeCopy.id = 'canvasitem'+nodeCounter;
+        nodeCopy.setAttribute("ondragover", "allowDrop(event)");
+        nodeCopy.setAttribute("ondrop", "dropOnNode(event, this)");
+        nodeCopy.setAttribute("ondragleave", "onDragLeave(event)");
         nodeCounter++;
         if(document.getElementById('canvas').childNodes.length < 9)
             document.getElementById('canvas').appendChild(nodeCopy);
@@ -43,6 +57,31 @@ function drop(ev, el) {
         return false;
 }
 
+function dropOnNode(ev, el) {
+    ev.preventDefault();
+    var id = ev.dataTransfer.getData("text");
+    var childNode = document.getElementById(id);
+    var nodeCopy = childNode.cloneNode(true);
+    if(childNode.id.search('canvasitem') != -1) {
+        nodeCopy.id = childNode.id;
+        document.getElementById('canvas').removeChild(childNode);
+        document.getElementById('canvas').insertBefore(nodeCopy, el);
+    }
+    else {
+        nodeCopy.id = 'canvasitem'+nodeCounter;
+        nodeCopy.setAttribute("ondragover", "allowDrop(event)");
+        nodeCopy.setAttribute("ondrop", "dropOnNode(event, this)");
+        nodeCopy.setAttribute("ondragleave", "onDragLeave(event)");
+        nodeCounter++;
+        if(document.getElementById('canvas').childNodes.length < 9)
+            document.getElementById('canvas').insertBefore(nodeCopy, el);
+        else
+            alert("Canvas is full");
+    }
+    el.className = "col grid-item d-flex justify-content-center";
+    ev.stopPropagation();
+    return false;
+}
 //Called when node is dragged away from canvas to delete
 function dropToRemove(ev, el) {
     ev.preventDefault();
