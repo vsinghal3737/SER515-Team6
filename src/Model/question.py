@@ -66,6 +66,30 @@ class Questions:
         }
 
     @classmethod
+    def allALlQuestionsPerStud(cls, username):
+        user = sql.User.query.filter_by(Username=username).first()
+
+        return {
+            'allALlQuestionsPerStud': list(
+                    set(
+                        map(
+                            lambda x: x.His_QuesID,
+                            sql.HistoryQuestion.query.filter_by(StudID=user.id).all()
+                        )
+                    )
+                )
+            }
+    @classmethod
+    def deleteHistoryQuestionPerStud(cls, questions):
+        for _id in questions:
+            try:
+                question = sql.HistoryQuestion.query.get(_id)
+                sql.db.session.delete(question)
+                sql.db.session.commit()
+            except:
+                pass
+
+    @classmethod
     def getQuestionPerGrade(cls, grade):
         return {
             row.id: {
