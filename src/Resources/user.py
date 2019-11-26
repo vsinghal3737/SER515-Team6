@@ -68,24 +68,6 @@ class Logout(Resource):
 #         user.save_to_db()
 #         return {"message": "User Created successfully."}, 201
 
-
-# class User(Resource):
-#     @classmethod
-#     def get(cls, user_id):
-#         user = UserModel.find_by_id(user_id)
-#         if user:
-#             return user.json()
-#         return {'message': 'user not found'}, 404
-
-#     @classmethod
-#     def delete(cls, user_id):
-#         user = UserModel.find_by_id(user_id)
-#         if user:
-#             user.delete_from_db()
-#             return {"message": "User deleted successfully."}, 200
-#         return {'message': 'user not found'}, 404
-
-
 class AllUserList(Resource):
     @login_required
     def get(self):
@@ -112,7 +94,7 @@ class UpdateGrade(Resource):
             else jsonify({'message': 'Grade Not Updated for {}'.format(data['Username'])}), 404
 
 
-class deleteUser(Resource):
+class DeleteUser(Resource):
     @login_required
     def post(cls):
         data = request.form

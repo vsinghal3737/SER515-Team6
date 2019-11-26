@@ -64,7 +64,6 @@ class UserMode:
             return False
         user.Grade = grade
         sql.db.session.commit()
-        
         return True
 
 
