@@ -161,6 +161,11 @@ function submitQuestion(ev){
         return;
     }
     */
+    if(question.search('_') == -1 || question.search('=') == -1)
+    {
+        alert("INVALID QUESTION");
+        return;
+    }
     var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
     var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
     question_json = {'Question': question,
@@ -169,5 +174,4 @@ function submitQuestion(ev){
     $.post("/SubmitQuestion", question_json);
     alert('Question Created Successfully!');
     loadPage();
-
 }

@@ -168,8 +168,4 @@ function submitQuestion(ev){
     alert('Question Created Successfully!');
     loadPage();
 
-    
-    //Should contain code to send POST request to back-end with the submitted answer
-    //Access JSON object of current question using: questionList[currentQuestion]
-
 }
