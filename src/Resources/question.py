@@ -64,3 +64,16 @@ class SubmitQuestion(Resource):
             )
             return jsonify({'message': 'Question Submitted'})
         return jsonify({'message': '{} role is not valid for this Task'.format(current_user.Username)})
+
+
+class DeleteHistoryQuestions(Resource):
+    @login_required
+    def post(cls):
+        data = request.form
+        if current_user.Role != 'Admin':
+            return jsonify({'mesasge': 'Admin user only'}), 401
+
+        if Questions.deleteHistoryQuestionPerStud(Questions.allALlQuestionsPerStud(data['username'])):
+           return jsonify({'message': 'Dleted HistoryQuestions for {}'.format(data['Username'])}), 200
+
+        return jsonify({'message': 'No History Questions for {}'.format(data['Username'])}), 204          

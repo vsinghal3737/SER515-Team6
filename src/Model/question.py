@@ -79,8 +79,11 @@ class Questions:
                     )
                 )
             }
+
     @classmethod
     def deleteHistoryQuestionPerStud(cls, questions):
+        if not questions:
+            return False
         for _id in questions:
             try:
                 question = sql.HistoryQuestion.query.get(_id)
@@ -88,6 +91,7 @@ class Questions:
                 sql.db.session.commit()
             except:
                 pass
+        return True
 
     @classmethod
     def getQuestionPerGrade(cls, grade):

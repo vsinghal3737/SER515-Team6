@@ -107,10 +107,9 @@ class UpdateGrade(Resource):
         data = request.form
         if current_user.Role != 'Admin':
             return {'mesasge': 'Admin user only'}, 401
-        if UserMode.UpdateGrade(data['Username'], data['Grade']):
-            Questions.deleteHistoryQuestionPerStud(Questions.allALlQuestionsPerStud(data['username']))
-            return jsonify({'message': 'Grade Updated'})
-        return jsonify({'message': 'Grade Not Updated for {}'.format(data['Username'])})            
+            
+        return jsonify({'message': 'Grade Updated'}), 200 if UserMode.UpdateGrade(data['Username'], data['Grade']) \
+            else jsonify({'message': 'Grade Not Updated for {}'.format(data['Username'])}), 404
 
 
 class deleteUser(Resource):
@@ -122,3 +121,4 @@ class deleteUser(Resource):
 
         return jsonify({'message': 'User Deleted'}), 200 if UserMode.DeleteUser(data['Username']) \
             else jsonify({'message': 'User {} not found'.format(data['Username'])}), 404
+
