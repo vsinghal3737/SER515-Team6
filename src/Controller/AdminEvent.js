@@ -40,11 +40,13 @@ function deleteUser(ev)
     user = {'Username': username}
     $.post("/DeleteUser", user, function(data, status){
             console.log("Status: " + status);
+            alert('User Deleted!');
     });
     /*$.post("/DeleteHistoryQuestions", user, function(data, status){
             console.log("Status: " + status);
     }); */
-    loadPage();
+    //setTimeout(loadPage(), 5000);
+    location.reload();
 }
 
 function loadPage()
