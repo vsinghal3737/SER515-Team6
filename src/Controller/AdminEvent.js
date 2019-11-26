@@ -12,6 +12,9 @@ function saveChanges()
 			$.post("/UpdateGrade", user, function(data, status){
     			console.log("Status: " + status);
   			});
+            $.post("/DeleteHistoryQuestions", user, function(data, status){
+            console.log("Status: " + status);
+            });
   			userList['Users'][item]['Grade'] = document.getElementById("user_table").rows[ctr].cells[4].firstChild.value;
             alert('User grade updated!');
 		}
@@ -22,18 +25,26 @@ function saveChanges()
 function clearPage()
 {
     var table = document.getElementById("user_table");
-    while(table.firstChild)
+    while(document.getElementById("user_table").rows.length > 1)
     {
-        table.removeChild (table.firstChild);
+        table.deleteRow(1);
     }
 }
 
 
 function deleteUser(ev)
 {   
-    var row_id = ev.target.id;
-    document.getElementById(row_id).parentNode.removeChild(document.getElementById(row_id));
+    var username = ev.target.id;
+    //document.getElementById(row_id).parentNode.removeChild(document.getElementById(row_id));
     //Add POST method to delete user in back-end
+    user = {'Username': username}
+    $.post("/DeleteUser", user, function(data, status){
+            console.log("Status: " + status);
+    });
+    /*$.post("/DeleteHistoryQuestions", user, function(data, status){
+            console.log("Status: " + status);
+    }); */
+    loadPage();
 }
 
 function loadPage()
@@ -43,7 +54,7 @@ function loadPage()
     var row, col;
     var row, dropDown, option1, option2, option3, header, deleteUser;
     var table = document.getElementById("user_table");
-    //clearPage();
+    clearPage();
  	$.get("/GetAllUsers", function(data){
     var item;
     userList = data;
@@ -82,7 +93,7 @@ function loadPage()
         deleteUser = document.createElement('button');
         deleteUser.className = 'btn btn-danger';
         deleteUser.innerHTML = 'Delete';
-        deleteUser.id = tr;
+        deleteUser.id = data['Users'][item]['Username'];
         deleteUser.setAttribute("onclick", "deleteUser(event)");
         col.appendChild(deleteUser);
         ctr++;

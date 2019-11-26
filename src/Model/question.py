@@ -69,28 +69,22 @@ class Questions:
     def allALlQuestionsPerStud(cls, username):
         user = sql.User.query.filter_by(Username=username).first()
 
-        return {
-            'allALlQuestionsPerStud': list(
-                    set(
-                        map(
-                            lambda x: x.His_QuesID,
-                            sql.HistoryQuestion.query.filter_by(StudID=user.id).all()
-                        )
-                    )
-                )
-            }
+        return list(
+            map(
+                lambda x: x.id,
+                sql.HistoryQuestion.query.filter_by(StudID=user.id).all()
+            )
+        )
 
     @classmethod
     def deleteHistoryQuestionPerStud(cls, questions):
         if not questions:
             return False
         for _id in questions:
-            try:
-                question = sql.HistoryQuestion.query.get(_id)
+            question = sql.HistoryQuestion.query.filter_by(id=_id).first()
+            if question:
                 sql.db.session.delete(question)
                 sql.db.session.commit()
-            except:
-                pass
         return True
 
     @classmethod

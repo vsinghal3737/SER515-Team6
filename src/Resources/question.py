@@ -71,9 +71,8 @@ class DeleteHistoryQuestions(Resource):
     def post(cls):
         data = request.form
         if current_user.Role != 'Admin':
-            return jsonify({'mesasge': 'Admin user only'}), 401
+            return jsonify({'mesasge': 'Admin user only'})
+        if Questions.deleteHistoryQuestionPerStud(Questions.allALlQuestionsPerStud(data['Username'])):
+            return jsonify({'message': 'Dleted HistoryQuestions for {}'.format(data['Username'])})
 
-        if Questions.deleteHistoryQuestionPerStud(Questions.allALlQuestionsPerStud(data['username'])):
-           return jsonify({'message': 'Dleted HistoryQuestions for {}'.format(data['Username'])}), 200
-
-        return jsonify({'message': 'No History Questions for {}'.format(data['Username'])}), 204          
+        return jsonify({'message': 'No History Questions for {}'.format(data['Username'])})

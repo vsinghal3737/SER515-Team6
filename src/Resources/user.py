@@ -68,6 +68,7 @@ class Logout(Resource):
 #         user.save_to_db()
 #         return {"message": "User Created successfully."}, 201
 
+
 class AllUserList(Resource):
     @login_required
     def get(self):
@@ -88,10 +89,10 @@ class UpdateGrade(Resource):
     def post(cls):
         data = request.form
         if current_user.Role != 'Admin':
-            return {'mesasge': 'Admin user only'}, 401
-            
-        return jsonify({'message': 'Grade Updated'}), 200 if UserMode.UpdateGrade(data['Username'], data['Grade']) \
-            else jsonify({'message': 'Grade Not Updated for {}'.format(data['Username'])}), 404
+            return {'mesasge': 'Admin user only'}
+
+        return jsonify({'message': 'Grade Updated'}) if UserMode.UpdateGrade(data['Username'], data['Grade']) \
+            else jsonify({'message': 'Grade Not Updated for {}'.format(data['Username'])})
 
 
 class DeleteUser(Resource):
@@ -99,8 +100,7 @@ class DeleteUser(Resource):
     def post(cls):
         data = request.form
         if current_user.Role != 'Admin':
-            return jsonify({'mesasge': 'Admin user only'}), 401
+            return jsonify({'mesasge': 'Admin user only'})
 
-        return jsonify({'message': 'User Deleted'}), 200 if UserMode.DeleteUser(data['Username']) \
-            else jsonify({'message': 'User {} not found'.format(data['Username'])}), 404
-
+        return jsonify({'message': 'User Deleted'}) if UserMode.DeleteUser(data['Username']) \
+            else jsonify({'message': 'User {} not found'.format(data['Username'])})
