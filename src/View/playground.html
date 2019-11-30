@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<head>
-		<meta charset="utf-8">
-		<title>MathemaTricks</title>
-		<link rel="stylesheet" href="css/styles.css?v=1.0">
-		<link href="{{ url_for('static', filename='all.css') }}" rel="stylesheet">	
-		<script src="{{ url_for('static', filename='StudentEvent.js') }}"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet">
-	  </head>
+	<meta charset="utf-8">
+	<title>MathemaTricks</title>
+	<link rel="stylesheet" href="css/styles.css?v=1.0">
+	<link href="{{ url_for('static', filename='all.css') }}" rel="stylesheet">	
+	<script src="{{ url_for('static', filename='StudentEvent.js') }}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet">
 </head>
 <body id="page-top" onload="loadPage()">
 	<nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
-        <h1 style="padding-left: 5px; font-size: 25px" class="navbar-brand mr-1" href="\#">Welcome {{userInfo.user}}</h1>        
+        <h1 style="padding-left: 5px; font-size: 25px" class="navbar-brand mr-1" href="\#">Welcome</h1>        
         <div class="collapse navbar-collapse navbar-ws">
             <ul class="nav-items nav navbar-nav">                                
                 <form style="align-content: right" action="/logout">
@@ -22,70 +20,95 @@
             </ul>
         </div>
 	</nav> 
-	<div class="card breadcrumb mb-6 col-sm-8 border-block padding-right">
-		<div class="card-header button-color">
-			Workspace
-		</div>                  
-		<div class="card-body" ondrop="dropOnCanvas(event, this)" ondragover="allowDrop(event)">
-			<div>                      
-			   <button class="btn btn-primary" style="float: left" width="40%" onclick = "clearCanvas()" > Clear</button>
+	<div id="content-wrapper ">
+		<div class="container-fluid">
+			<div class="row padding-block">
+				<div class="card mb-6 col-sm-2 breadcrumb border-block padding-right" ondrop="dropToRemove(event, this)" ondragover="allowDrop(event)">
+					<div class="card-header button-color">
+							Operation Toolbar 
+					</div>
+					<br>
+					<div class="container-fluid" id="question-list" > 
+						<div class="row">
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "plus"><p class="draggable-icon p-2">+</p></div>
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "minus"><p class="draggable-icon p-2">-</p></div>
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "times"><p class="draggable-icon p-2">*</p></div>
+						</div>
+						<div class="row">
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "divide"><p class="draggable-icon p-2">/</p></div>
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "less-than"><p class="draggable-icon p-2"><</p></div>
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "greater-than"><p class="draggable-icon p-2">></p></div>
+						</div> 
+						<div class="row">
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "open"><p class="draggable-icon p-2">(</p></div>
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "close"><p class="draggable-icon p-2">)</p></div>
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "equals"><p class="draggable-icon p-2">=</p></div>
+						</div>                       
+						<br><br>
+						<p style="text-align: center" class="text-muted">Drag here to delete item from Canvas</p>
+					</div>
+				</div>  
+				<div class="card breadcrumb mb-6 col-sm-8 border-block padding-right">
+					<div class="card-header button-color">
+						Workspace
+					</div>                  
+					<div class="card-body" ondrop="dropOnCanvas(event, this)" ondragover="allowDrop(event)">
+						<canvas id="myAreaChart" width="100%" height="100"></canvas>
+						<div class = "container-fluid d-flex align-items-center" id = "canvas" ></div>
+					</div>     
+				</div>
+				<div class="card breadcrumb col-sm-2 border-block card-header">
+					<div class="card-header button-color">
+						Number Toolbar
+					</div>
+					<br>
+					<div class = "container-fluid ">
+						<div class="row">
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
+								<p class="draggable-item p-2">0</p>
+							</div>
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "1">
+								<p class="draggable-item p-2">1</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "2">
+								<p class="draggable-item p-2">2</p>
+							</div>
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "3">
+								<p class="draggable-item p-2">3</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "4">
+								<p class="draggable-item p-2">4</p>
+							</div>    
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "5">
+								<p class="draggable-item p-2">5</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "6">
+								<p class="draggable-item p-2">6</p>
+							</div>
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "7">
+								<p class="draggable-item p-2">7</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "8">
+								<p class="draggable-item p-2">8</p>
+							</div>
+							<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "9">
+								<p class="draggable-item p-2">9</p>
+							</div>    
+						</div>
+					</div>
+				</div>
 			</div>
-			<canvas id="myAreaChart" width="100%" height="100">
-			</canvas>
-			<div class = "container-fluid d-flex align-items-center" id = "canvas" ></div></div>     
-		<button class="card-footer small button-color" width="98%" onclick="submitQuestion(event)">Submit</button>
-	</div>
-		<div class="card breadcrumb col-sm-2 border-block card-header">
-		<div class="card-header button-color">
-			Number Toolbar
-		</div>
-		<br>
-	<div class = "container-fluid ">
-		<div class="row">
-			<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "0">
-				<p class="draggable-item p-2">0</p>
-			</div>
-			<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "1">
-				<p class="draggable-item p-2">1</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "2">
-				<p class="draggable-item p-2">2</p>
-			</div>
-			<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "3">
-				<p class="draggable-item p-2">3</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "4">
-				<p class="draggable-item p-2">4</p>
-			</div>    
-		
-			<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "5">
-				<p class="draggable-item p-2">5</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "6">
-				<p class="draggable-item p-2">6</p>
-			</div>
-			<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "7">
-				<p class="draggable-item p-2">7</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "8">
-				<p class="draggable-item p-2">8</p>
-			</div>
-			<div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "9">
-				<p class="draggable-item p-2">9</p>
-			</div>    
 		</div>
 	</div>
 </body>
-</html>
-
 <style scoped>
     .btn-log {
         display: inline-block;
@@ -139,7 +162,6 @@
         font-size: 13px;
         font-weight: bold;
     }
-
     .button-color{
         background-color: #311b92;
         color: white;
@@ -197,7 +219,6 @@
         border-radius: 10px;
         border: 1px solid black;
     }
-    
     .draggable-item{
         font-size: 35px;
         
@@ -207,8 +228,8 @@
         color: #12005e;
         margin-top: 12px;
     }
-
     .btn-primary{
         background-color: #6746c3;
     }
 </style>
+</html>
