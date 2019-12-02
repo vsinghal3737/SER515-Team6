@@ -10,6 +10,7 @@ class LogReg(Resource):
     def post(cls):
         return make_response(render_template('login.html')) if request.form['submit'] == 'login' \
             else make_response(render_template('signup.html')) if request.form['submit'] == 'signup' \
+            else make_response(render_template('playground.html')) if request.form['submit'] == 'playground' \
             else make_response(render_template('dashboard.html'))
 
     def get(cls):
