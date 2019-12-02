@@ -20,3 +20,13 @@ function drop(ev, el) {
         ev.stopPropagation();
         return false;
 }
+
+function clearAnswer() {
+    var canvas = document.getElementById("canvas");
+    for(item = 0; item < canvas.childNodes.length; item++)
+        if(canvas.childNodes[item].id.search('answer') != -1) {
+            while(canvas.childNodes[item].childNodes.length>0) {
+                canvas.childNodes[item].removeChild(canvas.childNodes[item].firstChild);
+            }
+        }
+}
