@@ -30,3 +30,29 @@ function clearAnswer() {
             }
         }
 }
+
+function submitAnswer(ev){
+    var equation = '';
+    var lhs, rhs, result;
+    var canvas = document.getElementById("canvas");
+    while (canvas.childNodes.length>=1) {          
+        if(canvas.childNodes[0].id.search('answer') != -1) {
+            while(canvas.childNodes[0].childNodes.length>0) {
+                equation = equation+canvas.childNodes[0].firstChild.innerHTML;
+                canvas.childNodes[0].removeChild(canvas.childNodes[0].firstChild);
+            }
+        }
+        else
+            equation = equation+canvas.childNodes[0].firstChild.innerHTML;
+        canvas.removeChild(canvas.childNodes[0]);
+    }
+    equation = equation.split('=');
+    lhs = equation[0];
+    rhs = equation[1];
+    if(eval(lhs)==eval(rhs))
+        result = 'Pass'
+    else
+        result = 'Fail'
+    equation = lhs+'='+rhs;
+
+}
