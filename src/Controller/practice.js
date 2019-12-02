@@ -46,13 +46,11 @@ function submitAnswer(ev){
             equation = equation+canvas.childNodes[0].firstChild.innerHTML;
         canvas.removeChild(canvas.childNodes[0]);
     }
-    equation = equation.split('=');
-    lhs = equation[0];
-    rhs = equation[1];
-    if(eval(lhs)==eval(rhs))
-        result = 'Pass'
-    else
-        result = 'Fail'
-    equation = lhs+'='+rhs;
+    if(eval(equation)!= Nan){
+       alert('The answer is' eval(equation));
+    }
+    else{
+        alert('Invalid expression');
+    }
 
 }
