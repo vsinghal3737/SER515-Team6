@@ -19,9 +19,10 @@
 <body id="page-top" onload="loadPage()">
     <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
         <h1 style="padding-left: 5px; font-size: 25px" class="navbar-brand mr-1" href="\#">Welcome {{userInfo.user}}</h1>
+        <h1 style="padding-left: 600px; font-size: 25px" class="navbar-brand mr-1">MathemaTricks</h1>
         <div style="float: right" class="collapse navbar-collapse navbar-ws">
             <ul class="nav-items nav navbar-nav">                
-                <form style="float: right" action="/logout">
+                <form style="padding-left: 750px" action="/logout">
                     <input type="submit" value="Logout" class="navbar-right textColr-log btn btn-log navbar-brand"/>
                 </form>                
             </ul>
@@ -30,12 +31,12 @@
     <div id="content-wrapper ">
         <div class="container-fluid">
             <div class="row padding-block">
-                <div class="card mb-6 col-sm-2 breadcrumb border-block padding-right" ondrop="dropToRemove(event, this)" ondragover="allowDrop(event)">
+                <div class="card mb-6 col-sm-2 breadcrumb border-block" ondrop="dropToRemove(event, this)" ondragover="allowDrop(event)">
                     <div class="card-header button-color">
                          Operation Toolbar 
                     </div>
                     <br>
-                        <div class="container-fluid" id="question-list" >
+                        <div class="container-fluid" id="operator-list" >
                             
                              <div class="row">
                                  <div class="col grid-item d-flex justify-content-center" draggable="true" ondragstart="drag(event)" id = "plus"><p class="draggable-icon p-2">+</p></div>
@@ -56,7 +57,7 @@
                             <p style="text-align: center" class="text-muted">Drag here to delete item from Canvas</p>
                       </div>
                     </div>  
-                <div class="card breadcrumb mb-6 col-sm-8 border-block padding-right">
+                <div class="card breadcrumb mb-6 col-sm-8 border-block">
                     <div class="card-header button-color">
                         Workspace
                     </div>                  
@@ -311,6 +312,11 @@
 
     .btn-primary{
         background-color: #6746c3;
+    }
+
+    .tooltip {
+        position: relative;
+        display: inline-block;
     }
 </style>
 

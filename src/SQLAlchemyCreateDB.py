@@ -45,15 +45,15 @@ def FirstRun():
     db.session.commit()
 
 
-def ProfCreate():
+def CreateUser(Username, Password, FName, LName, Grade, Role):
     user = \
         User(
-            Username='Prof1',
-            Password=generate_password_hash('pass', method='sha256'),
-            FName='Ankit',
-            LName='',
-            Grade=1,
-            Role='Prof'
+            Username=Username,
+            Password=generate_password_hash(Password, method='sha256'),
+            FName=FName,
+            LName=LName,
+            Grade=Grade,
+            Role=Role
         )
     db.session.add(user)
     db.session.commit()
