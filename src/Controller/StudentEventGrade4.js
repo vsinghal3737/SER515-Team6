@@ -108,6 +108,7 @@ function loadQuestionOnCanvas(question) {
             else        //Only allow drop on empty slot
             {
                 slot.id = 'answer'+answerctr;
+				slot.className = slot.className + ' answerslot';
                 answerctr++;
                 slot.setAttribute("ondrop", "drop(event, this)"); 
                 slot.setAttribute("ondragover", "allowDrop(event)");
