@@ -53,10 +53,14 @@
 					<div class="card-header button-color">
 						Workspace
 					</div>                  
-					<div class="card-body" ondrop="dropOnCanvas(event, this)" ondragover="allowDrop(event)">
+                    <div class="card-body" ondrop="dropOnCanvas(event, this)" ondragover="allowDrop(event)">
+                        <div>                      
+                            <button class="btn btn-primary" style="float: left" width="40%" onclick = "clearAnswer()" > Clear</button>
+                        </div>
 						<canvas id="myAreaChart" width="100%" height="100"></canvas>
 						<div class = "container-fluid d-flex align-items-center" id = "canvas" ></div>
-					</div>     
+                    </div>  
+                    <button class="card-footer small button-color" width="98%" onclick="submitAnswer(event)">Submit</button>   
 				</div>
 				<div class="card breadcrumb col-sm-2 border-block card-header">
 					<div class="card-header button-color">
