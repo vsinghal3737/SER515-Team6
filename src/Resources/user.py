@@ -8,14 +8,20 @@ from flask_login import login_required, login_user, logout_user, current_user
 
 class LogReg(Resource):
     def post(cls):
-        return make_response(render_template('login.html')) if request.form['submit'] == 'login' \
-            else make_response(render_template('signup.html')) if request.form['submit'] == 'signup' \
-            else make_response(render_template('playground.html')) if request.form['submit'] == 'playground' \
+        return redirect(url_for('login')) if request.form['submit'] == 'login' \
+            else redirect(url_for('playground')) if request.form['submit'] == 'playground' \
             else make_response(render_template('dashboard.html'))
+        # return make_response(render_template('login.html')) if request.form['submit'] == 'login' \
+        #     # else make_response(render_template('signup.html')) if request.form['submit'] == 'signup' \
+        #     else make_response(render_template('playground.html')) if request.form['submit'] == 'playground' \
+        #     else make_response(render_template('dashboard.html'))
 
     def get(cls):
         return "logreg"
 
+class Playground(Resource):
+    def get(cls):
+        return make_response(render_template('playground.html'))
 
 class Login(Resource):
     def post(cls):

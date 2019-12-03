@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, make_response, redirect, url_for
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
@@ -25,7 +25,7 @@ def load_user(user_id):
 
 if __name__ == '__main__':
     from Resources.home import Home
-    from Resources.user import LogReg, Login, Logout, Check, AllUserList, UpdateGrade, DeleteUser
+    from Resources.user import LogReg, Login, Logout, Check, AllUserList, UpdateGrade, DeleteUser, Playground
     # from Resources.user import Register, User, UserList
 
     from Resources.question import QuestionsPerStud, QuestionsPerGrade, HistoryQuestions, SubmitAnswer, SubmitQuestion, DeleteHistoryQuestions
@@ -36,6 +36,8 @@ if __name__ == '__main__':
 
     api.add_resource(Login, '/login')
     api.add_resource(Check, '/check')
+
+    api.add_resource(Playground, '/playground')
 
     api.add_resource(Logout, '/logout')
 
