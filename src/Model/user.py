@@ -51,8 +51,11 @@ class UserMode:
     @classmethod
     def DeleteUser(cls, username):
         user = sql.User.query.filter_by(Username=username).first()
+        if not user:
+            return False
         sql.db.session.delete(user)
         sql.db.session.commit()
+        return True
 
     @classmethod
     def UpdateGrade(cls, username, grade):

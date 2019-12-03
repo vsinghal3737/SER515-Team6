@@ -1,4 +1,3 @@
-
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -8,14 +7,15 @@
   
   <script src="{{ url_for('static', filename='StudentEvent.js') }}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="{{ url_for('static', filename='bootstrap.css') }}" rel="stylesheet">
 </head>         
 <body id="page-top" onload="loadPage()">
     <nav class="navbar navbar-expand navbar-dark sticky-top nav-color">        
-        <h1 style="padding-left: 5px; font-size: 25px" class="navbar-brand mr-1" href="\#">Welcome {{userInfo.user}}</h1>        
+        <h1 style="padding-left: 5px; font-size: 25px" class="navbar-brand mr-1" href="\#">Welcome {{userInfo.user}}</h1> 
+        <h1 style="padding-left: 600px; font-size: 25px" class="navbar-brand mr-1">MathemaTricks</h1>        
         <div class="collapse navbar-collapse navbar-ws">
             <ul class="nav-items nav navbar-nav">                                
-                <form style="align-content: right" action="/logout">
+                <form style="padding-left: 750px" action="/logout">
                     <input type="submit" value="Logout" class="navbar-right textColr-log btn btn-log navbar-brand"/>
                 </form>
             </ul>
@@ -38,13 +38,14 @@
                         Workspace
                     </div>                  
                     <div class="card-body">
-                        <div class = "container-fluid d-flex align-items-center" id = "canvas">
+                        <div>                      
+                           <button class="btn btn-primary" style="float: left" width="40%" onclick = "clearAnswer()" > Clear</button>
                         </div>
-                        <canvas id="myAreaChart" width="100%" height="200">  
+                        <canvas id="myAreaChart" width="100%" height="100">
                         </canvas>
-                    </div>     
-                    <button class="card-footer small button-color" width="98%" onclick="submitAnswer(event)">Submit</button>
-                </div>    
+                        <div class = "container-fluid d-flex align-items-center" id = "canvas" ></div></div>
+                        <button class="card-footer small button-color" width="98%" onclick="submitAnswer(event)">Submit</button>
+                    </div>                          
                 <div class="card breadcrumb col-sm-3 border-block card-header">
                     <div class="card-header button-color">
                         Operation Toolbar
@@ -103,7 +104,7 @@
                                 <thead>
                                       <th scope="col" style="text-align: center">#</th>
                                       <th scope="col" style="text-align: center">Question</th>
-                                      <th scope="col" style="text-align: center">Answer</th>
+                                      <th scope="col" style="text-align: center">Submitted Answer</th>
                                       <th scope="col" style="text-align: center">Result</th>
                                 </thead>
                                 <tbody>
@@ -260,7 +261,10 @@
     .padding-right{
         padding-right: 2px;
     }
-
+    .grid-item:hover{
+        transform: scale(1.1);
+        background: #0080ff;
+    }
     .grid-item{
         width: 20%;
         height: 70px;

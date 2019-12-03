@@ -1,4 +1,5 @@
 var currentQuestion;
+var answerctr = 0;
 function clearCanvas(){
     var canvas = document.getElementById("canvas");
     while(canvas.childNodes.length>0) {
@@ -6,9 +7,14 @@ function clearCanvas(){
     }
 }
 
-function clearAnswer() {    
-    while(document.getElementById('answer').firstChild)
-        document.getElementById('answer').removeChild(document.getElementById('answer').firstChild);
+function clearAnswer() {
+    var canvas = document.getElementById("canvas");
+    for(item = 0; item < canvas.childNodes.length; item++)
+        if(canvas.childNodes[item].id.search('answer') != -1) {
+            while(canvas.childNodes[item].childNodes.length>0) {
+                canvas.childNodes[item].removeChild(canvas.childNodes[item].firstChild);
+            }
+        }
 }
 
 function loadQuestionOnCanvas(question) {
@@ -17,39 +23,93 @@ function loadQuestionOnCanvas(question) {
         {
             var value = question.charAt(i);
             var slot = document.createElement('div');
-            slot.className = 'canvas-item d-flex justify-content-center';
+            slot.className = 'col grid-item d-flex justify-content-center';
             document.getElementById("canvas").appendChild(slot);
             if(value >='0' && value<='9')
             {
                 var nodeCopy = document.getElementById(question.charAt(i)).childNodes[1].cloneNode(true);
-                nodeCopy.style.fontSize = "45px";
+                //nodeCopy.style.fontSize = "45px";
                 slot.appendChild(nodeCopy);
                 
             }
             else if(value == '+')
             {
-                var operator = document.createElement('i');
-                operator.className = 'fas fa-plus draggable-icon p-2';
-                operator.style.fontSize = "45px";
+                var operator = document.createElement('p');
+                operator.className = 'draggable-icon p-2';
+                operator.innerHTML = '+';
+                //operator.style.fontSize = "45px";
                 slot.appendChild(operator);
             }
             else if(value == '-')
             {
-                var operator = document.createElement('i');
-                operator.className = 'fas fa-minus draggable-icon p-2';
-                operator.style.fontSize = "45px";
+                var operator = document.createElement('p');
+                operator.className = 'draggable-icon p-2';
+                operator.innerHTML = '-';
+                //operator.style.fontSize = "45px";
                 slot.appendChild(operator);
             }
             else if(value == '=')
             {
-                var operator = document.createElement('i');
-                operator.className = 'fas fa-equals draggable-icon p-2';
-                operator.style.fontSize = "45px";
+                var operator = document.createElement('p');
+                operator.className = 'draggable-icon p-2';
+                operator.innerHTML = '=';
+                //operator.style.fontSize = "45px";
                 slot.appendChild(operator);
             }
+            else if(value == '*')
+            {
+                var operator = document.createElement('p');
+                operator.className = 'draggable-icon p-2';
+                operator.innerHTML = '*';
+                //operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+            else if(value == '/')
+            {
+                var operator = document.createElement('p');
+                operator.className = 'draggable-icon p-2';
+                operator.innerHTML = '/';
+                //operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+            else if(value == '<')
+            {
+                var operator = document.createElement('p');
+                operator.className = 'draggable-icon p-2';
+                operator.innerHTML = '<';
+                //operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+            else if(value == '>')
+            {
+                var operator = document.createElement('p');
+                operator.className = 'draggable-icon p-2';
+                operator.innerHTML = '>';
+                //operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+            else if(value == '(')
+            {
+                var operator = document.createElement('p');
+                operator.className = 'draggable-icon p-2';
+                operator.innerHTML = '(';
+                //operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+            else if(value == ')')
+            {
+                var operator = document.createElement('p');
+                operator.className = 'draggable-icon p-2';
+                operator.innerHTML = ')';
+                //operator.style.fontSize = "45px";
+                slot.appendChild(operator);
+            }
+
             else        //Only allow drop on empty slot
             {
-                slot.id = 'answer';
+                slot.id = 'answer'+answerctr;
+				slot.className = slot.className + ' answerslot';
+                answerctr++;
                 slot.setAttribute("ondrop", "drop(event, this)"); 
                 slot.setAttribute("ondragover", "allowDrop(event)");
             }
@@ -71,9 +131,8 @@ function drop(ev, el) {
         var childNode = document.getElementById(id).childNodes[1];
         var nodeCopy = childNode.cloneNode(true);
         //nodeCopy.id = id + ev.target.id;
-        nodeCopy.style.fontSize = "45px";
         // Only allow drop if slot does not contain operator and restricting number of digits to two.
-        if(el.childNodes.length <= 1)
+        if(el.childNodes.length <= 2)
             el.appendChild(nodeCopy);
 
         
@@ -172,30 +231,20 @@ function submitAnswer(ev){
     var equation = '';
     var lhs, rhs, result;
     var canvas = document.getElementById("canvas");
-    while (canvas.childNodes.length>=1) {  
-        if(canvas.childNodes[0].firstChild.className.search('fa-plus') != -1)
-        {
-            equation = equation+'+';
-        }
-        else if(canvas.childNodes[0].firstChild.className.search('fa-minus') != -1)
-        {
-            equation = equation+'-';
-        }
-        else if(canvas.childNodes[0].firstChild.className.search('fa-equals') != -1)
-        {
-            lhs = equation;
-            equation = '';
+    while (canvas.childNodes.length>=1) {          
+        if(canvas.childNodes[0].id.search('answer') != -1) {
+            while(canvas.childNodes[0].childNodes.length>0) {
+                equation = equation+canvas.childNodes[0].firstChild.innerHTML;
+                canvas.childNodes[0].removeChild(canvas.childNodes[0].firstChild);
+            }
         }
         else
-        {
             equation = equation+canvas.childNodes[0].firstChild.innerHTML;
-            if(canvas.childNodes[0].childNodes.length > 1)
-                equation = equation+canvas.childNodes[0].childNodes[1].innerHTML;
-            
-        }
         canvas.removeChild(canvas.childNodes[0]);
     }
-    rhs = equation;
+    equation = equation.split('=');
+    lhs = equation[0];
+    rhs = equation[1];
     if(eval(lhs)==eval(rhs))
         result = 'Pass'
     else

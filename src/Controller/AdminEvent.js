@@ -12,13 +12,41 @@ function saveChanges()
 			$.post("/UpdateGrade", user, function(data, status){
     			console.log("Status: " + status);
   			});
+            $.post("/DeleteHistoryQuestions", user, function(data, status){
+            console.log("Status: " + status);
+            });
   			userList['Users'][item]['Grade'] = document.getElementById("user_table").rows[ctr].cells[4].firstChild.value;
-  			alert(user['Username']+user['Grade']);
+            alert('User grade updated!');
 		}
 		ctr++;
-	}
-	
-	
+	}	
+}
+
+function clearPage()
+{
+    var table = document.getElementById("user_table");
+    while(document.getElementById("user_table").rows.length > 1)
+    {
+        table.deleteRow(1);
+    }
+}
+
+
+function deleteUser(ev)
+{   
+    var username = ev.target.id;
+    //document.getElementById(row_id).parentNode.removeChild(document.getElementById(row_id));
+    //Add POST method to delete user in back-end
+    user = {'Username': username}
+    $.post("/DeleteUser", user, function(data, status){
+            console.log("Status: " + status);
+            alert('User Deleted!');
+    });
+    /*$.post("/DeleteHistoryQuestions", user, function(data, status){
+            console.log("Status: " + status);
+    }); */
+    //setTimeout(loadPage(), 5000);
+    location.reload();
 }
 
 function loadPage()
@@ -26,8 +54,9 @@ function loadPage()
 	var ctr = 1;
     var tr = '';
     var row, col;
-    var row, dropDown, option1, option2, option3, header;
+    var row, dropDown, option1, option2, option3, header, deleteUser;
     var table = document.getElementById("user_table");
+    clearPage();
  	$.get("/GetAllUsers", function(data){
     var item;
     userList = data;
@@ -38,16 +67,12 @@ function loadPage()
         row.id = tr;
         col = row.insertCell(0);
         col.innerHTML = data['Users'][item]['Username'];
-        //col.style = "text-align: center";
         col = row.insertCell(1);
         col.innerHTML = data['Users'][item]['FName'];
-        //col.style = "text-align: center";
         col = row.insertCell(2);
         col.innerHTML = data['Users'][item]['LName'];
-        //col.style = "text-align: center";
         col = row.insertCell(3);
         col.innerHTML = data['Users'][item]['Role'];
-        //col.style = "text-align: center";
         col = row.insertCell(4);
         dropDown = document.createElement('SELECT');
         option = document.createElement('option');
@@ -64,9 +89,15 @@ function loadPage()
 	        option = document.createElement('option');
 	        option.text = '1';
 	        dropDown.add(option);
-        }
-        
+        }        
         col.appendChild(dropDown);
+        col = row.insertCell(5);
+        deleteUser = document.createElement('button');
+        deleteUser.className = 'btn btn-danger';
+        deleteUser.innerHTML = 'Delete';
+        deleteUser.id = data['Users'][item]['Username'];
+        deleteUser.setAttribute("onclick", "deleteUser(event)");
+        col.appendChild(deleteUser);
         ctr++;
     }    
     });
@@ -81,11 +112,8 @@ function loadPage()
 }
 
 function search()
-{
-	
-	
+{	
 	var searchValue=document.getElementById("search_text").value;
 	console.log(searchValue);
-	//document.getElementById("1").innerHTML=searchValue;
-	
+	//document.getElementById("1").innerHTML=searchValue;	
 }
