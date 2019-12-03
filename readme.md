@@ -34,5 +34,5 @@ If python, pip is installed in your system skip first 2 steps
 	In the web browser type `localhost:5000/` to start using the web interface of the project  
 
 6. To check the DB (*Optional*):  
-	Download sqlite3: [click here](https://www.sqlite.org/download.html)  
+	Download sqlite3 (Precompiled Binaries for Windows 1.7MB): [click here](https://www.sqlite.org/download.html)  
 	Unzip the files and Add the path of the folder to [System Environment Variable](https://docs.alfresco.com/4.2/tasks/fot-addpath.html)
