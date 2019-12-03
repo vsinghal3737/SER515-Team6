@@ -16,7 +16,8 @@
         <div class="collapse navbar-collapse navbar-ws">
             <ul class="nav-items nav navbar-nav">                                
                 <form style="padding-left: 750px" action="/logout">
-                    <input type="submit" value="Logout" class="navbar-right textColr-log btn btn-log navbar-brand"/>
+                    <!-- <input type="submit" value="Logout" class="navbar-right textColr-log btn btn-log navbar-brand"/> -->
+                    <button class="navbar-right textColr-log btn btn-log navbar-brand" type="button" onclick="window.location.href='{{ url_for('login') }}';">Login</button>
                 </form>
             </ul>
         </div>
